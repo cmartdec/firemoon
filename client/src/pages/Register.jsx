@@ -18,7 +18,6 @@ import axios from 'axios'
 
 
 
-
 export default function Register() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
@@ -26,10 +25,12 @@ export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
-    let navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const [opacity, setOpacity] = useState(1);
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
 
 
   async function handleSubmit(e) {
@@ -43,10 +44,10 @@ export default function Register() {
     try {
       await axios.post("http://localhost:5000/register", user)
       setOpacity(1);
-      navigate("/")
+      navigate("/login");
     } catch(error) {
-      console.log(error);
-      setError(true);
+      setError(true); 
+      setErrorMsg(error.response.data.msg);
       setOpacity(1);
     }
   };
@@ -65,7 +66,7 @@ export default function Register() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <p className="text-white font-bold text-xl">Create an Account</p>
             {error && 
-            <p className="text-red-600">Email or username already exists</p>
+            <p className="text-red-600">{errorMsg}</p>
             }
           </div>
           <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
@@ -90,7 +91,7 @@ export default function Register() {
     <div className="flex justify-center">
      <button style={{opacity}} type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">SIGN UP</button>
     </div>
-    <p className="text-white text-xs mt-3 text-center">Already signed up? <span className="text-blue-400"><a href="">Login</a></span></p>
+    <p className="text-white text-xs mt-3 text-center">Already signed up? <span className="text-blue-400"><a href="/login">Login</a></span></p>
   </form>
       </div>
       </div>
