@@ -7,13 +7,7 @@ import Footer from '../components/Footer'
 import axios from 'axios'
 
 
-
-/* BOILERPLATE
- <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-[5px] px-3 border border-orange-500 rounded w-[110px]"href="#">Signup</button>
-
-<button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-[5px] px-3 border border-orange-500 rounded w-[110px] mt-[13px] ml-3"href="#">Submit</button>
-
-*/
+/* https://github.com/swati1707/Authentication-using-JWT-in-MERN */ 
 
 
 
