@@ -1,7 +1,10 @@
 import React from 'react'
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
+import axios from 'axios'
 
 /* BOILERPLATE
 
@@ -10,12 +13,32 @@ import Footer from '../components/Footer'
 */
 
 
-
-
-
 export default function Login() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
+
+  const email = useRef();
+  const password = useRef();
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState();
+  const [errorMsg, setErrorMsg] = useState();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const user = {
+      email: email.current.value,
+      password: password.current.value
+    }
+    try {
+      await axios.post("http://localhost:5000/login", user)
+      navigate("/");
+    }catch(error) {
+      setError(true);
+      setErrorMsg(error.response.data.msg);
+    }
+  }
 
   return (
     <>
@@ -28,26 +51,31 @@ export default function Login() {
         </div>
         <div className="h-full w-[250px] bg-[#404040] rounded">
           <div className="h-[60px] w-full flex justify-center items-center">
-            <p className="text-white font-bold text-xl">Log in</p>
+            <div className="flex flex-col items-center">
+            <p className="text-white font-bold text-xl mt-3">Log in</p>
+            {error && 
+              <p className="text-xs text-red-600 text-center">{errorMsg}</p>
+            }
+            </div>
           </div>
-          <form class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
+          <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Email:
       </label>
-      <input required type="email" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
+      <input ref={email} required type="email" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
     </div>
     <div class="mb-4">
       <label class="block text-[#AEAEAE] text-sm font-bold mb-2" for="password">
         Password:
       </label>
-      <input pattern=".{6,}" title="6 characters minimum" required type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
+      <input ref={password} pattern=".{6,}" title="6 characters minimum" required type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
       <div className="flex justify-end">
        <a className="text-sm text-gray-500" href="">Forgot password?</a>
       </div>
     </div>
     <div className="flex justify-center">
-    <button className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs"href="#">LOG IN</button>
+    <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs"href="#">LOG IN</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Don't have an account yet? <span className="text-blue-400"><a href="/signup">Signup</a></span></p>
   </form>
