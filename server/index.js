@@ -32,6 +32,8 @@ app.get("/", (req, res) => {
     res.send("hello server")
 })
 
+/* ******* REGISTER ROUTE ******* */
+
 app.post("/register", async(req, res) => {
     try {
         let { username, email, password } = req.body;
@@ -67,6 +69,39 @@ app.post("/register", async(req, res) => {
         console.log(error);
     }
 });
+
+/* *********** LOGIN ROUTE ************ */
+
+app.post("/login", async(req, res) => {
+    try{
+        const {email, password} = req.body;
+
+        const user = await User.findOne({ email: email });
+        if(!user) {
+            return res.status(400).json({msg: "No account with this email has benn registered"})
+        }
+        
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch) {
+            return res.status(400).json({msg: "Invalid credentials."});
+        }
+        res.json({
+            user:{
+                id: user._id,
+                username: user.username,
+            }
+        });
+    }catch(error) {
+        res.status(500).json({error: err.message});
+    }
+})
+
+
+
+
+/* ************* END ROUTE ************** */
+
+
 
 
 app.listen(port, ()=> {
