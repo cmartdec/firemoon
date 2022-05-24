@@ -42,6 +42,7 @@ export default function Register() {
     } catch(error) {
       setError(true); 
       setErrorMsg(error.response.data.msg);
+      console.log(error.response.data.msg);
       setOpacity(1);
     }
   };
@@ -58,10 +59,12 @@ export default function Register() {
         </div>
         <div className="h-full w-[250px] bg-[#404040] rounded">
           <div className="h-[60px] w-full flex justify-center items-center">
+            <div className="flex flex-col">
             <p className="text-white font-bold text-xl">Create an Account</p>
             {error && 
-            <p className="text-red-600">{errorMsg}</p>
+            <p className="text-red-600 text-xs text-center">{errorMsg}</p>
             }
+            </div>
           </div>
           <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">

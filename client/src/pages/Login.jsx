@@ -35,13 +35,13 @@ export default function Login() {
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Email:
       </label>
-      <input type="email" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0" />
+      <input required type="email" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
     </div>
     <div class="mb-4">
       <label class="block text-[#AEAEAE] text-sm font-bold mb-2" for="password">
         Password:
       </label>
-      <input type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 mb-2" />
+      <input pattern=".{6,}" title="6 characters minimum" required type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
       <div className="flex justify-end">
        <a className="text-sm text-gray-500" href="">Forgot password?</a>
       </div>

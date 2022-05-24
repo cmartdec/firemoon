@@ -45,10 +45,10 @@ app.post("/register", async(req, res) => {
         })
 
         if (existingEmail) {
-            return res.status(400).json({msg: "An account with this email already exists."});
+            return res.status(400).json({msg: "Email address already exists."});
         }
         if (existingUser) {
-            return res.status(400).json({msg: "This username already exists."});
+            return res.status(400).json({msg: "Username already exists."});
         }
 
         const salt = await bcrypt.genSalt(10);
