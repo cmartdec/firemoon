@@ -42,7 +42,6 @@ export default function Register() {
     } catch(error) {
       setError(true); 
       setErrorMsg(error.response.data.msg);
-      console.log(error.response.data.msg);
       setOpacity(1);
     }
   };

@@ -22,21 +22,25 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const [opacity, setOpacity] = useState();
   const [error, setError] = useState();
   const [errorMsg, setErrorMsg] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setOpacity(0.25);
     const user = {
       email: email.current.value,
       password: password.current.value
     }
     try {
-      await axios.post("http://localhost:5000/login", user)
+      await axios.post("http://localhost:5000/users/login", user)
+      setOpacity(1);
       navigate("/");
     }catch(error) {
       setError(true);
       setErrorMsg(error.response.data.msg);
+      setOpacity(1);
     }
   }
 
@@ -75,7 +79,7 @@ export default function Login() {
       </div>
     </div>
     <div className="flex justify-center">
-    <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs"href="#">LOG IN</button>
+    <button style={{opacity}} type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Don't have an account yet? <span className="text-blue-400"><a href="/signup">Signup</a></span></p>
   </form>
