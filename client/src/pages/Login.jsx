@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
@@ -26,7 +26,9 @@ export default function Login() {
   const [error, setError] = useState();
   const [errorMsg, setErrorMsg] = useState();
 
-  async function handleSubmit(e) {
+
+
+  async function handleSubmit(e) {
     e.preventDefault();
     setOpacity(0.25);
     const user = {
@@ -34,7 +36,8 @@ export default function Login() {
       password: password.current.value
     }
     try {
-      await axios.post("http://localhost:5000/users/login", user)
+      const loginResponse = await axios.post("http://localhost:5000/users/login", user)
+      console.log(loginResponse);
       setOpacity(1);
       navigate("/");
     }catch(error) {
@@ -75,7 +78,7 @@ export default function Login() {
       </label>
       <input ref={password} pattern=".{6,}" title="6 characters minimum" required type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
       <div className="flex justify-end">
-       <a className="text-sm text-gray-500" href="">Forgot password?</a>
+       <a className="text-sm text-gray-500" href="#">Forgot password?</a>
       </div>
     </div>
     <div className="flex justify-center">

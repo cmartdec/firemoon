@@ -27,12 +27,9 @@ mongoose.connection.on("disconnected", ()=> {
 app.use(express.json());
 app.use(cors());
 
+
+
 app.use("/users", require("./routes/users.js"));
-
-
-
-
-
 
 
 
