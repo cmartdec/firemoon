@@ -6,6 +6,7 @@ const LOGIN_API_URL = "http://localhost:5000/users/login"
 
 
 const register = async (userData) => {
+
     const response = await axios.post(REGISTER_API_URL, userData)
 
     if (response.data) {

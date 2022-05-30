@@ -21,6 +21,9 @@ export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
+  
+  const [error, setError] = useState(false);
+  const [errormsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +34,8 @@ export default function Register() {
 
   useEffect(() => {
     if (isError) {
-      console.log(message)
+      setError(true);
+      setErrorMsg(message);
     }
 
     if (isSuccess || user) {
@@ -71,6 +75,7 @@ export default function Register() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col">
             <p className="text-white font-bold text-xl">Create an Account</p>
+            {error && <p className="text-xs text-red-600 text-center">{errormsg}</p>}
             </div>
           </div>
           <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
