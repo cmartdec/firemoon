@@ -1,10 +1,12 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import { register, reset } from '../redux/auth/authSlice'
 
 
 /* https://github.com/swati1707/Authentication-using-JWT-in-MERN */ 
@@ -21,30 +23,39 @@ export default function Register() {
   const password = useRef();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
 
-  const [opacity, setOpacity] = useState(1);
-  const [error, setError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState();
+  useEffect(() => {
+    if (isError) {
+      console.log(message)
+    }
 
+    if (isSuccess || user) {
+      navigate('/')
+    }
 
-  async function handleSubmit(e) {
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setOpacity(0.25);
-    const user = {
+
+    const userData = {
       username: username.current.value,
       email: email.current.value,
       password: password.current.value,
     }
-    try {
-      await axios.post("http://localhost:5000/register", user)
-      setOpacity(1);
-      navigate("/login");
-    } catch(error) {
-      setError(true); 
-      setErrorMsg(error.response.data.msg);
-      setOpacity(1);
-    }
-  };
+
+    dispatch(register(userData))
+
+  }
+
+
+
   return (
     <>
        <Topbar></Topbar>
@@ -60,9 +71,6 @@ export default function Register() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col">
             <p className="text-white font-bold text-xl">Create an Account</p>
-            {error && 
-            <p className="text-red-600 text-xs text-center">{errorMsg}</p>
-            }
             </div>
           </div>
           <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
@@ -85,16 +93,14 @@ export default function Register() {
       <input pattern=".{6,}" title="6 characters minimum" required ref={password} type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
     </div>
     <div className="flex justify-center">
-     <button style={{opacity}} type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">SIGN UP</button>
+     <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">SIGN UP</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Already signed up? <span className="text-blue-400"><a href="/login">Login</a></span></p>
   </form>
       </div>
       </div>
       </div>
-
     <Footer></Footer>
-    
     </>
   )
 }
