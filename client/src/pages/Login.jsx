@@ -1,10 +1,12 @@
 import React from 'react'
-import { useState, useRef, useContext } from 'react'
+import { useState, useRef, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import { login, reset } from '../redux/auth/authSlice'
 
 /* BOILERPLATE
 
@@ -20,31 +22,35 @@ export default function Login() {
   const email = useRef();
   const password = useRef();
 
+
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [opacity, setOpacity] = useState();
-  const [error, setError] = useState();
-  const [errorMsg, setErrorMsg] = useState();
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
+
+  useEffect(()=> {
+    if (isError) {
+      setError(true);
+      setErrorMsg(message);
+    }
+    if(isSuccess || user){
+     navigate('/')
+    }
+    dispatch(reset())
+
+  },[user, isError, isSuccess, message, navigate, dispatch])
 
 
-
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setOpacity(0.25);
-    const user = {
+    const userData = {
       email: email.current.value,
       password: password.current.value
     }
-    try {
-      const loginResponse = await axios.post("http://localhost:5000/users/login", user)
-      console.log(loginResponse);
-      setOpacity(1);
-      navigate("/");
-    }catch(error) {
-      setError(true);
-      setErrorMsg(error.response.data.msg);
-      setOpacity(1);
-    }
+    dispatch(login(userData));
   }
 
   return (
@@ -82,7 +88,7 @@ export default function Login() {
       </div>
     </div>
     <div className="flex justify-center">
-    <button style={{opacity}} type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
+    <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Don't have an account yet? <span className="text-blue-400"><a href="/signup">Signup</a></span></p>
   </form>
