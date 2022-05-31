@@ -5,6 +5,7 @@ const cors = require('cors');
 const port = 5000;
 const User = require("./models/User");
 const bcrypt = require('bcrypt');
+const helmet = require('helmet');
 
 
 const app = express();
@@ -26,6 +27,7 @@ mongoose.connection.on("disconnected", ()=> {
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 
 
