@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 
-
 router.post("/register", async(req, res) => {
     try {
         let { username, email, password } = req.body;
@@ -56,15 +55,16 @@ router.post("/login", async(req, res) => {
 
         const token = jwt.sign({id: user._id }, process.env.JWT);
         console.log("token >> ", token);
-        res.json({
-            token,
-            user:{
-                id: user._id,
-                username: user.username,
-            }
+        res.cookie("jwt", token, {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax'
         });
-    }catch(error) {
-        res.status(500).json({error: err.message});
+        return res.status(200).json({message: "Succesfully logged in", user: user, token})
+
+
+        }catch(error) {
+        res.status(500).json(error);
     }
 })
 

@@ -6,6 +6,7 @@ const port = 5000;
 const User = require("./models/User");
 const bcrypt = require('bcrypt');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
 
 const app = express();
@@ -26,8 +27,10 @@ mongoose.connection.on("disconnected", ()=> {
 })
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true}));
 app.use(helmet());
+app.use(cookieParser());
+
 
 
 
