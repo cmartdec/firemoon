@@ -2,6 +2,11 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
+
+
+router.use(cookieParser());
+
 
 router.post("/register", async(req, res) => {
     try {
@@ -55,13 +60,13 @@ router.post("/login", async(req, res) => {
 
         const token = jwt.sign({id: user._id }, process.env.JWT);
         console.log("token >> ", token);
-        res.cookie("jwt", token, {
-            path: '/',
-            httpOnly: true,
-            sameSite: 'lax'
-        });
-        return res.status(200).json({message: "Succesfully logged in", user: user, token})
 
+        res.cookie("jwt", token, {
+            path: "/", 
+            httpOnly: true,
+            sameSite: "lax"
+        })
+        res.send("hello")
 
         }catch(error) {
         res.status(500).json(error);
