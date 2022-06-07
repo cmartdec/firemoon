@@ -23,7 +23,6 @@ const login = async (userData) => {
     if (response.data) {
         console.log(response.data)
         localStorage.setItem('user', JSON.stringify(response.data))
-        Cookies.set("jwt", response.data);
     }
     return response.data
 }

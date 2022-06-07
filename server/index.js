@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const port = 5000;
-const User = require("./models/User");
-const bcrypt = require('bcrypt');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
