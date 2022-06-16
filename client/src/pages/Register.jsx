@@ -1,12 +1,8 @@
 import React from 'react'
-import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useRef } from 'react'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
-import axios from 'axios'
-import { register, reset } from '../redux/auth/authSlice'
 
 
 /* https://github.com/swati1707/Authentication-using-JWT-in-MERN */ 
@@ -21,42 +17,6 @@ export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
-  
-  const [error, setError] = useState(false);
-  const [errormsg, setErrorMsg] = useState("");
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  )
-
-  useEffect(() => {
-    if (isError) {
-      setError(true);
-      setErrorMsg(message);
-    }
-
-    if (isSuccess || user) {
-      navigate('/')
-    }
-
-    dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const userData = {
-      username: username.current.value,
-      email: email.current.value,
-      password: password.current.value,
-    }
-
-    dispatch(register(userData))
-
-  }
 
 
 
@@ -75,10 +35,9 @@ export default function Register() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col">
             <p className="text-white font-bold text-xl">Create an Account</p>
-            {error && <p className="text-xs text-red-600 text-center">{errormsg}</p>}
             </div>
           </div>
-          <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
+          <form class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Username:

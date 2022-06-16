@@ -1,12 +1,8 @@
 import React from 'react'
-import { useState, useRef, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useRef } from 'react'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
-import axios from 'axios'
-import { login, reset } from '../redux/auth/authSlice'
 
 /* BOILERPLATE
 
@@ -23,35 +19,7 @@ export default function Login() {
   const password = useRef();
 
 
-  const [error, setError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
-
-  useEffect(()=> {
-    if (isError) {
-      setError(true);
-      setErrorMsg(message);
-    }
-    if(isSuccess || user){
-     navigate('/')
-    }
-    dispatch(reset())
-
-  },[user, isError, isSuccess, message, navigate, dispatch])
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userData = {
-      email: email.current.value,
-      password: password.current.value
-    }
-    dispatch(login(userData));
-  }
 
   return (
     <>
@@ -66,12 +34,9 @@ export default function Login() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col items-center">
             <p className="text-white font-bold text-xl mt-3">Log in</p>
-            {error && 
-              <p className="text-xs text-red-600 text-center">{errorMsg}</p>
-            }
             </div>
           </div>
-          <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
+          <form class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Email:

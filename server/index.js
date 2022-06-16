@@ -1,46 +1,53 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const port = 5000;
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-
+const User = require("./models/User");
+const authRoute = require("./routes/auth")
+const cookieParser = require("cookie-parser");
 
 const app = express();
 dotenv.config();
 
-
 const connect = async() => {
     try {
-        await mongoose.connect(process.env.MONGO_URL);
-        console.log("Connected to MongoDB.");
-    } catch(err){
-        console.log(err);
+        await mongoose.connect(process.env.DATABASE_URL);
+        console.log("connected to database");
+    } catch(error) {
+        console.log(error);
     }
 }
 
 mongoose.connection.on("disconnected", ()=> {
-    console.log("MongoDB disconnected");
-})
+    console.log("Databse disconnected");
+});;;
+
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000", credentials: true}));
-app.options('*', cors());
-app.use(helmet());
+app.use("/api/user", authRoute);
 app.use(cookieParser());
 
 
 
+app.get("/", (req, res) => {
+    res.send("hello express server");
+})
 
-app.use("/users", require("./routes/users.js"));
 
 
 
-app.listen(port, ()=> {
+
+app.listen(port, () => {
     connect();
-    console.log(`Server working. Listening on port ${port}`);
+    console.log(`listening on ${port}`);
+
 });
+
+
+
+
+
+
 
 
 
