@@ -109,8 +109,6 @@ router.put("/update_username", verifyUser, async(req, res, next) => {
 })
 
 
-// deep-email-validator - npm package - to validate email based on regex
-
 router.put("/edit_email", verifyUser, async(req, res) => {
     try{
         const emailUpdated = await User.findByIdAndUpdate(req.id, {email: req.body.email});
