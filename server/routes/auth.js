@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyUser = require('../middlewares/verifyToken');
+const emailValidator = require("email-validator");
 
 
 //route for signup
@@ -12,31 +13,39 @@ router.post("/signup", async(req, res) => {
 
  try{
 
-    const existingEmail = await User.findOne({
-        email: email
-    })
-   const existingUser = await User.findOne({
-        username: username
-    })
+    const emailValidated = emailValidator.validate(email);
+    
+    if(emailValidated) {
+        const existingEmail = await User.findOne({
+            email: email
+        })
+       const existingUser = await User.findOne({
+            username: username
+        })
+    
+        if(existingEmail) {
+            return res.status(400).json({msg: "Email address already exists."});
+        }
+        if(existingUser) {
+            return res.status(400).json({msg: "Username already taken"})
+        }
+    
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+    
+        const newUser = new User({
+            username,
+            email,
+            password: hashedPassword
+        })
+    
+        const savedUser = await newUser.save();
+        res.status(200).json(savedUser);
 
-    if(existingEmail) {
-        return res.status(400).json({msg: "Email address already exists."});
+    } else {
+        res.status(403).json({msg: "Email is not valid."})
     }
-    if(existingUser) {
-        return res.status(400).json({msg: "Username already taken"})
-    }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const newUser = new User({
-        username,
-        email,
-        password: hashedPassword
-    })
-
-    const savedUser = await newUser.save();
-    res.status(200).json(savedUser);
 
  }catch(error){
         res.status(400).json(error);
