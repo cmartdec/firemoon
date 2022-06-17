@@ -86,6 +86,10 @@ router.get("/logout", verifyToken, async(req, res, next) => {
 // route for updating the username
 router.put("/update_username", verifyUser, async(req, res, next) => {
     try {
+    if (req.body.username.length < 3) {
+        res.status(401).json({msg: "Username has to have more than 3 characters."});
+        return res
+    }
     const userUpdated = await User.findByIdAndUpdate(req.id, {username: req.body.username});
     res.status(200).json({msg: "Username updated."})
     console.log(userUpdated);
@@ -94,6 +98,9 @@ router.put("/update_username", verifyUser, async(req, res, next) => {
         console.log(error)
     }
 })
+
+
+// deep-email-validator - npm package - to validate email based on regex
 
 router.put("/edit_email", verifyUser, async(req, res) => {
     try{
