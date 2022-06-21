@@ -13,7 +13,7 @@ router.post("/signup", async(req, res) => {
 
  try{
 
-    const emailValidated = emailValidator.validate(email);
+    let emailValidated = emailValidator.validate(email);
     
     if(emailValidated) {
         const existingEmail = await User.findOne({
@@ -57,13 +57,16 @@ router.post("/signup", async(req, res) => {
 //route for login
 router.post("/login", async(req, res) => {
     try {
+        let validatedEmail = emailValidator.validate(req.body.email);
+
+        if(validatedEmail) {
         const user = await User.findOne({ email: req.body.email});
         if(!user) {
             return res.status(400).json({msg: "Email address doesn't exists."})
         }
         const isMatch = await bcrypt.compare(req.body.password, user.password);
         if(!isMatch) {
-            res.status(400).json({msg: "Invalid credentials."});
+            return res.status(403).json({msg: "Invalid credentials."});
         }
         const token = jwt.sign({id: user._id}, process.env.JWT);
 
@@ -72,6 +75,10 @@ router.post("/login", async(req, res) => {
         res.cookie("jwt", token, {
             httpOnly: true,
         }).status(200).json(user);
+
+        }else {
+            res.status(403).json({msg: "Email address is not valid."})
+        }
 
     } catch(error){
         console.log(error);
@@ -109,11 +116,16 @@ router.put("/update_username", verifyUser, async(req, res, next) => {
 })
 
 
-router.put("/edit_email", verifyUser, async(req, res) => {
+router.put("/update_email", verifyUser, async(req, res) => {
+    let emailValidated = emailValidator.validate(req.body.email);
     try{
-        const emailUpdated = await User.findByIdAndUpdate(req.id, {email: req.body.email});
-        res.status(200).json({msg: "Email updated."})
-        console.log(emailUpdated);
+        if (emailValidated) {
+         const emailUpdated = await User.findByIdAndUpdate(req.id, {email: req.body.email});
+         res.status(200).json({msg: "Email updated."})
+         console.log(emailUpdated);
+        } else {
+            res.status(403).json({msg: "Please introduce a valid email address."})
+        }
 
     }catch(error) {
         res.status(500).json({msgs: "Something went wrong."})
@@ -129,6 +141,28 @@ router.delete("/delete_account", verifyUser, async(req, res, next) => {
         console.log(error);
     }
 })
+
+router.put("/update_password", verifyUser, async(req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    const newSalt = await bcrypt.genSalt(10);
+    const newPasswordHashed = await bcrypt.hash(newPassword, newSalt)
+    const user = await User.findById(req.id);
+    if(!user) {
+        console.log("error, user not found");
+    }
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if(isMatch) {
+        const passwordUpdated = await User.findByIdAndUpdate(req.id, {password: newPasswordHashed});
+        res.status(200).json({msg: "Password updated"})
+    }else {
+        res.status(403).json({msg: "Something went wrong."})
+    }
+
+
+})
+
+
+
 
 
 

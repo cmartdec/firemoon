@@ -19,8 +19,8 @@ const connect = async() => {
 }
 
 mongoose.connection.on("disconnected", ()=> {
-    console.log("Databse disconnected");
-});;;
+    console.log("Database disconnected");
+});
 
 
 app.use(express.json());
@@ -32,9 +32,6 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("hello express server");
 })
-
-
-
 
 
 app.listen(port, () => {
