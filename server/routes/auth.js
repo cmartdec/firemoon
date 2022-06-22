@@ -148,17 +148,34 @@ router.put("/update_password", verifyUser, async(req, res) => {
     const newPasswordHashed = await bcrypt.hash(newPassword, newSalt)
     const user = await User.findById(req.id);
     if(!user) {
-        console.log("error, user not found");
+        res.status(403).json({msg: "You are not authorized."})
     }
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if(isMatch) {
-        const passwordUpdated = await User.findByIdAndUpdate(req.id, {password: newPasswordHashed});
-        res.status(200).json({msg: "Password updated"})
+        await User.findByIdAndUpdate(req.id, {password: newPasswordHashed});
+        res.status(200).json({msg: "Password updated."})
     }else {
-        res.status(403).json({msg: "Something went wrong."})
+        res.status(403).json({msg: "Incorrect current password."})
+    }
+})
+
+router.put("/update_bio", verifyUser, async(req, res) => {
+    const { bio } = req.body;
+    try {
+    const user = await User.findById(req.id);
+    if(!user) {
+        res.status(403).json({msg: "You are not authorized to update the bio."})
+    }
+    if(bio.length < 200) {
+     await User.findByIdAndUpdate(req.id, {desc: bio});
+     res.status(200).json({msg: "Bio updated."})
+    } else {
+        res.status(403).json({msg: "Bio description's maximum characters is 200."})
     }
 
-
+    }catch(error) {
+        res.status(401).json({msg: "Something went wrong."})
+    }
 })
 
 
