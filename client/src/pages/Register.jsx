@@ -1,8 +1,10 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
+import { Navigate, useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
+import axios from 'axios';
 
 
 /* https://github.com/swati1707/Authentication-using-JWT-in-MERN */ 
@@ -18,7 +20,26 @@ export default function Register() {
   const email = useRef();
   const password = useRef();
 
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+    const res = await axios.post("http://localhost:5000/api/user/signup", {
+      username: username.current.value,
+      email: email.current.value,
+      password: password.current.value
+    })
+    navigate("/login");
+    }catch(error) {
+      setError(true);
+      setErrorMessage(error.response.data.msg);
+    }
+
+  }
 
   return (
     <>
@@ -35,9 +56,12 @@ export default function Register() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col">
             <p className="text-white font-bold text-xl">Create an Account</p>
+            {error &&
+            <p className="text-center text-red-600 text-xs mt-1">{errorMessage}</p>
+             }
             </div>
           </div>
-          <form class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
+          <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Username:

@@ -5,6 +5,7 @@ const port = 5000;
 const User = require("./models/User");
 const authRoute = require("./routes/auth")
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 dotenv.config();
@@ -22,10 +23,15 @@ mongoose.connection.on("disconnected", ()=> {
     console.log("Database disconnected");
 });
 
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}));
 app.use(express.json());
 app.use("/api/user", authRoute);
 app.use(cookieParser());
+
 
 
 

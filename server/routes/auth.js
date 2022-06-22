@@ -181,8 +181,6 @@ router.put("/update_bio", verifyUser, async(req, res) => {
 
 
 
-
-
 // THESE ROUTES HAVE TO BE REMOVED FOR PRODUCTION
 
 router.get("/example", verifyToken, (req, res) => {
