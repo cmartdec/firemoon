@@ -3,21 +3,27 @@ import {createSlice, configureStore} from '@reduxjs/toolkit'
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        isLoggedIn: false
+        currentUser: null,
+        isFetching: false,
+        error: false,
     },
     reducers: {
-        login(state) {
-            state.isLoggedIn = true;
+        loginStart: (state) => {
+            state.isFetching = true;
         },
-        logout(state) {
-            state.isLoggedIn = false;
+        loginSuccess: (state, action) => {
+            state.isFetching = false;
+            state.currentUser = action.payload;
+        },
+        loginFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
         }
     }
 });
 
-export const authActions = authSlice.actions;
+export const {loginStart, loginSuccess, loginFailure} = authSlice.actions;
 
 export const store = configureStore({
     reducer: authSlice.reducer,
 })
-

@@ -1,8 +1,13 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
+import { useDispatch, useSelector } from "react-redux";
+import { loginFailure, loginStart, loginSuccess } from "../redux/authSlice";
+import axios from 'axios'
+
 
 /* BOILERPLATE
 
@@ -18,7 +23,29 @@ export default function Login() {
   const email = useRef();
   const password = useRef();
 
+  const [errorMessage, setErrorMessage] = useState();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isFetching = useSelector((state) => state.isFetching)
+  const error = useSelector((state) => state.error)
+
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+     dispatch(loginStart());
+     const res = await axios.post("http://localhost:5000/api/user/login", {email: email.current.value, password: password.current.value})
+     dispatch(loginSuccess(res.data))
+     navigate("/");
+     console.log(res);
+    }catch(error) {
+      dispatch(loginFailure());
+      setErrorMessage(error.response.data.msg)
+    }
+
+  }
 
 
   return (
@@ -34,9 +61,10 @@ export default function Login() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col items-center">
             <p className="text-white font-bold text-xl mt-3">Log in</p>
+            {error && <p className="text-red-600 text-sm text-center">{errorMessage}</p>}
             </div>
           </div>
-          <form class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
+          <form onSubmit={handleSubmit} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">
     <div class="mb-4">
       <label className="block text-[#AEAEAE] text-sm font-bold mb-2" for="username">
         Email:
@@ -53,7 +81,7 @@ export default function Login() {
       </div>
     </div>
     <div className="flex justify-center">
-    <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
+    <button type="submit" className="cursor-pointer bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Don't have an account yet? <span className="text-blue-400"><a href="/signup">Signup</a></span></p>
   </form>
