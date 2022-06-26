@@ -57,9 +57,7 @@ router.post("/signup", async(req, res) => {
 //route for login
 router.post("/login", async(req, res) => {
     try {
-        let validatedEmail = emailValidator.validate(req.body.email);
 
-        if(validatedEmail) {
         const user = await User.findOne({ email: req.body.email});
         if(!user) {
             return res.status(400).json({msg: "Email address doesn't exists."})
@@ -76,11 +74,9 @@ router.post("/login", async(req, res) => {
             httpOnly: true,
         }).status(200).json(user);
 
-        }else {
-            res.status(403).json({msg: "Email address is not valid."})
         }
 
-    } catch(error){
+    catch(error){
         console.log(error);
         res.send(400).json(error);
 

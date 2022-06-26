@@ -22,22 +22,25 @@ export default function Register() {
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-    const res = await axios.post("http://localhost:5000/api/user/signup", {
+     setButtonLoading(true);
+     const res = await axios.post("http://localhost:5000/api/user/signup", {
       username: username.current.value,
       email: email.current.value,
       password: password.current.value
-    })
-    navigate("/login");
-    }catch(error) {
+     })
+     setButtonLoading(false);
+     navigate("/login");
+     }catch(error) {
       setError(true);
       setErrorMessage(error.response.data.msg);
-    }
+     }
 
   }
 
@@ -81,7 +84,7 @@ export default function Register() {
       <input pattern=".{6,}" title="6 characters minimum" required ref={password} type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
     </div>
     <div className="flex justify-center">
-     <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">SIGN UP</button>
+     <button type="submit" className={buttonLoading ? "opacity-25 bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1" : "bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"} href="#">SIGN UP</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Already signed up? <span className="text-blue-400"><a href="/login">Login</a></span></p>
   </form>
