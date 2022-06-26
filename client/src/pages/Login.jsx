@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
@@ -24,12 +24,22 @@ export default function Login() {
   const password = useRef();
 
   const [errorMessage, setErrorMessage] = useState();
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isFetching = useSelector((state) => state.isFetching)
   const error = useSelector((state) => state.error)
+
+  useEffect(() => {
+    if(isFetching) {
+      setButtonLoading(true);
+    }else{
+      setButtonLoading(false);
+    }
+  },[isFetching])
+
 
 
   const handleSubmit = async(e) => {
@@ -81,7 +91,7 @@ export default function Login() {
       </div>
     </div>
     <div className="flex justify-center">
-    <button type="submit" className="cursor-pointer bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"href="#">LOG IN</button>
+    <button type="submit" className={buttonLoading ? "opacity-25 cursor-pointer bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1" : "cursor-pointer bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:-translate-y-1"} href="#">LOG IN</button>
     </div>
     <p className="text-white text-xs mt-3 text-center">Don't have an account yet? <span className="text-blue-400"><a href="/signup">Signup</a></span></p>
   </form>

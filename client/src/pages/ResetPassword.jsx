@@ -1,20 +1,35 @@
 import React from 'react'
+import { useState, useRef } from 'react'
 import Logo from '../assets/hahaha.svg'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import Titlebar from '../components/Titlebar'
 import FacebookIcon from '@material-ui/icons/Facebook'
 
 export default function ResetPassword() {
+
+  const email = useRef();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // axios post request 
+    console.log(email.current.value);
+    setShowModal(true);
+
+  }
+
   return (
       <>
       <Titlebar></Titlebar>
       <div className="w-full flex justify-center">
-      <div className="w-auto h-auto bg-[#353535] border-[4px] border-[#404040] mt-24 flex flex-col mb-[200px] shadow-sm"> 
+      <div className="w-auto h-auto bg-[#353535] border-[2px] border-[#404040] mt-24 flex flex-col mb-[200px] shadow-sm rounded"> 
+      <form className="flex flex-col" onSubmit={handleSubmit}>
        <div className="h-[70px] ml-[20px] mb-2 mt-6 mr-[20px]">
-         <p className="text-white text-sm mb-2 text-center">Enter the email address you signed up with.</p>
-         <input className="w-[370px] rounded bg-[#212121] border-none text-white text-sm" type="password" placeholder="example@example.com"/>
+         <p className="text-white text-sm text-center mb-3">Enter the email address you signed up with.</p>
+         <input required type="email" ref={email} className="appearance-none w-[370px] rounded bg-[#252525] border-none text-white text-sm focus:outline-none focus:shadow-outline ring-0 border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" placeholder="example@example.com"/>
        </div>
-       <button className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[2px] mb-6 mr-5 ml-5"href="#">Submit</button>
+       <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mb-6 mt-2 mr-5 ml-5"href="#">Submit</button>
+       </form>
         
        </div>
        </div>
