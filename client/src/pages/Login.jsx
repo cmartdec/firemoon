@@ -87,7 +87,7 @@ export default function Login() {
       </label>
       <input ref={password} pattern=".{6,}" title="6 characters minimum" required type="password" className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:shadow-outline bg-[#262626] border-[#404040] border-transparent focus:border-transparent focus:bg-[#212121] focus:ring-0 text-sm" />
       <div className="flex justify-end">
-       <a className="text-sm text-gray-500" href="#">Forgot password?</a>
+       <a className="text-sm text-gray-500" href="/reset">Forgot password?</a>
       </div>
     </div>
     <div className="flex justify-center">

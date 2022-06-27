@@ -11,13 +11,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SelfProfile from './pages/SelfProfile';
 import ProfileSettings from './pages/ProfileSettings'
 import ChangePassword from './pages/ChangePassword'
-import ResetPassword from './pages/ResetPassword'
+import ForgotPassword from './pages/ForgotPassword'
 import Post from './pages/Post'
 import Interviews from './pages/Interviews'
 import Contribute from './pages/Contribute'
 import Help from './pages/Help'
 import InterviewPost from './pages/InterviewPost'
-
+import Reset from './pages/Reset'
 
 function App() {
 
@@ -35,7 +35,8 @@ function App() {
      <Route path="self-profile" element={<SelfProfile></SelfProfile>} />
      <Route path="settings" element={<ProfileSettings></ProfileSettings>} />
      <Route path="change-password" element={<ChangePassword></ChangePassword>} />
-     <Route path="reset-password" element={<ResetPassword></ResetPassword>} />
+     <Route path="forgot" element={<ForgotPassword></ForgotPassword>} />
+     <Route path="reset/:token" element={<Reset></Reset>} />
      <Route path="post" element={<Post></Post>} />
      <Route path="interviews" element={<Interviews></Interviews>} />
      <Route path="contribute" element={<Contribute></Contribute>} />

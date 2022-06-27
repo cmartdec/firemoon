@@ -37,8 +37,8 @@ export default function Titlebar() {
 
   return (
       <>
-    <div className="h-[56px] bg-[#353535] flex justify-center pr-16" ref={ref}>
-    <div className="container md:w-[1300px] flex items-center justify-between">
+    <div className="h-[56px] bg-[#353535] flex justify-center pr-[95px]" ref={ref}>
+    <div className="container md:w-[1300px] w-[100vw] flex items-center justify-between">
       <nav className="flex gap-2 items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

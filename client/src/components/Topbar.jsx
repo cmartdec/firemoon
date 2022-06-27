@@ -4,7 +4,7 @@ import Logo from '../assets/logo.svg'
 export default function Topbar() {
   return (
       <>
-<div className="h-[56px] bg-[#353535] flex items-center w-screen">
+<div className="h-[56px] bg-[#353535] flex items-center w-[100vw] pr-12">
     <div className="container md:w-full mx-auto flex items-center justify-between">
       <nav className="flex gap-2 items-center">
        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

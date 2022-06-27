@@ -174,6 +174,44 @@ router.put("/update_bio", verifyUser, async(req, res) => {
     }
 })
 
+router.post("/forgot", async(req, res) => {
+    const { email } = req.body;
+    let emailValidate = emailValidator.validate(email);
+    if (emailValidate) {
+        const user = await User.findOne({email: email});
+        if(!user) {
+            return res.status(401).json({msg: "User not found."})
+        }
+        res.status(200).json({msg: "Please check your inbox, We've sent you an email"})
+        const reset_token = jwt.sign({id: user._id}, process.env.JWT);
+        console.log(`Please enter the link and follow the instructions. http://localhost:3000/reset/${reset_token}`)
+    }else {
+        res.status(401).json({msg: "Email is not valid"})
+    }
+})
+
+router.put("/reset/:token", async(req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, Number(10))
+    console.log(token)
+
+    const tokenValidated = jwt.verify(String(token), process.env.JWT);
+    console.log(tokenValidated.id);
+    const user_id = tokenValidated.id
+    const user = await User.findById(user_id);
+    if (!user) {
+        res.status(401).json({msg: "User not found"})
+    }
+        const passwordUpdated = await User.findByIdAndUpdate(user_id, {password: hashedPassword})
+        if(passwordUpdated) {
+         res.status(200).json({msg: "Password updated."})
+        }else {
+            res.status(400).json({msg: "Something went wrong."})
+        }
+
+
+})
 
 
 
