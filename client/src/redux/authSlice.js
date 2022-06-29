@@ -1,4 +1,4 @@
-import {createSlice, configureStore} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
 const authSlice = createSlice({
     name: "auth",
@@ -24,6 +24,11 @@ const authSlice = createSlice({
 
 export const {loginStart, loginSuccess, loginFailure} = authSlice.actions;
 
+export default authSlice.reducer;
+
+/*
 export const store = configureStore({
     reducer: authSlice.reducer,
 })
+*/
+

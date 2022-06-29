@@ -25,6 +25,7 @@
     "react-rte": "^0.16.5",
     "react-scripts": "^5.0.0",
     "react-toastify": "^9.0.5",
+    "redux-persist": "^6.0.0",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
