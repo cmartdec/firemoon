@@ -6,6 +6,7 @@ import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import Men2 from '../assets/men2.jpg'
 import Posts from '../components/Posts'
+import Titlebar from '../components/Titlebar'
 
 
 /*

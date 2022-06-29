@@ -43,7 +43,7 @@ function App() {
      <Route path="help" element={<Help></Help>} />
      <Route path="interview-post" element={<InterviewPost></InterviewPost>} />
    </Routes>
-  </BrowserRouter>,
+  </BrowserRouter>
     </>
 
 

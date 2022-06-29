@@ -196,7 +196,10 @@ router.put("/reset/:token", async(req, res) => {
     const hashedPassword = await bcrypt.hash(password, Number(10))
     console.log(token)
 
-    const tokenValidated = jwt.verify(String(token), process.env.JWT);
+    try {
+
+    const tokenValidated = jwt.verify(String(token), process.env.JWT, {expiresIn: '15m'});
+    console.log(tokenValidated);
     console.log(tokenValidated.id);
     const user_id = tokenValidated.id
     const user = await User.findById(user_id);
@@ -207,10 +210,12 @@ router.put("/reset/:token", async(req, res) => {
         if(passwordUpdated) {
          res.status(200).json({msg: "Password updated."})
         }else {
-            res.status(400).json({msg: "Something went wrong."})
+            res.status(400).json({msg: "Something went wrong. Please try again"})
         }
-
-
+    }catch(error) {
+        res.status(400).json({msg: "Something went wrong. Please try again"})
+        console.log(error);
+    }
 })
 
 
