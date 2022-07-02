@@ -68,12 +68,18 @@ router.post("/login", async(req, res) => {
         }
         const token = jwt.sign({id: user._id}, process.env.JWT);
 
+        const userPayload = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            profilePic: user.profilePic,
+            desc: user.desc,
+        }
 
         console.log("token >> ", token)
         res.cookie("jwt", token, {
             httpOnly: true,
-        }).status(200).json(user);
-
+        }).status(200).json(userPayload);
         }
 
     catch(error){

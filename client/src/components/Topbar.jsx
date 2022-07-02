@@ -1,9 +1,16 @@
 import React from 'react'
 import Logo from '../assets/logo.svg'
+import { useSelector } from 'react-redux'
+import RightSide from './RightSide'
+import UserInfo from './UserInfo'
+
+
 
 export default function Topbar_dpl() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
+
+  const user = useSelector((state) => state.currentUser)
 
   return (
       <>
@@ -22,18 +29,11 @@ export default function Topbar_dpl() {
       <a href="/">
        <img src={Logo} alt="logo" width="150" />
       </a>
-      <div className="flex items-center">
-      <a className="font-sans text-sm text-white mr-3 font-bold" href="#">FAQ</a>
-       <a className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs"href="/signup">SIGN UP</a>
-       <a className="ml-[10px] text-white font-bold py-[8px] px-3 rounded text-xs border border-orange-500 hover:bg-gradient-to-r from-amber-700 to-red-800" href="/login">LOG IN</a>
+      <div className="flex items-center gap-3">
+        {user ? <UserInfo></UserInfo> : <RightSide></RightSide>}
       </div>
     </div>
   </div>
   </>
   )
 }
-
-
-
-
-
