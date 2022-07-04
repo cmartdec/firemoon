@@ -31,6 +31,7 @@ export default function Login() {
 
   const isFetching = useSelector((state) => state.isFetching)
   const error = useSelector((state) => state.error)
+  const user = useSelector((state) => state.currentUser);
 
   useEffect(() => {
     if(isFetching) {
@@ -39,6 +40,12 @@ export default function Login() {
       setButtonLoading(false);
     }
   },[isFetching])
+
+  useEffect(() => {
+    if(user) {
+      navigate("/");
+    }
+  }, [user])
 
 
 

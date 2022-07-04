@@ -18,6 +18,7 @@ function Home() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
+
   return (
     <>
     <Topbar></Topbar>

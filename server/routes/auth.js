@@ -7,7 +7,6 @@ const verifyUser = require('../middlewares/verifyToken');
 const emailValidator = require("email-validator");
 
 
-//route for signup
 router.post("/signup", async(req, res) => {
    const { username, email, password } = req.body;
 
@@ -54,7 +53,6 @@ router.post("/signup", async(req, res) => {
 });
 
 
-//route for login
 router.post("/login", async(req, res) => {
     try {
 
@@ -90,7 +88,6 @@ router.post("/login", async(req, res) => {
 
 })
 
-// route for logout
 router.get("/logout", verifyToken, async(req, res, next) => {
     try {
         res.clearCookie("jwt");
@@ -101,15 +98,15 @@ router.get("/logout", verifyToken, async(req, res, next) => {
     }
 })
 
-// route for updating the username
 router.put("/update_username", verifyUser, async(req, res, next) => {
+    console.log(req.body)
     try {
-    if (req.body.username.length < 3) {
+    if (req.body.length < 3) {
         res.status(401).json({msg: "Username has to have more than 3 characters."});
         return res
     }
     const userUpdated = await User.findByIdAndUpdate(req.id, {username: req.body.username});
-    res.status(200).json({msg: "Username updated."})
+    res.status(200).json({msg: "Username updated.", username:req.body.username})
     console.log(userUpdated);
     }catch(error) {
         res.status(404).json({msg: "Something went wrong."})
@@ -137,8 +134,15 @@ router.put("/update_email", verifyUser, async(req, res) => {
 })
 
 router.delete("/delete_account", verifyUser, async(req, res, next) => {
+    const user = await User.findById(req.id);
     try {
-    await User.findByIdAndDelete(req.id);
+     const isMatch = await bcrypt.compare(req.body.password, user.password);
+     if(isMatch) {
+      res.status(200).json({msg: "Account deleted"})
+      await User.findByIdAndDelete(req.id);
+     }else{
+         res.status(400).json({msg: "Wrong password"})
+     }
     }catch(error) {
         console.log(error);
     }
@@ -162,18 +166,13 @@ router.put("/update_password", verifyUser, async(req, res) => {
 })
 
 router.put("/update_bio", verifyUser, async(req, res) => {
-    const { bio } = req.body;
     try {
     const user = await User.findById(req.id);
     if(!user) {
         res.status(403).json({msg: "You are not authorized to update the bio."})
     }
-    if(bio.length < 200) {
-     await User.findByIdAndUpdate(req.id, {desc: bio});
+     await User.findByIdAndUpdate(req.id, {desc: req.body.bio});
      res.status(200).json({msg: "Bio updated."})
-    } else {
-        res.status(403).json({msg: "Bio description's maximum characters is 200."})
-    }
 
     }catch(error) {
         res.status(401).json({msg: "Something went wrong."})
@@ -189,7 +188,7 @@ router.post("/forgot", async(req, res) => {
             return res.status(401).json({msg: "User not found."})
         }
         res.status(200).json({msg: "Please check your inbox, We've sent you an email"})
-        const reset_token = jwt.sign({id: user._id}, process.env.JWT);
+        const reset_token = jwt.sign({id: user._id}, process.env.JWT, {expiresIn: "15m"});
         console.log(`Please enter the link and follow the instructions. http://localhost:3000/reset/${reset_token}`)
     }else {
         res.status(401).json({msg: "Email is not valid"})
@@ -204,7 +203,7 @@ router.put("/reset/:token", async(req, res) => {
 
     try {
 
-    const tokenValidated = jwt.verify(String(token), process.env.JWT, {expiresIn: '15m'});
+    const tokenValidated = jwt.verify(String(token), process.env.JWT);
     console.log(tokenValidated);
     console.log(tokenValidated.id);
     const user_id = tokenValidated.id
@@ -225,11 +224,8 @@ router.put("/reset/:token", async(req, res) => {
 })
 
 
-
-// THESE ROUTES HAVE TO BE REMOVED FOR PRODUCTION
-
 router.get("/example", verifyToken, (req, res) => {
-    res.send("authorized page!");
+    res.status(200).json({msg: "nice, jwt recieved"})
 
 })
 

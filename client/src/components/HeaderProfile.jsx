@@ -1,7 +1,10 @@
 import React from 'react'
 import Men from '../assets/men.jpg'
+import { useSelector } from 'react-redux'
 
 export default function HeaderProfile() {
+
+  const user = useSelector((state) => state.currentUser);
 
 
 
@@ -14,7 +17,7 @@ export default function HeaderProfile() {
         </div>
         <div className="flex flex-col mr-3">
           <h1 className="mb-4 flex items-center">
-            <span className="text-white font-semibold text-2xl">@cmartdec</span>
+            <span className="text-white font-semibold text-2xl">@{user.username}</span>
             <span>
               <a className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[3px] px-2 rounded text-xs ml-3"href="/settings">Settings</a>
             </span>

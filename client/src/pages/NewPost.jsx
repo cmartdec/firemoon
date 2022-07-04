@@ -1,5 +1,5 @@
 import React from 'react'
-import Titlebar from '../components/Titlebar'
+import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Logo from '../assets/hahaha.svg'
 import TwitterIcon from '@material-ui/icons/Twitter'
@@ -21,8 +21,8 @@ export default function NewPost() {
 
   return (
     <>
-    <Titlebar></Titlebar>
-    <div className="container mx-auto h-auto w-full bg-[#303030] flex flex-col">
+    <Topbar></Topbar>
+    <div className="container mx-auto h-auto w-full bg-[#303030] flex flex-col pl-20">
         <div className="container mx-auto h-auto w-[900px] bg-[#404040] mt-12 flex flex-col items-center shadow-xl rounded-md mb-24">
             <div className="w-full h-[60px] flex justify-center pt-6">
              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-[7px] mt-[4px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

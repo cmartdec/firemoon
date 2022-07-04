@@ -1,4 +1,5 @@
 import React from 'react'
+import Topbar from '../components/Topbar'
 import Titlebar from '../components/Titlebar'
 import Men from '../assets/men.jpg'
 import ProfilePosts from '../components/ProfilePosts'
@@ -9,9 +10,8 @@ export default function SelfProfile() {
 
   return (
     <>
-    <Titlebar></Titlebar>
+    <Topbar></Topbar>
     <HeaderProfile></HeaderProfile>
-   
     <div className="flex flex-col items-start py-7 gap-7">
       <header className="w-full flex flex-col items-center gap-8"><p className="text-white font-bold text-xl">Posts</p>
       <ProfilePosts></ProfilePosts>

@@ -7,7 +7,7 @@ import Testing from './testing/Testing'
 import Titlebar from './components/Titlebar'
 import NewPost from './pages/NewPost'
 import Profile from './pages/Profile'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import SelfProfile from './pages/SelfProfile';
 import ProfileSettings from './pages/ProfileSettings'
 import ChangePassword from './pages/ChangePassword'
@@ -18,10 +18,12 @@ import Contribute from './pages/Contribute'
 import Help from './pages/Help'
 import InterviewPost from './pages/InterviewPost'
 import Reset from './pages/Reset'
+import DeleteAccount from './pages/DeleteAccount'
+import { useSelector } from 'react-redux'
 
 function App() {
 
-
+  const user = useSelector((state) => state.currentUser);
   return (
     <>
      <BrowserRouter>
@@ -42,6 +44,7 @@ function App() {
      <Route path="contribute" element={<Contribute></Contribute>} />
      <Route path="help" element={<Help></Help>} />
      <Route path="interview-post" element={<InterviewPost></InterviewPost>} />
+     <Route path="delete_account" element={<DeleteAccount></DeleteAccount>} />
    </Routes>
   </BrowserRouter>
     </>
