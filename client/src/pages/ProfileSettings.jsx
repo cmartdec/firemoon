@@ -7,7 +7,8 @@ import Topbar from '../components/Topbar'
 import HeaderProfile from '../components/HeaderProfile'
 import Men from '../assets/men.jpg'
 import Footer from '../components/Footer'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateUsername, updateBio } from "../redux/authSlice";
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
@@ -33,6 +34,7 @@ export default function ProfileSettings() {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.currentUser);
 
@@ -41,6 +43,7 @@ export default function ProfileSettings() {
     try{ 
       setButtonLoading(true);
       const res = await axios.put("http://localhost:5000/api/user/update_username", {username: username_input.current.value}, {withCredentials: true});
+      dispatch(updateUsername(res.data.username)) 
       username_input.current.value = "";
       setButtonLoading(false);
       toast.success('Username updated!', {
@@ -70,6 +73,8 @@ export default function ProfileSettings() {
     e.preventDefault();
     try {
       const res = await axios.put("http://localhost:5000/api/user/update_bio", {bio: bio_input.current.value}, {withCredentials: true})
+      console.log(res);
+      dispatch(updateBio(res.data.desc));
       bio_input.current.value = "";
       toast.success('Bio updated!', {
         position: "top-center",

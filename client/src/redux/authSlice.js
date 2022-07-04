@@ -21,11 +21,17 @@ const authSlice = createSlice({
         },
         logOut: (state) => {
             state.currentUser = null;
+        },
+        updateUsername: (state, action) => {
+            state.currentUser.username = action.payload;
+        },
+        updateBio: (state, action) => {
+            state.currentUser.desc = action.payload;
         }
     }
 });
 
-export const {loginStart, loginSuccess, loginFailure, logOut} = authSlice.actions;
+export const {loginStart, loginSuccess, loginFailure, logOut, updateUsername, updateBio} = authSlice.actions;
 
 export default authSlice.reducer;
 

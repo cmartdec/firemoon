@@ -172,7 +172,7 @@ router.put("/update_bio", verifyUser, async(req, res) => {
         res.status(403).json({msg: "You are not authorized to update the bio."})
     }
      await User.findByIdAndUpdate(req.id, {desc: req.body.bio});
-     res.status(200).json({msg: "Bio updated."})
+     res.status(200).json({msg: "Bio updated.", desc: req.body.bio})
 
     }catch(error) {
         res.status(401).json({msg: "Something went wrong."})
