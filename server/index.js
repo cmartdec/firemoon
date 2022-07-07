@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const port = 5000;
 const User = require("./models/User");
-const authRoute = require("./routes/auth")
+const authRoute = require("./routes/auth");
+const postRoute = require("./routes/post");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
@@ -30,6 +31,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use("/api/user", authRoute);
+app.use("/api/post", postRoute);
 app.use(cookieParser());
 
 

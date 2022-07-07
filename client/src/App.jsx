@@ -34,8 +34,8 @@ function App() {
      <Route path="testing" element={<Testing></Testing>} />
      <Route path="new-post" element={<NewPost></NewPost>} />
      <Route path="profile" element={<Profile></Profile>} />
-     <Route path="self-profile" element={<SelfProfile></SelfProfile>} />
-     <Route path="settings" element={<ProfileSettings></ProfileSettings>} />
+     <Route path="/:username" element={<SelfProfile></SelfProfile>} />
+     <Route path="settings" element={user ? <ProfileSettings></ProfileSettings> : <Login></Login>} />
      <Route path="change-password" element={<ChangePassword></ChangePassword>} />
      <Route path="forgot" element={<ForgotPassword></ForgotPassword>} />
      <Route path="reset/:token" element={<Reset></Reset>} />

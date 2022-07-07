@@ -52,7 +52,7 @@ export default function UserInfo() {
          <div class="absolute mt-[170px] ml-[20px] text-base list-none bg-[#404040] rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
          <ul class="py-1">
            <li>
-             <a href="/self-profile" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+             <a href={user.username} class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
            </li>
            <li>
              <a href="/settings" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
