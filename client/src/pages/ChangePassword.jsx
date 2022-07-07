@@ -3,20 +3,36 @@ import { useRef } from 'react'
 import Titlebar from '../components/Titlebar'
 import Men from '../assets/men.jpg'
 import Logo from '../assets/hahaha.svg'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { logOut } from '../redux/authSlice'
+import { useNavigate } from 'react-router'
 
 export default function ChangePassword() {
 
   const current_password = useRef();
   const new_password = useRef();
+  
+  const dispatch = useDispatch();
 
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
       const res = await axios.put("http://localhost:5000/api/user/update_password", {oldPassword: current_password.current.value, newPassword: new_password.current.value}, {withCredentials: true})
-
+      dispatch(logOut());
+      toast.success('Password updated!', {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        });
     }catch(error) {
       console.log(error);
     }
@@ -24,8 +40,19 @@ export default function ChangePassword() {
   }
   return (
       <>
-      
       <Titlebar></Titlebar>
+      <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+    <ToastContainer />
       <form onSubmit={handleSubmit}>
       <div className="w-full flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[4px] border-[#404040] mt-16 flex flex-col mb-24 shadow-sm"> 

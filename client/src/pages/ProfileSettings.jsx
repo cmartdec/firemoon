@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,6 +37,7 @@ export default function ProfileSettings() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.currentUser);
+
 
   const handleUsernameUpdate = async(e) => {
     e.preventDefault();
