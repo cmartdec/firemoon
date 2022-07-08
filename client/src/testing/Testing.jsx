@@ -15,12 +15,11 @@ export default function Testing() {
 
 
   return (
-     <>
-      <div>{user.username}</div>
-      <div>{user.desc}</div>
-      
-   
-
+    <>
+      <div>
+       <p>&nbsp;Voy a comentaros que vamos a hacer hoy</p>
+       <p><strong>Mañana vemos</strong></p>
+      </div>
     </>
 
   )

@@ -26,7 +26,7 @@ export default function Topbar_dpl() {
        </svg>
        <a className= "font-sans text-sm text-white mr-3 font-bold" href="/contribute">Contribute</a>
       </nav>
-      <a href="/">
+      <a className="mr-12" href="/">
        <img src={Logo} alt="logo" width="150" />
       </a>
       <div className="flex items-center gap-3">

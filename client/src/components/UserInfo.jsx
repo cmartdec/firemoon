@@ -43,7 +43,7 @@ export default function UserInfo() {
 
   return (
       <>
-      <div className="flex items-center gap-3" ref={ref}>
+      <div className="flex items-center gap-3 mr-8" ref={ref}>
       <span ref={ref} className="text-gray-300 font-semibold text-xs">My account</span>
        <button onClick={handleMenu}>
           <img className="w-[32px] h-[32px] rounded-full border-2 border-[#404040]" src={Men2} alt="user_photo" />
