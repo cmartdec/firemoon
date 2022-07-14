@@ -25,7 +25,6 @@ router.post("/", verifyUser, async(req, res) => {
          return res.status(403).json({msg: "Invalid, introduce username"})
      }
 
-
      const savedPost = await newPost.save();
      console.log(savedPost);
      return res.status(200).json(savedPost);

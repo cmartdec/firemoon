@@ -1,12 +1,11 @@
 import React from 'react'
 import Topbar from '../components/Topbar'
-import Titlebar from '../components/Titlebar'
-import Men from '../assets/men.jpg'
 import ProfilePosts from '../components/ProfilePosts'
 import HeaderProfile from '../components/HeaderProfile'
 import Footer from '../components/Footer'
 
 export default function SelfProfile() {
+
 
   return (
     <>

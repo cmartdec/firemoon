@@ -8,61 +8,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { logOut } from '../redux/authSlice'
-import { useNavigate } from 'react-router'
 
 export default function ChangePassword() {
 
-  const current_password = useRef();
-  const new_password = useRef();
   
-  const dispatch = useDispatch();
-
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    try {
-      const res = await axios.put("http://localhost:5000/api/user/update_password", {oldPassword: current_password.current.value, newPassword: new_password.current.value}, {withCredentials: true})
-      dispatch(logOut());
-      toast.success('Password updated!', {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        });
-    }catch(error) {
-      console.log(error);
-    }
-
-  }
   return (
       <>
       <Titlebar></Titlebar>
-      <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      />
-    <ToastContainer />
-      <form onSubmit={handleSubmit}>
+     
+      <form>
       <div className="w-full flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[4px] border-[#404040] mt-16 flex flex-col mb-24 shadow-sm"> 
        <div className="h-[70px] mb-6 ml-[20px] mt-6 mr-[20px]">
          <p className="text-white text-sm">Current password:</p>
-         <input ref={current_password} className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="password" />
+         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="password" />
        </div>
        <div className="h-[70px] mb-6 ml-[20px]">
          <p className="text-white text-sm">New Password:</p>
-         <input ref={new_password} className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="password" />
+         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="password" />
        </div>
        <button type="submit" className="border border-orange-500 hover:bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[2px] mb-6 mr-5 ml-5"href="#">Change Password</button>
        </div>

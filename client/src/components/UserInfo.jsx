@@ -2,17 +2,13 @@ import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
-import { useSelector, useDispatch } from 'react-redux'
-import {logOut} from '../redux/authSlice'
 import axios from 'axios'
 
 
 export default function UserInfo() {
 
   const [menuOpened, setMenuOpened] = useState(false);
-  const user = useSelector((state) => state.currentUser);
   
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,11 +31,6 @@ export default function UserInfo() {
 
   const ref = useRef();
 
-  const handleLogOut = () => {
-    dispatch(logOut());
-    navigate("/");
-  }
-
 
   return (
       <>
@@ -52,7 +43,7 @@ export default function UserInfo() {
          <div class="absolute mt-[170px] ml-[20px] text-base list-none bg-[#404040] rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
          <ul class="py-1">
            <li>
-             <a href={user.username} class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+             <a href="/profile" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
            </li>
            <li>
              <a href="/settings" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
@@ -61,7 +52,7 @@ export default function UserInfo() {
              <a href="new-post" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">New Post</a>
            </li>
            <li>
-             <button onClick={handleLogOut} class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+             <button class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
            </li>
          </ul>
        </div> 

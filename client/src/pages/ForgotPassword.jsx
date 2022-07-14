@@ -11,60 +11,16 @@ import axios from 'axios'
 
 export default function ForgotPassword() {
 
-  const email = useRef();
-
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    try {
-    const res = await axios.post("http://localhost:5000/api/user/forgot", {email: email.current.value})
-    console.log(email.current.value);
-    toast.success('Email sent, please check your inbox and follow the instructions.', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: false,
-      });
-    }catch(error) {
-      const res_error = error.response.data.msg;
-      console.log(error.response.data.msg);
-      toast.error(`${res_error}`, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: false,
-        });
-    }
-
-  }
-
   return (
       <>
       <Titlebar></Titlebar>
-      <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      />
-    <ToastContainer />
       
       <div className="w-[100vw] flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[2px] border-[#404040] mt-24 flex flex-col mb-[200px] shadow-sm rounded"> 
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col">
        <div className="h-[70px] ml-[20px] mb-2 mt-6 mr-[20px]">
          <p className="text-white text-sm text-center mb-3">Enter the email address you signed up with.</p>
-         <input required type="email" ref={email} className="appearance-none w-[370px] rounded bg-[#252525] border-none text-white text-sm focus:outline-none focus:shadow-outline ring-0 border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" placeholder="example@example.com"/>
+         <input required type="email" className="appearance-none w-[370px] rounded bg-[#252525] border-none text-white text-sm focus:outline-none focus:shadow-outline ring-0 border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" placeholder="example@example.com"/>
        </div>
        <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mb-6 mt-2 mr-5 ml-5"href="#">Submit</button>
        </form>

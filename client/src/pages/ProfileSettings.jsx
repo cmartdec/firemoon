@@ -7,8 +7,6 @@ import Topbar from '../components/Topbar'
 import HeaderProfile from '../components/HeaderProfile'
 import Men from '../assets/men.jpg'
 import Footer from '../components/Footer'
-import { useSelector, useDispatch } from 'react-redux'
-import { updateUsername, updateBio } from "../redux/authSlice";
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
@@ -29,77 +27,12 @@ axios.defaults.withCredentials = true;
 
 export default function ProfileSettings() {
 
-  const username_input = useRef();
-  const bio_input = useRef();
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.currentUser);
 
 
-  const handleUsernameUpdate = async(e) => {
-    e.preventDefault();
-    try{ 
-      setButtonLoading(true);
-      const res = await axios.put("http://localhost:5000/api/user/update_username", {username: username_input.current.value}, {withCredentials: true});
-      dispatch(updateUsername(res.data.username)) 
-      username_input.current.value = "";
-      setButtonLoading(false);
-      toast.success('Username updated!', {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        });
-    }catch(error) {
-      toast.error('Something went wrong', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
-      console.log(error.response.data.msg)
-    } 
-  }
-
-  const handleBioUpdate = async(e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.put("http://localhost:5000/api/user/update_bio", {bio: bio_input.current.value}, {withCredentials: true})
-      console.log(res);
-      dispatch(updateBio(res.data.desc));
-      bio_input.current.value = "";
-      toast.success('Bio updated!', {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        });
-      console.log(res);
-    } catch(error) {
-      toast.error('Something went wrong', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
-        console.log(error.response.data.msg);
-    }
-  }
+  
   const deletePage = () => {
     navigate("/delete_account")
 
@@ -128,18 +61,18 @@ export default function ProfileSettings() {
        </header>
        <div className="h-[1px] w-full border-t-[2px] border-[#404040]"></div>
        <div className="h-[70px] mb-12 md:mb-6 ml-[20px] mt-6 mr-[20px]">
-         <form onSubmit={handleUsernameUpdate}>
+         <form>
          <p className="text-white text-sm">Username:</p>
-         <input ref={username_input} className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder={user.username}/>
+         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder="mark"/>
          <span>
           <button type="submit" className={buttonLoading ? "opacity-25 bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]" : "bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]"}href="#">CHANGE</button>
          </span>
          </form>
        </div>
        <div className="h-[130px] mb-12 md:mb-6 ml-[20px]">
-         <form onSubmit={handleBioUpdate}>
+         <form>
          <p className="text-white text-sm">Bio:</p>
-         <input ref={bio_input} className="h-[100px] w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" />
+         <input className="h-[100px] w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" />
           <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[13px] ml-[8px]"href="#">CHANGE</button>
           </form>
        </div>

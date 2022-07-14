@@ -77,7 +77,7 @@ router.post("/login", async(req, res) => {
         console.log("token >> ", token)
         res.cookie("jwt", token, {
             httpOnly: true,
-        }).status(200).json(userPayload);
+        }).status(200).json({msg: "Succesfully logged in."});
         }
 
     catch(error){
@@ -221,6 +221,13 @@ router.put("/reset/:token", async(req, res) => {
         res.status(400).json({msg: "Something went wrong. Please try again"})
         console.log(error);
     }
+})
+
+router.get("/getUserData", verifyUser, async(req, res) => {
+    const user = await User.findById(req.id);
+    const {username, email, ...others } = user;
+    res.status(200).json({username: username, email: email});
+    
 })
 
 

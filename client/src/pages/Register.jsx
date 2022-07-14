@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { Navigate, useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
 import Topbar from '../components/Topbar'
 import Icon from '../assets/icon2.png'
 import Footer from '../components/Footer'
@@ -26,15 +25,6 @@ export default function Register() {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const user = useSelector((state) => state.currentUser);
-
-  useEffect(() => {
-    if(user) {
-      navigate("/");
-    }
-  },[user])
-
 
   const handleSubmit = async(e) => {
     e.preventDefault();

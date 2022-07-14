@@ -1,6 +1,6 @@
 import React from 'react'
+import { useState } from 'react'
 import Logo from '../assets/logo.svg'
-import { useSelector } from 'react-redux'
 import RightSide from './RightSide'
 import UserInfo from './UserInfo'
 
@@ -10,7 +10,8 @@ export default function Topbar_dpl() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
-  const user = useSelector((state) => state.currentUser)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   return (
       <>
@@ -30,7 +31,7 @@ export default function Topbar_dpl() {
        <img src={Logo} alt="logo" width="150" />
       </a>
       <div className="flex items-center gap-3">
-        {user ? <UserInfo></UserInfo> : <RightSide></RightSide>}
+        {isLoggedIn ? <UserInfo></UserInfo> : <RightSide></RightSide>}
       </div>
     </div>
   </div>

@@ -19,13 +19,19 @@ import Help from './pages/Help'
 import InterviewPost from './pages/InterviewPost'
 import Reset from './pages/Reset'
 import DeleteAccount from './pages/DeleteAccount'
-import { useSelector } from 'react-redux'
+import {
+  useQuery,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 
 function App() {
 
-  const user = useSelector((state) => state.currentUser);
+  const queryClient = new QueryClient();
   return (
     <>
+     <QueryClientProvider client={queryClient}>
      <BrowserRouter>
    <Routes>
      <Route path="/" element={<Home></Home>} />
@@ -35,7 +41,7 @@ function App() {
      <Route path="new-post" element={<NewPost></NewPost>} />
      <Route path="profile" element={<Profile></Profile>} />
      <Route path="/:username" element={<SelfProfile></SelfProfile>} />
-     <Route path="settings" element={user ? <ProfileSettings></ProfileSettings> : <Login></Login>} />
+     <Route path="settings" element={<ProfileSettings></ProfileSettings>} />
      <Route path="change-password" element={<ChangePassword></ChangePassword>} />
      <Route path="forgot" element={<ForgotPassword></ForgotPassword>} />
      <Route path="reset/:token" element={<Reset></Reset>} />
@@ -47,6 +53,7 @@ function App() {
      <Route path="delete_account" element={<DeleteAccount></DeleteAccount>} />
    </Routes>
   </BrowserRouter>
+     </QueryClientProvider>
     </>
 
 
