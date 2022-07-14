@@ -18,9 +18,7 @@ export default function Login() {
   const password = useRef();
   const navigate = useNavigate();
 
-  const {isError, error, isLoading, mutate} = useMutation("login", async(data) => {
-     await axios.post("http://localhost:5000/api/user/login", data)
-  }, {
+  const {isError, error, isLoading, mutate} = useMutation("login", api.login, {
     onSuccess: () => {
       navigate("/");
     }
@@ -35,8 +33,6 @@ export default function Login() {
     mutate(inputData);
   }
 
-  if(isError) return <h1>{error.response.data.msg}</h1>
-
   return (
     <>
     <Topbar></Topbar>
@@ -50,6 +46,9 @@ export default function Login() {
           <div className="h-[60px] w-full flex justify-center items-center">
             <div className="flex flex-col items-center">
             <p className="text-white font-bold text-xl mt-3">Log in</p>
+            {isError && 
+              <p className="text-red-500 text-sm font-semibold">{error.response.data.msg}</p>
+            }
             </div>
           </div>
           <form onSubmit={handleLogin} class="bg-[#404040] px-8 pt-2 pb-8 mb-4 h-[344px]">

@@ -5,12 +5,7 @@ const api = axios.create({
 });
 
 export const login = async({ email, password }) => {
-    try {
         const { data } = await api.post("/api/user/login", { email, password });
         return data;
-    }catch(error) {
-        console.log(error);
-    }
-
 };
 
