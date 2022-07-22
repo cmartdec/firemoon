@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Logo4 from '../assets/hahaha.svg'
 import Topbar from '../components/Topbar'
 import Feed from '../components/Feed'
@@ -7,6 +8,8 @@ import FacebookIcon from '@material-ui/icons/Facebook'
 import Men2 from '../assets/men2.jpg'
 import Posts from '../components/Posts'
 import Titlebar from '../components/Titlebar'
+import { useQuery } from 'react-query'
+import * as api from '../utils/usersApi'
 
 
 /*
@@ -18,10 +21,19 @@ function Home() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
+  const { data, isLoading, isError, error } = useQuery("me", api.me);
+  console.log(data);
+
+  /*The word stale means no longer fresh to use. In React Query, when a Query fetch an API and the response is ready, React Query marks it as stale. That is one of the reason why React Query looks for fresh content each time the page gets focus */
+ /* https://medium.com/in-the-weeds/fetch-a-query-only-once-until-page-refresh-using-react-query-a333d00b86ff
+  https://tanstack.com/query/v4/docs/reference/QueryClient?from=reactQueryV3&original=https://react-query-v3.tanstack.com/reference/QueryClient
+*/
+
+
 
   return (
     <>
-    <Topbar></Topbar>
+    <Topbar data={data}></Topbar>
     <div className="h-auto w-full bg-[#303030] flex gap-6">
       <div className="hidden w-[400px] h-[200px] mt-[73px] ml-16 xl:flex flex-col px-3 py-3 border-[2px] border-[#404040] rounded overflow-y-auto">
         <header className="mb-2 text-white font-bold">Podcasts:</header>

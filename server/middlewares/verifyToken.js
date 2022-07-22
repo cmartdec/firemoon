@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 
 const verifyToken = (req, res, next) => {
+  try {
    const cookies = req.headers.cookie;
    const token = cookies.split("=")[1];
 
@@ -19,6 +20,10 @@ const verifyToken = (req, res, next) => {
         req.id = user.id;
     })
     next();
+
+  }catch(error) {
+      res.status(401).json({message: "Login required."})
+  }
 }
 
 const verifyUser = (req, res, next) => {
@@ -26,7 +31,7 @@ const verifyUser = (req, res, next) => {
         if( req.id === req.params.id) {
             next();
         }else {
-            res.status(401).json({message:"user not found"})
+            res.status(400).json({message:"user not found"})
         }
 
     });

@@ -18,6 +18,11 @@ export default function Login() {
   const password = useRef();
   const navigate = useNavigate();
 
+  const { data, status } = useQuery("me", api.me, {
+    onSuccess: () => {
+      navigate("/");
+    }
+  })
   const {isError, error, isLoading, mutate} = useMutation("login", api.login, {
     onSuccess: () => {
       navigate("/");

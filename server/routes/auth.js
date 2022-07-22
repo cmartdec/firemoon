@@ -66,17 +66,10 @@ router.post("/login", async(req, res) => {
         }
         const token = jwt.sign({id: user._id}, process.env.JWT);
 
-        const userPayload = {
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            profilePic: user.profilePic,
-            desc: user.desc,
-        }
-
         console.log("token >> ", token)
         res.cookie("jwt", token, {
             httpOnly: true,
+            secure: true,
         }).status(200).json({msg: "Succesfully logged in."});
         }
 
@@ -223,7 +216,7 @@ router.put("/reset/:token", async(req, res) => {
     }
 })
 
-router.get("/getUserData", verifyUser, async(req, res) => {
+router.get("/me", verifyUser, async(req, res) => {
     const user = await User.findById(req.id);
     const {username, email, ...others } = user;
     res.status(200).json({username: username, email: email});

@@ -1,16 +1,22 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Logo from '../assets/logo.svg'
 import RightSide from './RightSide'
 import UserInfo from './UserInfo'
 
 
 
-export default function Topbar_dpl() {
+export default function Topbar({ data }) {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if(data) {
+      setIsLoggedIn(true);
+    }
+  }, [data])
 
 
   return (
