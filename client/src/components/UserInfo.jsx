@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
 import axios from 'axios'
+import Topbar from './Topbar'
 
 
 export default function UserInfo() {
@@ -30,6 +31,17 @@ export default function UserInfo() {
   }
 
   const ref = useRef();
+  
+  const handleLogOut = async(e) => {
+    e.preventDefault();
+    localStorage.removeItem("logged_in")
+    try {
+      const res = await axios.get("http://localhost:5000/api/user/logout", {withCredentials: true})
+    }catch(error) {
+      console.log("Something went wrong.")
+    }
+    navigate("/login");
+  }
 
   return (
       <>
@@ -51,7 +63,7 @@ export default function UserInfo() {
              <a href="new-post" class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">New Post</a>
            </li>
            <li>
-             <button class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+             <button onClick={handleLogOut} class="block py-2 px-4 text-xs text-[#AEAEAE] font-bold hover:bg-[#454545] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
            </li>
          </ul>
        </div> 

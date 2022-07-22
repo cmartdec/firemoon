@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import Logo from '../assets/logo.svg'
 import RightSide from './RightSide'
 import UserInfo from './UserInfo'
-import cookie from 'react-cookie'
 
 
 
