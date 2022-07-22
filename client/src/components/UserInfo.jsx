@@ -31,7 +31,6 @@ export default function UserInfo() {
 
   const ref = useRef();
 
-
   return (
       <>
       <div className="flex items-center gap-3 mr-8" ref={ref}>

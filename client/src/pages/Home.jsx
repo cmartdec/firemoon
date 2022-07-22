@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <>
-    <Topbar data={data}></Topbar>
+    <Topbar></Topbar>
     <div className="h-auto w-full bg-[#303030] flex gap-6">
       <div className="hidden w-[400px] h-[200px] mt-[73px] ml-16 xl:flex flex-col px-3 py-3 border-[2px] border-[#404040] rounded overflow-y-auto">
         <header className="mb-2 text-white font-bold">Podcasts:</header>

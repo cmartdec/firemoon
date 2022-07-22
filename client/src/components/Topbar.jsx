@@ -3,21 +3,23 @@ import { useState, useEffect } from 'react'
 import Logo from '../assets/logo.svg'
 import RightSide from './RightSide'
 import UserInfo from './UserInfo'
+import cookie from 'react-cookie'
 
 
 
-export default function Topbar({ data }) {
+export default function Topbar() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if(data) {
+    const logged_in = localStorage.getItem("logged_in")
+    if(logged_in) {
       setIsLoggedIn(true);
     }
-  }, [data])
-
+  },[])
+  console.log("hello from topbar")
 
   return (
       <>

@@ -26,6 +26,7 @@ export default function Login() {
   const {isError, error, isLoading, mutate} = useMutation("login", api.login, {
     onSuccess: () => {
       navigate("/");
+      localStorage.setItem("logged_in", true)
     }
   })
 
