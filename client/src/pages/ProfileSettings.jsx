@@ -8,6 +8,8 @@ import HeaderProfile from '../components/HeaderProfile'
 import Men from '../assets/men.jpg'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import { useQuery } from 'react-query'
+import { me } from '../utils/usersApi'
 axios.defaults.withCredentials = true;
 
 /*
@@ -31,12 +33,21 @@ export default function ProfileSettings() {
 
   const navigate = useNavigate();
 
+  const fetchUserData = async() => {
+    const { data } = await axios.get("http://localhost:5000/api/user/me", { witCredentials: true})
+    return data.username;
+  }
 
-  
+  const { data } = useQuery("user_info", fetchUserData, {
+    onError: () => {
+      navigate("/login")
+    }
+  })
+ 
   const deletePage = () => {
     navigate("/delete_account")
-
   }
+
 
   return (
     <>
@@ -63,7 +74,7 @@ export default function ProfileSettings() {
        <div className="h-[70px] mb-12 md:mb-6 ml-[20px] mt-6 mr-[20px]">
          <form>
          <p className="text-white text-sm">Username:</p>
-         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder="mark"/>
+         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder={data}/>
          <span>
           <button type="submit" className={buttonLoading ? "opacity-25 bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]" : "bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]"}href="#">CHANGE</button>
          </span>
@@ -94,7 +105,4 @@ export default function ProfileSettings() {
 
       </>
   ) 
-
-
-
   }

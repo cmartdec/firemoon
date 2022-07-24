@@ -18,7 +18,6 @@ export default function Topbar() {
       setIsLoggedIn(true);
     }
   },[])
-  console.log("hello from topbar")
 
   return (
       <>
