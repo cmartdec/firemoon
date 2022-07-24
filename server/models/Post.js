@@ -14,10 +14,17 @@ const PostSchema = new mongoose.Schema(
             type: String,
             required: false
         },
-        username: {
+        author: {
             type: String,
             required: false
+        },
+        likes: {
+            type: Number,
+        },
+        comments: {
+            type: Number,
         }
+
     },
     { timestamps: true }
 );

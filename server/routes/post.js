@@ -6,23 +6,23 @@ const verifyUser = require('../middlewares/verifyToken');
 
 
 router.post("/", verifyUser, async(req, res) => {
-    const { title, data, username } = req.body;
+    const { title, data, author } = req.body;
 
     const newPost = new Post({
         title: title,
         data: data,
-        username: username
+        author: author,
     });
 
     try {
      if(!title) {
-         return res.status(403).json({msg: "Invalid, introduce title"})
+         return res.status(403).json({msg: "Invalid, introduce title."})
      }
      if(!data) {
-         return res.status(403).json({msg: "Invalid, introduce data"})
+         return res.status(403).json({msg: "Invalid, introduce body."})
      }
-     if(!username) {
-         return res.status(403).json({msg: "Invalid, introduce username"})
+     if(!author) {
+         return res.status(401).json({msg: "Please log in."})
      }
 
      const savedPost = await newPost.save();

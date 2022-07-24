@@ -8,34 +8,29 @@ import HeaderProfile from '../components/HeaderProfile'
 import Men from '../assets/men.jpg'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import { useQuery } from 'react-query'
-import { me } from '../utils/usersApi'
+import { useQuery, useMutation } from 'react-query'
 axios.defaults.withCredentials = true;
-
-/*
-<div className="flex">
-       <div className="h-[70px] mb-6 ml-[12px] grow">
-       <button className="border border-amber-700 text-white font-bold py-[10px] px-3 rounded text-xs mt-[13px] ml-[8px]"href="#">CHANGE PASSWORD</button>
-       </div>
-       <div className="h-[70px] mb-6 ml-[12px] grow">
-       <button className="bg-gradient-to-r from-red-600 to-red-800 text-white font-bold py-[10px] px-3 rounded text-xs mt-[13px] ml-[8px]"href="#">DELETE ACCOUNT</button>
-       </div>
-       </div>
-
-*/
-
-
 
 
 export default function ProfileSettings() {
 
-  const [buttonLoading, setButtonLoading] = useState(false);
-
   const navigate = useNavigate();
+  const username = useRef();
+  const bio = useRef();
 
   const fetchUserData = async() => {
-    const { data } = await axios.get("http://localhost:5000/api/user/me", { witCredentials: true})
+    const { data } = await axios.get("http://localhost:5000/api/user/me", { witCredentials: true })
     return data.username;
+  }
+
+  const updateUsername = async(username) => {
+    const { data } = await axios.put("http://localhost:5000/api/user/update_username", {username: username}, { withCredentials: true })
+    navigate("/");
+  }
+
+  const updateBio = async(bio) => {
+    const { data } = await axios.put("http://localhost:5000/api/user/update_bio", {bio: bio}, { withCredentials: true})
+    navigate("/");
   }
 
   const { data } = useQuery("user_info", fetchUserData, {
@@ -43,9 +38,24 @@ export default function ProfileSettings() {
       navigate("/login")
     }
   })
+
+  const { isError, error, isLoading: loading_username_update, mutate: mutate_update_username} = useMutation("update_username", updateUsername)
+
+  const { isLoading: loading_bio_update, mutate: mutate_update_bio } = useMutation("update_bio", updateBio)
+
  
   const deletePage = () => {
     navigate("/delete_account")
+  }
+
+  const handleUsernameUpdate = (e) => {
+    e.preventDefault();
+    mutate_update_username(username.current.value);
+  }
+
+  const handleBioUpdate = (e) => {
+    e.preventDefault();
+    mutate_update_bio(bio.current.value);
   }
 
 
@@ -64,7 +74,7 @@ export default function ProfileSettings() {
       pauseOnHover
       />
     <ToastContainer />
-      <div className="w-full flex justify-center pl-28">
+      <div className="w-full flex justify-center pl-12">
       <div className="w-auto h-auto bg-[#353535] border-[2px] border-[#404040] mt-8 flex flex-col mb-6 shadow-sm rounded"> 
        <header className="h-[170px] w-full  flex justify-center items-center">
          <button className="hover:opacity-50"><img src={Men} className="h-[120px] w-[120px] rounded-full border-[4px] border-[#404040]" alt="">
@@ -72,18 +82,18 @@ export default function ProfileSettings() {
        </header>
        <div className="h-[1px] w-full border-t-[2px] border-[#404040]"></div>
        <div className="h-[70px] mb-12 md:mb-6 ml-[20px] mt-6 mr-[20px]">
-         <form>
+         <form onSubmit={handleUsernameUpdate}>
          <p className="text-white text-sm">Username:</p>
-         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder={data}/>
+         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder={data} ref={username} required/>
          <span>
-          <button type="submit" className={buttonLoading ? "opacity-25 bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]" : "bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]"}href="#">CHANGE</button>
+          <button type="submit" className={"bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]"}href="#">CHANGE</button>
          </span>
          </form>
        </div>
        <div className="h-[130px] mb-12 md:mb-6 ml-[20px]">
-         <form>
+         <form onSubmit={handleBioUpdate}>
          <p className="text-white text-sm">Bio:</p>
-         <input className="h-[100px] w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" />
+         <input className="h-[100px] w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" ref={bio} required/>
           <button type="submit" className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[13px] ml-[8px]"href="#">CHANGE</button>
           </form>
        </div>
