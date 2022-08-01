@@ -7,11 +7,14 @@ const verifyUser = require('../middlewares/verifyToken');
 
 router.post("/", verifyUser, async(req, res) => {
     const { title, data, author } = req.body;
+    const user_id = req.id;
+
 
     const newPost = new Post({
         title: title,
         data: data,
         author: author,
+        user_id: user_id,
     });
 
     try {
@@ -40,10 +43,24 @@ router.get("/getAllPosts", async(req, res) => {
     res.status(200).json(posts)
 })
 
+
 router.get("/:id", async(req, res) => {
     const { id } = req.params;
     const post = await Post.findById(id);
     res.status(200).json(post)
+})
+
+router.delete("/:id", verifyUser, async(req, res) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    if(post.user_id === req.id) {
+        try {
+            await Post.findByIdAndDelete(id);
+            res.status(200).json({msg: "Post deleted succesfully."})
+        }catch(error){
+            res.status(403).json({msg: "Authorization error"})
+        }
+    }
 })
 
 

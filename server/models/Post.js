@@ -23,6 +23,9 @@ const PostSchema = new mongoose.Schema(
         },
         comments: {
             type: Number,
+        },
+        user_id: {
+            type: String,
         }
 
     },
