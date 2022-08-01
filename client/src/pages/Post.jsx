@@ -4,6 +4,12 @@ import Topbar from '../components/Topbar'
 import Comment from '../components/Comment'
 import CommentBoxDisallowed from '../components/CommentBoxDisallowed'
 import CommentBox from '../components/CommentBox'
+import { useParams } from 'react-router'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import { format } from 'date-fns'
+import moment from 'moment'
+
 
 export default function Post(props) {
 
@@ -15,6 +21,26 @@ export default function Post(props) {
 
   const [count, setCount] = useState(0);
   const [isLogged, setIsLogged] = useState(true);
+
+  const { id } = useParams();
+
+  const fetchPostData = async() => {
+    const { data } = await axios.get(`http://localhost:5000/api/post/${id}`);
+    return data;
+  }
+
+  const { data } = useQuery("post_data", fetchPostData, {
+    initialData: () => {
+      return fetchPostData();
+    }
+  });
+
+  console.log(data);
+  console.log(data.title)
+  console.log(data.createdAt);
+
+ const date_created = moment.utc(data.createdAt).local().startOf('seconds').fromNow()
+ console.log(date_created);
 
   function Upvote() {
     setCount(count+1);
@@ -48,11 +74,11 @@ export default function Post(props) {
           </div>
            
           <div className="flex flex-col w-full">
-          <p className="text-white text-xs mt-4 ml-3">Posted by @cmartdec a year ago</p>
-          <h1 className="text-white font-bold text-2xl mt-1 ml-2">Options for the company to IPO in clueless fairly </h1>
+          <p className="text-white text-xs mt-4 ml-3">Posted by @{data.author} {date_created}</p>
+          <h1 className="text-white font-bold text-2xl mt-1 ml-2">{data.title}</h1>
           <div className="flex flex-col ml-2">
             <p className="text-gray-300">
-              Text
+              {data.data}
             </p>
           </div>
           <div className="container mx-auto flex gap-[2px]">
