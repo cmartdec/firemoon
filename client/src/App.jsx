@@ -55,6 +55,7 @@ function App() {
      <Route path="forgot" element={<ForgotPassword></ForgotPassword>} />
      <Route path="reset/:token" element={<Reset></Reset>} />
      <Route path="post" element={<Post></Post>} />
+     <Route path="/post/:id" element={<Post></Post>} />
      <Route path="interviews" element={<Interviews></Interviews>} />
      <Route path="contribute" element={<Contribute></Contribute>} />
      <Route path="help" element={<Help></Help>} />
