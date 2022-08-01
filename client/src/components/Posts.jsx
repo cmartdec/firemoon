@@ -2,7 +2,7 @@ import React from 'react'
 import Men2 from '../assets/men2.jpg'
 import { useState } from 'react'
 
-export default function Posts() {
+export default function Posts({title}) {
 
    const [Upvotes, setUpvotes] = useState(0);
 
@@ -35,7 +35,7 @@ export default function Posts() {
          <a href="/post">
          <div className="w-full h-full flex flex-col py-[5px] pl-3">
            <div className="flex gap-2 items-center"><img className="h-6 w-6 rounded-full hover:border-[#212121]"src={Men2} alt="" /><p className="text-white text-xs">posted by cmartdec (6 hours ago)</p></div>
-           <div className="py-2"><h3 className="text-white font-bold text-xl">Options in company likely to IPO and fairly clueless</h3></div>
+           <div className="py-2"><h3 className="text-white font-bold text-xl">{title}</h3></div>
            <div><p className="text-white text-xs mb-3">I was in the first 50 hired at a company making ~$40MM. We recently got nearly $1B valuation and will likely unicorn next round. Nasdaq has promoted us publicly and there's a high chance we'll IPO in the next couple years ...</p></div>
            <div className="flex gap-1 items-center mt-[6px]">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

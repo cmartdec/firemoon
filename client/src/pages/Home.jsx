@@ -27,23 +27,14 @@ function Home() {
     return data;
   }
 
-
-  const { data, isLoading, isError, error } = useQuery("me", fetchAllPosts, {initialData: () => {
+  const { data, isLoading, isError, error } = useQuery("posts", fetchAllPosts, {initialData: () => {
     return fetchAllPosts();
-  }});
-  Object.keys(data)
-    .map(function(key) {
-       const m_array = data[key]
-       console.log(m_array)
-    });
+   }});
 
-  /*The word stale means no longer fresh to use. In React Query, when a Query fetch an API and the response is ready, React Query marks it as stale. That is one of the reason why React Query looks for fresh content each time the page gets focus */
- /* https://medium.com/in-the-weeds/fetch-a-query-only-once-until-page-refresh-using-react-query-a333d00b86ff
-  https://tanstack.com/query/v4/docs/reference/QueryClient?from=reactQueryV3&original=https://react-query-v3.tanstack.com/reference/QueryClient
-*/
-
-
-
+   console.log(data);
+   
+   // https://codesandbox.io/s/funny-solomon-secnh0?file=/src/index.js
+   
   return (
     <>
     <Topbar></Topbar>
@@ -93,27 +84,13 @@ function Home() {
             </button>
             </div>
             <div className="container w-full h-auto flex flex-col px-8 py-8 gap-8">
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
-              <Posts></Posts>
+              {
+                 Object.keys(data).map((index) => {
+                 return  <Posts key={index} title={data[index].title}></Posts>
+                })
+              }
             </div>
     </div>
-
       </div>
       <div className="h-auto flex flex-col justify-end items-center mr-3">
       <div className="h-[300px] w-[200px] border-[2px] border-[#404040] ml-8 sticky bottom-0 rounded">
