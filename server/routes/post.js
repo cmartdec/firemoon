@@ -35,5 +35,11 @@ router.post("/", verifyUser, async(req, res) => {
     }
 })
 
+router.get("/getAllPosts", async(req, res) => {
+    const id = "62e7ac29548b0d7d6f6c7150"
+    const posts = await Post.find();
+    res.status(200).json(posts)
+})
+
 
 module.exports = router;

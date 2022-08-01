@@ -218,8 +218,8 @@ router.put("/reset/:token", async(req, res) => {
 
 router.get("/me", verifyUser, async(req, res) => {
     const user = await User.findById(req.id);
-    const {username, email, ...others } = user;
-    res.status(200).json({username: username, email: email});
+    const {username, email, desc, ...others } = user;
+    res.status(200).json({username: username, email: email, bio: desc});
     
 })
 

@@ -5,6 +5,7 @@ const port = 5000;
 const User = require("./models/User");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
+const contributeRoute = require("./routes/contribute");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
@@ -14,7 +15,7 @@ dotenv.config();
 const connect = async() => {
     try {
         await mongoose.connect(process.env.DATABASE_URL);
-        console.log("connected to database");
+        console.log("Connected to database");
     } catch(error) {
         console.log(error);
     }
@@ -32,6 +33,7 @@ app.use(cors({
 app.use(express.json());
 app.use("/api/user", authRoute);
 app.use("/api/post", postRoute);
+app.use("/api/contribute", contributeRoute);
 app.use(cookieParser());
 
 

@@ -19,6 +19,8 @@ import Help from './pages/Help'
 import InterviewPost from './pages/InterviewPost'
 import Reset from './pages/Reset'
 import DeleteAccount from './pages/DeleteAccount'
+import About from './pages/About'
+import FAQ from './pages/FAQ'
 import {
   useQuery,
   useQueryClient,
@@ -58,6 +60,8 @@ function App() {
      <Route path="help" element={<Help></Help>} />
      <Route path="interview-post" element={<InterviewPost></InterviewPost>} />
      <Route path="delete_account" element={<DeleteAccount></DeleteAccount>} />
+     <Route path="about" element={<About></About>} />
+     <Route path="faq" element={<FAQ></FAQ>} />
    </Routes>
   </BrowserRouter>
      </QueryClientProvider>

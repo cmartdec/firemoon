@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import Titlebar from '../components/Titlebar'
+import Topbar from '../components/Topbar'
 
 
 
@@ -22,7 +22,7 @@ export default function Help() {
 
   return (
     <>
-    <Titlebar></Titlebar>
+    <Topbar></Topbar>
     <div className="h-screen w-screen flex justify-center pt-12">
      <div className="h-[200px] w-[1000px] border-[4px] border-[#404040] flex flex-col items-center pt-8 rounded">
        <header className="text-white font-bold text-2xl">

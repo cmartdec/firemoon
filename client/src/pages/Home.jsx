@@ -10,6 +10,7 @@ import Posts from '../components/Posts'
 import Titlebar from '../components/Titlebar'
 import { useQuery } from 'react-query'
 import * as api from '../utils/usersApi'
+import axios from 'axios'
 
 
 /*
@@ -21,8 +22,20 @@ function Home() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
-  const { data, isLoading, isError, error } = useQuery("me", api.me);
-  console.log(data);
+  const fetchAllPosts = async() => {
+    const { data } = await axios.get("http://localhost:5000/api/post/getAllPosts")
+    return data;
+  }
+
+
+  const { data, isLoading, isError, error } = useQuery("me", fetchAllPosts, {initialData: () => {
+    return fetchAllPosts();
+  }});
+  Object.keys(data)
+    .map(function(key) {
+       const m_array = data[key]
+       console.log(m_array)
+    });
 
   /*The word stale means no longer fresh to use. In React Query, when a Query fetch an API and the response is ready, React Query marks it as stale. That is one of the reason why React Query looks for fresh content each time the page gets focus */
  /* https://medium.com/in-the-weeds/fetch-a-query-only-once-until-page-refresh-using-react-query-a333d00b86ff
@@ -119,7 +132,7 @@ function Home() {
             <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/help">Help</a>
             <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/interviews">Privacy Policy</a>
             <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/interviews">Terms</a>
-            <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/interviews">FAQ</a>
+            <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/faq">FAQ</a>
           </div>
         </div>
       </div>
