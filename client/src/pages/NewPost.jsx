@@ -28,7 +28,11 @@ export default function NewPost() {
 
   const { isLoading, isError, error, mutate } = useMutation("new-post", postData)
 
-  const { data } = useQuery("user_data", getUserData);
+  const { data } = useQuery("user_data", getUserData, {
+    onError: () => {
+      navigate("/login")
+    }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

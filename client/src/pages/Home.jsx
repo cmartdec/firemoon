@@ -31,13 +31,19 @@ function Home() {
     return fetchAllPosts();
    }});
 
+   if(isError) {
+     console.log(error);
+   }
    console.log(data);
-   
+
    // https://codesandbox.io/s/funny-solomon-secnh0?file=/src/index.js
    
   return (
     <>
     <Topbar></Topbar>
+    {isError &&
+    <p className="text-center mt-2 text-red-600 text-xl">Something went wrong.</p>
+     }
     <div className="h-auto w-full bg-[#303030] flex gap-6">
       <div className="hidden w-[400px] h-[200px] mt-[73px] ml-16 xl:flex flex-col px-3 py-3 border-[2px] border-[#404040] rounded overflow-y-auto">
         <header className="mb-2 text-white font-bold">Podcasts:</header>
@@ -59,7 +65,7 @@ function Home() {
       <div className="h-screen w-full max-w-[1024px] mt-6">
       <div className="border-[2px] border-[#404040] w-full h-auto mt-12 rounded ml-3 xl:ml-0">
           <div className="h-auto w-full py-[9px] pl-[35px] border-b-[2px] border-[#404040] flex items-center">
-            <a href="/self-profile">
+            <a href="/profile">
             <img src={Men2} className="h-[35px] w-[35px] rounded-full border-[2px] border-[#404040]" alt="" /></a>
             <a className="ml-4 rounded bg-[#212121] h-[30px] w-full border-none mr-3 flex items-center pl-3 cursor-text" href="/new-post"><p className="text-gray-600 text-sm">New Post</p></a>
           </div>
@@ -85,8 +91,11 @@ function Home() {
             </div>
             <div className="container w-full h-auto flex flex-col px-8 py-8 gap-8">
               {
+                isLoading ? 
+                <h1 className="text-gray-200 text-center">Loading...</h1>
+                :
                  Object.keys(data).map((index) => {
-                 return  <Posts key={index} title={data[index].title}></Posts>
+                 return  <Posts key={index} title={data[index].title} data={data[index].data}></Posts>
                 })
               }
             </div>

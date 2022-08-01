@@ -36,9 +36,14 @@ router.post("/", verifyUser, async(req, res) => {
 })
 
 router.get("/getAllPosts", async(req, res) => {
-    const id = "62e7ac29548b0d7d6f6c7150"
     const posts = await Post.find();
     res.status(200).json(posts)
+})
+
+router.get("/:id", async(req, res) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    res.status(200).json(post)
 })
 
 
