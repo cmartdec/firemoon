@@ -16,6 +16,11 @@ export default function Profile() {
      return data.username;
   }
 
+  const fetchUserPosts = async() => {
+    const { data } = await axios.get("http://localhost:5000/api/user/me", { withCredentials: true })
+    return data;
+  }
+
   const fetchBio= async() => {
      const { data }= await axios.get("http://localhost:5000/api/user/me", { withCredentials: true})
      if (data.bio === "") {
@@ -26,6 +31,9 @@ export default function Profile() {
 
   const { data: data_username} = useQuery("get_username", fetchUsername);
   const { data: data_bio} = useQuery("get_bio", fetchBio);
+  const { data: data_posts } = useQuery("user-posts", fetchUserPosts);
+
+  console.log(data_posts)
   
 
 

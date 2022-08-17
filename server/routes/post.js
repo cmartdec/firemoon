@@ -9,7 +9,6 @@ router.post("/", verifyUser, async(req, res) => {
     const { title, data, author } = req.body;
     const user_id = req.id;
 
-
     const newPost = new Post({
         title: title,
         data: data,
@@ -41,6 +40,16 @@ router.post("/", verifyUser, async(req, res) => {
 router.get("/getAllPosts", async(req, res) => {
     const posts = await Post.find();
     res.status(200).json(posts)
+})
+
+router.get("/getMyPosts", verifyUser, async(req, res) => {
+    console.log(req.id);
+    try {
+     const posts = await Post.find({user_id: req.id})
+     res.status(200).json(posts)
+    }catch(error) {
+     res.status(403).json({msg: "No posts yet."})
+    }
 })
 
 
