@@ -20,6 +20,7 @@ import InterviewPost from './pages/InterviewPost'
 import Reset from './pages/Reset'
 import DeleteAccount from './pages/DeleteAccount'
 import About from './pages/About'
+import UserProfile from './pages/UserProfile'
 import FAQ from './pages/FAQ'
 import {
   useQuery,
@@ -49,7 +50,7 @@ function App() {
      <Route path="testing" element={<Testing></Testing>} />
      <Route path="new-post" element={<NewPost></NewPost>} />
      <Route path="profile" element={<Profile></Profile>} />
-     <Route path="/:username" element={<SelfProfile></SelfProfile>} />
+     <Route path="/user/:username" element={<UserProfile></UserProfile>} />
      <Route path="settings" element={<ProfileSettings></ProfileSettings>} />
      <Route path="change-password" element={<ChangePassword></ChangePassword>} />
      <Route path="forgot" element={<ForgotPassword></ForgotPassword>} />

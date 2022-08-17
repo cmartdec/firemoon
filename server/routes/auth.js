@@ -220,7 +220,21 @@ router.get("/me", verifyUser, async(req, res) => {
     const user = await User.findById(req.id);
     const {username, email, desc, ...others } = user;
     res.status(200).json({username: username, email: email, bio: desc});
-    
+})
+
+router.get("/getProfile/:username", async(req, res) => {
+    const { username } = req.params;
+    try {
+     const user = await User.findOne({username: username});
+     if(!user) {
+         return res.status(401).json({msg: "User not found"})
+     }
+     res.status(200).json(user)
+    }catch(error){
+        res.status(401).json({msg: "Something went wrong."})
+    }
+    const user = await User.findOne({username: username});
+    console.log(user);
 })
 
 
