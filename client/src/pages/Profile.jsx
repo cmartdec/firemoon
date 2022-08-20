@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
 import Men from '../assets/men.jpg'
 import ProfilePosts from '../components/ProfilePosts'
@@ -10,6 +11,7 @@ import axios from 'axios'
 export default function Profile() {
 
   const [ noDescription, setNoDescription] = useState(false);
+  const navigate = useNavigate();
 
   const fetchUserPosts = async() => {
     const { data } = await axios.get("http://localhost:5000/api/post/getMyPosts", { withCredentials: true })
@@ -29,7 +31,11 @@ export default function Profile() {
      return data.bio;
   }
 
-  const { data: data_username} = useQuery("get_username", fetchUsername);
+  const { data: data_username} = useQuery("get_username", fetchUsername, {
+    onError: () => {
+      navigate("/login")
+    }
+  });
   const { data: data_bio} = useQuery("get_bio", fetchBio);
   const { data: data_posts, isLoading} = useQuery("user-posts", fetchUserPosts);
 
@@ -58,7 +64,7 @@ export default function Profile() {
       <header className="w-full flex flex-col items-center gap-8"><p className="text-white font-bold text-xl">Posts</p>
        {
          isLoading ?
-          <h1>Loading...</h1>
+          <h1 className="text-white text-xl">Loading...</h1>
           :
           Object.keys(data_posts).map((index) => {
             return <ProfilePosts key={index} title={data_posts[index].title} data={data_posts[index].data} date={data_posts[index].createdAt}></ProfilePosts>

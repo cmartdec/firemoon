@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Topbar from '../components/Topbar'
 import Comment from '../components/Comment'
 import CommentBoxDisallowed from '../components/CommentBoxDisallowed'
@@ -13,7 +13,8 @@ import moment from 'moment'
 
 export default function Post(props) {
 
-
+// MODELING TO COMMENTS
+// https://www.mongodb.com/community/forums/t/what-is-the-best-schema-for-a-blog-post-for-storing-the-blog-content-like-share-and-comment/131915/2
 
   const color = "#303030"
   document.body.style.backgroundColor = color;
@@ -21,6 +22,15 @@ export default function Post(props) {
 
   const [count, setCount] = useState(0);
   const [isLogged, setIsLogged] = useState(true);
+  const logged_in = localStorage.getItem('logged_in');
+
+  useEffect(() => {
+    if(logged_in) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, [logged_in])
 
   const { id } = useParams();
 
@@ -101,10 +111,7 @@ export default function Post(props) {
           </div>
          </div>
         </div>
-
         {isLogged ? <CommentBox></CommentBox> : <CommentBoxDisallowed></CommentBoxDisallowed>}
-        
-        
         <div className="flex flex-col gap-8">
           <Comment></Comment>
           <Comment></Comment>

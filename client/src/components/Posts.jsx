@@ -35,7 +35,7 @@ export default function Posts({title, data, id, date, author}) {
          </button>
 </div>
          </div>
-         <a href={"/post/" + id}>
+         <a className="w-full" href={"/post/" + id}>
          <div className="w-full h-full flex flex-col py-[5px] pl-3 px-3">
            <div className="flex gap-2 items-center"><img className="h-6 w-6 rounded-full hover:border-[#212121]"src={Men2} alt="" /><p className="text-white text-xs">posted by {author} {date_created}</p></div>
            <div className="py-2"><h3 className="text-white font-bold text-xl">{title}</h3></div>
