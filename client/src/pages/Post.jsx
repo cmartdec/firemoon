@@ -111,7 +111,7 @@ export default function Post(props) {
           </div>
          </div>
         </div>
-        {isLogged ? <CommentBox></CommentBox> : <CommentBoxDisallowed></CommentBoxDisallowed>}
+        {isLogged ? <CommentBox postId={id}></CommentBox> : <CommentBoxDisallowed></CommentBoxDisallowed>}
         <div className="flex flex-col gap-8">
           <Comment></Comment>
           <Comment></Comment>

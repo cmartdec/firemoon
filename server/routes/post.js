@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyUser = require('../middlewares/verifyToken');
 
@@ -81,6 +82,25 @@ router.delete("/:id", verifyUser, async(req, res) => {
         }
     }
 })
+
+router.post("/createComment", verifyUser, async(req, res) => {
+    const user = User.findById(req.id);
+    try {
+     const newComment = new Comment({
+        data: req.body.data,
+        author: user.username,
+        postId: req.body.postId
+     })
+     const commentSaved = await newComment.save();
+     res.status(200).json({msg: "Comment sucesfully created."})
+    }catch(error){
+        res.status(401).json({msg: error.message})
+        console.log(error.message);
+    }
+})
+
+
+
 
 
 module.exports = router;
