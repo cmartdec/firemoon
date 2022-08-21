@@ -81,16 +81,8 @@ export default function ProfileSettings() {
            </img></button>
        </header>
        <div className="h-[1px] w-full border-t-[2px] border-[#404040]"></div>
-       <div className="h-[70px] mb-12 md:mb-6 ml-[20px] mt-6 mr-[20px]">
-         <form onSubmit={handleUsernameUpdate}>
-         <p className="text-white text-sm">Username:</p>
-         <input className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" placeholder={data} ref={username} required/>
-         <span>
-          <button type="submit" className={"bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[8px] px-3 rounded text-xs mt-[8px] ml-[8px]"}href="#">CHANGE</button>
-         </span>
-         </form>
-       </div>
-       <div className="h-[130px] mb-12 md:mb-6 ml-[20px]">
+      
+       <div className="h-[130px] mb-12 md:mb-6 ml-[20px] mt-6 mr-3">
          <form onSubmit={handleBioUpdate}>
          <p className="text-white text-sm">Bio:</p>
          <input className="h-[100px] w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="text" ref={bio} required/>

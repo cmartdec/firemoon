@@ -126,7 +126,7 @@ router.put("/update_email", verifyUser, async(req, res) => {
 
 })
 
-router.delete("/delete_account", verifyUser, async(req, res, next) => {
+router.post("/delete_account", verifyUser, async(req, res) => {
     const user = await User.findById(req.id);
     try {
      const isMatch = await bcrypt.compare(req.body.password, user.password);
@@ -137,6 +137,7 @@ router.delete("/delete_account", verifyUser, async(req, res, next) => {
          res.status(400).json({msg: "Wrong password"})
      }
     }catch(error) {
+        res.status(401).json({msg: error.message})
         console.log(error);
     }
 })
@@ -218,8 +219,12 @@ router.put("/reset/:token", async(req, res) => {
 
 router.get("/me", verifyUser, async(req, res) => {
     const user = await User.findById(req.id);
-    const {username, email, desc, profilePic, ...others } = user;
-    res.status(200).json({username: username, email: email, bio: desc, profilePic: profilePic});
+    try {
+     const {username, email, desc, profilePic, ...others } = user;
+     res.status(200).json({username: username, email: email, bio: desc, profilePic: profilePic});
+    }catch(error){
+        res.status(403).json({msg: "Login required."})
+    }
 })
 
 router.get("/getProfile/:username", async(req, res) => {
