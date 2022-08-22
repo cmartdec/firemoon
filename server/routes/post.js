@@ -38,6 +38,35 @@ router.post("/", verifyUser, async(req, res) => {
     }
 })
 
+router.put("/like", verifyUser, (req, res) => {
+    Post.findByIdAndUpdate(req.body.postId, {
+        $push:{likes: req.id}
+    },{
+        new: false
+    }).exec((err, result) => {
+        if(err){
+            return res.status(422).json({error: err})
+        }else{
+            res.json(result);
+        }
+    })
+})
+
+router.put("/unlike", verifyUser, (req, res) => {
+    Post.findByIdAndUpdate(req.body.postId, {
+        $pull:{likes: req.id}
+    },{
+        new: true
+    }).exec((err, result) => {
+        if(err){
+            return res.status(422).json({error: err})
+        }else{
+            res.json(result);
+        }
+    })
+})
+
+
 router.get("/getAllPosts", async(req, res) => {
     const posts = await Post.find();
     res.status(200).json(posts)
