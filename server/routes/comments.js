@@ -1,10 +1,10 @@
 const Comment = require('../models/Comment')
 const router = require('express').Router();
 
-router.get("/getComment", async(req, res) => {
-    const { postId } = req.body;
+router.get("/getComment/:postId", async(req, res) => {
+    const { postId } = req.params;
     try {
-     const comments = await Comment.find({postId});
+     const comments = await Comment.find({ postId });
      res.status(200).json(comments);
     }catch(error) {
         console.log(error);
