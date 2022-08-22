@@ -38,18 +38,15 @@ router.post("/", verifyUser, async(req, res) => {
     }
 })
 
-router.put("/like", verifyUser, (req, res) => {
-    Post.findByIdAndUpdate(req.body.postId, {
-        $push:{likes: req.id}
-    },{
-        new: false
-    }).exec((err, result) => {
-        if(err){
-            return res.status(422).json({error: err})
-        }else{
-            res.json(result);
-        }
+router.put("/like", verifyUser, async(req, res) => {
+    try {
+    const postLiked = await Post.findByIdAndUpdate(req.body.postId, {
+        $addToSet:{likes: req.id}
     })
+    res.status(200).json(postLiked)
+    }catch(error){
+        res.status(401).json({msg: error.message})
+    }
 })
 
 router.put("/unlike", verifyUser, (req, res) => {
