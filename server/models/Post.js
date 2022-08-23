@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const arrayUniquePlugin = require('mongoose-unique-array');
-const { ObjectId } = mongoose.Schema.Types;
 
 const PostSchema = new mongoose.Schema(
     {
@@ -20,7 +18,6 @@ const PostSchema = new mongoose.Schema(
             type: String,
             required: false
         },
-        likes:[{ type:ObjectId, unique: true}],
         comments: {
             type: Number,
         },
@@ -32,6 +29,5 @@ const PostSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-PostSchema.plugin(arrayUniquePlugin);
 module.exports = mongoose.model("Post", PostSchema);
 

@@ -67,7 +67,7 @@ export default function Profile() {
           <h1 className="text-white text-xl">Loading...</h1>
           :
           Object.keys(data_posts).map((index) => {
-            return <ProfilePosts key={index} title={data_posts[index].title} data={data_posts[index].data} date={data_posts[index].createdAt}></ProfilePosts>
+            return <ProfilePosts key={index} title={data_posts[index].title} data={data_posts[index].data} date={data_posts[index].createdAt} id={data_posts[index]._id}></ProfilePosts>
           })
        }
       </header>

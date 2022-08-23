@@ -38,32 +38,6 @@ router.post("/", verifyUser, async(req, res) => {
     }
 })
 
-router.put("/like", verifyUser, async(req, res) => {
-    try {
-    const postLiked = await Post.findByIdAndUpdate(req.body.postId, {
-        $addToSet:{likes: req.id}
-    })
-    res.status(200).json(postLiked)
-    }catch(error){
-        res.status(401).json({msg: error.message})
-    }
-})
-
-router.put("/unlike", verifyUser, (req, res) => {
-    Post.findByIdAndUpdate(req.body.postId, {
-        $pull:{likes: req.id}
-    },{
-        new: true
-    }).exec((err, result) => {
-        if(err){
-            return res.status(422).json({error: err})
-        }else{
-            res.json(result);
-        }
-    })
-})
-
-
 router.get("/getAllPosts", async(req, res) => {
     const posts = await Post.find();
     res.status(200).json(posts)
@@ -106,6 +80,8 @@ router.delete("/:id", verifyUser, async(req, res) => {
         }catch(error){
             res.status(403).json({msg: "Authorization error"})
         }
+    }else {
+        res.status(403).json({msg: "Authorization error."})
     }
 })
 
