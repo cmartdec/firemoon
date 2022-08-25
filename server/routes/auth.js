@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken")
@@ -231,10 +232,15 @@ router.get("/:username", async(req, res) => {
    const username = req.params;
    try {
        const user = await User.findOne(username).select("-password");
+       const user_posts = await Post.find({ user_id: user._id });
+       const data = {
+           user,
+           user_posts
+       }
        if(!user) {
            return res.status(401).json({msg: "User does not exists"})
        }
-       res.status(200).json(user);
+       res.status(200).json(data);
    }catch(error){
        res.status(401).json({ msg: error.message })
    }
