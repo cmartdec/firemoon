@@ -227,19 +227,17 @@ router.get("/me", verifyUser, async(req, res) => {
     }
 })
 
-router.get("/getProfile/:username", async(req, res) => {
-    const { username } = req.params;
-    try {
-     const user = await User.findOne({username: username});
-     if(!user) {
-         return res.status(401).json({msg: "User not found"})
-     }
-     res.status(200).json(user)
-    }catch(error){
-        res.status(401).json({msg: "Something went wrong."})
-    }
-    const user = await User.findOne({username: username});
-    console.log(user);
+router.get("/:username", async(req, res) => {
+   const username = req.params;
+   try {
+       const user = await User.findOne(username).select("-password");
+       if(!user) {
+           return res.status(401).json({msg: "User does not exists"})
+       }
+       res.status(200).json(user);
+   }catch(error){
+       res.status(401).json({ msg: error.message })
+   }
 })
 
 

@@ -7,7 +7,7 @@ export default function Posts({title, data, id, date, author}) {
 
    const [Upvotes, setUpvotes] = useState(0);
 
-   function Upvote() {
+   function UpVote() {
      setUpvotes(Upvotes+1);
    }
    function DownVote() {
@@ -22,7 +22,7 @@ export default function Posts({title, data, id, date, author}) {
        <div className="h-auto w-full bg-[#404040] rounded-md flex cursor-pointer overflow-auto hover:border border-[#212121]">
          <div className="bg-[#454545] h-auto w-[50px] flex flex-col justify-center">
            <div className="flex flex-col items-center gap-3">
-             <button onClick={Upvote}>
+             <button onClick={UpVote}>
          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
          </svg>
