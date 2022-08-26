@@ -28,6 +28,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
   return (
     <>
      <QueryClientProvider client={queryClient}>
+       <ReactQueryDevtools></ReactQueryDevtools>
      <BrowserRouter>
    <Routes>
      <Route path="/" element={<Home></Home>} />

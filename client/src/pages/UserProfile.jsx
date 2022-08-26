@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Topbar from '../components/Topbar'
 import Men from '../assets/men.jpg'
 import { useParams } from 'react-router'
@@ -9,21 +9,38 @@ import axios from 'axios'
 export default function UserProfile() {
     const { username } = useParams();
 
-    const fetchUserData = async() => {
-        const { data } = await axios.get(`http://localhost:5000/api/user/${username}`)
-        return data;
+    const [profile, setProfile] = useState();
+    const [description, setDescription] = useState(false);
+
+    const fetchData = async() => {
+      const res = await axios.get(`http://localhost:5000/api/user/${username}`);
+      if(res.data.desc == "") {
+        setDescription(false)
+      }else {
+        setDescription(true);
+      }
+      return res.data.user;
     }
 
-    const { data, isLoading, isError, error } = useQuery("user-data", fetchUserData, {
-        initialData: () => {
-            return fetchUserData();
-        }
+    const fetchPostsData = async() => {
+      const res = await axios.get(`http://localhost:5000/api/post/getUserPosts/${username}`);
+      return res.data
+    }
+
+    const { data } = useQuery("user-data", fetchData, {
+      initialData: () => {
+        return fetchData();
+      }
     });
 
-    if(isError) {
-        console.log(error.response.data.msg);
-    }
-    console.log(data);
+    const { data: data_posts, isLoading} = useQuery("posts-data", fetchPostsData, {
+      initialData: () => {
+        return fetchPostsData();
+      }
+    });
+    console.log(data_posts);
+
+
 
   return (
       <>
@@ -35,14 +52,13 @@ export default function UserProfile() {
         </div>
         <div className="flex flex-col mr-3">
           <h1>
-          { isError && <div class="bg-red-600 rounded-lg py-5 px-6 mb-4 text-base text-white w-[300px]" role="alert">
-              {error.response.data.msg}
-           </div>}
             <span className="text-white font-semibold text-2xl">
-                {data.username}
+              @{data.username}
             </span>
           </h1>
-          <p className="text-gray-400 mt-6">{data.desc}</p>
+          {
+            description ? <p className="text-gray-400 mt-6">{data.desc}</p> : <p className="text-gray-400 mt-6">No description yet.</p> 
+          }
         </div>
       </div>
     </div>

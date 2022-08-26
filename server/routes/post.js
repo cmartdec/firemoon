@@ -54,12 +54,13 @@ router.get("/getMyPosts", verifyUser, async(req, res) => {
 })
 
 router.get("/getUserPosts/:username", async(req, res) => {
-    const { username } = req.params;
+    const username = req.params;
     try {
-     const posts = await Post.find({author: username});
-     res.status(200).json(posts)
+        const user = await User.findOne(username);
+        const posts = await Post.find({user_id: user._id});
+        res.status(200).json(posts)
     }catch(error) {
-     res.status(401).json({msg: "Something went wrong."})
+        res.status(401).json({msg: error.message})
     }
 })
 

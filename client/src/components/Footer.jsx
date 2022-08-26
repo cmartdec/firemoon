@@ -18,10 +18,10 @@ export default function Footer() {
         </div>
       </div>
       <div className="h-[200px] w-[600px] bg-[#303030] py-3">
-      <a className="flex justify-center">
+      <a className="flex justify-center items-center">
         <img src={Logo} alt="logo4" width="100" />
         <span className="mt-[4px] ml-[3px] text-sm text-white">by</span>
-        <a className="text-white font-bold bg-blue-500  rounded text-xs ml-[12px] mt-[6px]" href="https://twitter.com/cmartdec">
+        <a className="text-white font-bold bg-gradient-to-r from-amber-700 to-red-500 rounded text-xs ml-[12px] mt-[6px] px-[3px] py-[2px]" href="https://twitter.com/cmartdec">
           @cmartdec
         </a>
         </a>
