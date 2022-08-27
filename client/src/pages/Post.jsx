@@ -95,7 +95,7 @@ export default function Post(props) {
           </div>
            
           <div className="flex flex-col w-full">
-          <p className="text-white text-xs mt-4 ml-3">Posted by @{data.author} {date_created}</p>
+          <p className="text-white text-xs mt-4 ml-3">Posted by @<a href={`/users/${data.author}`}>{data.author}</a> {date_created}</p>
           <h1 className="text-white font-bold text-2xl mt-1 ml-2">{data.title}</h1>
           <div className="flex flex-col ml-2">
             <p className="text-gray-300">
