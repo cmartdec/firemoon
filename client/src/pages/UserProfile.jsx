@@ -5,41 +5,37 @@ import Men from '../assets/men.jpg'
 import { useParams } from 'react-router'
 import { useQuery } from 'react-query'
 import axios from 'axios'
+import ProfilePosts from '../components/ProfilePosts'
+import Footer from '../components/Footer'
+import Posts from '../components/UserProfilePosts'
 
 export default function UserProfile() {
     const { username } = useParams();
+    const [noDescription, setNoDescription] = useState(false);
+    const [profileUsername, setProfileUsername] = useState();
+    const [profileBio, setProfileBio] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [profile, setProfile] = useState();
-    const [description, setDescription] = useState(false);
-
-    const fetchData = async() => {
-      const res = await axios.get(`http://localhost:5000/api/user/${username}`);
-      if(res.data.desc == "") {
-        setDescription(false)
-      }else {
-        setDescription(true);
+    const fetchUserData = async() => {
+      const { data } = await axios.get(`http://localhost:5000/api/user/${username}`);
+      if(data.desc === "") {
+       setNoDescription(true); 
+      } else {
+        setNoDescription(false);
       }
-      return res.data.user;
+       
+      return data;
     }
 
-    const fetchPostsData = async() => {
-      const res = await axios.get(`http://localhost:5000/api/post/getUserPosts/${username}`);
-      return res.data
-    }
-
-    const { data } = useQuery("user-data", fetchData, {
-      initialData: () => {
-        return fetchData();
+    const { data } = useQuery("user-data", fetchUserData, {
+      onSuccess: (data) => {
+        setProfileUsername(data.username)
+        setProfileBio(data.desc)
       }
     });
 
-    const { data: data_posts, isLoading} = useQuery("posts-data", fetchPostsData, {
-      initialData: () => {
-        return fetchPostsData();
-      }
-    });
-    console.log(data_posts);
-
+    console.log(profileUsername);
+    console.log(profileBio);
 
 
   return (
@@ -53,15 +49,27 @@ export default function UserProfile() {
         <div className="flex flex-col mr-3">
           <h1>
             <span className="text-white font-semibold text-2xl">
-              @{data.username}
+              @{profileUsername}
             </span>
           </h1>
-          {
-            description ? <p className="text-gray-400 mt-6">{data.desc}</p> : <p className="text-gray-400 mt-6">No description yet.</p> 
-          }
+          <div className="mt-3">
+          {noDescription ? <p className="text-gray-300">No description yet.</p> : <p className="text-gray-400">{profileBio}</p>}
+          </div>
         </div>
       </div>
     </div>
+    <div className="flex flex-col items-start py-7 gap-7 container mx-auto">
+      <header className="w-full flex flex-col items-center gap-8"><p className="text-white font-bold text-xl">Posts</p>
+       {
+         isLoading ?
+          <h1 className="text-white text-xl">Loading...</h1>
+          :
+          <Posts></Posts>
+       }
+      </header>
+
+    </div>
+    <Footer></Footer>
     </>
   )
 }
