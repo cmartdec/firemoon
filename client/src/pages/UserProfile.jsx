@@ -14,6 +14,7 @@ export default function UserProfile() {
     const [noDescription, setNoDescription] = useState(false);
     const [profileUsername, setProfileUsername] = useState();
     const [profileBio, setProfileBio] = useState();
+    const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchUserData = async() => {
@@ -23,7 +24,11 @@ export default function UserProfile() {
       } else {
         setNoDescription(false);
       }
-       
+      return data;
+    }
+
+    const fetchUserPosts = async() => {
+      const { data } = await axios.get(`http://localhost:5000/api/post/getUserPosts/${username}`)
       return data;
     }
 
@@ -34,10 +39,18 @@ export default function UserProfile() {
       }
     });
 
-    console.log(profileUsername);
-    console.log(profileBio);
+    const { data: data_posts, isLoading: isLoadingPosts } = useQuery("posts-data", fetchUserPosts, {
+      onSuccess: (data_posts) => {
+        setPosts(data_posts);
+      }
+    });
 
-
+    if(isLoadingPosts) {
+      console.log("Loading...")
+    } else {
+      console.log(posts);
+    }
+    
   return (
       <>
     <Topbar></Topbar>
@@ -61,10 +74,12 @@ export default function UserProfile() {
     <div className="flex flex-col items-start py-7 gap-7 container mx-auto">
       <header className="w-full flex flex-col items-center gap-8"><p className="text-white font-bold text-xl">Posts</p>
        {
-         isLoading ?
+         isLoadingPosts ?
           <h1 className="text-white text-xl">Loading...</h1>
           :
-          <Posts></Posts>
+          Object.keys(data_posts).map((index) => {
+            return <Posts key={index} title={data_posts[index].title} data={data_posts[index].data} author={data_posts[index].author} date={data_posts[index].createdAt}></Posts>
+          })
        }
       </header>
 
