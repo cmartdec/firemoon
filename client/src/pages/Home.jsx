@@ -27,9 +27,7 @@ function Home() {
     return data;
   }
 
-  const { data, isLoading, isError, error } = useQuery("posts", fetchAllPosts, {initialData: () => {
-    return fetchAllPosts();
-   }});
+  const { data, isLoading, isError, error } = useQuery("posts", fetchAllPosts);
 
    if(isError) {
      console.log(error);
