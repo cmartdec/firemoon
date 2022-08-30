@@ -10,6 +10,10 @@ const PostSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        likeCount: {
+            type: Number,
+            default: 0
+        },
         photo: {
             type: String,
             required: false

@@ -39,29 +39,15 @@ export default function Post(props) {
     return data;
   }
 
-  const fetchCommentData = async() => {
-    const { data } = await axios.get(`http://localhost:5000/api/comment/getComment/${id}`);
-    return data;
-  }
-
   const { data } = useQuery("post_data", fetchPostData, {
     initialData: () => {
       return fetchPostData();
     }
   });
 
-  const { data: dataComment, isLoading} = useQuery("comment-data", fetchCommentData, {
-    initialData: () => {
-      return fetchCommentData();
-    }
-  });
 
  const date_created = moment.utc(data.createdAt).local().startOf('seconds').fromNow()
 
- Object.keys(dataComment).map((index) => {
-   console.log(dataComment[index].data)
- })
- console.log(dataComment);
 
   function Upvote() {
     setCount(count+1);

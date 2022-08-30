@@ -4,6 +4,7 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyUser = require('../middlewares/verifyToken');
+const PostLike = require("../models/PostLike");
 
 
 router.post("/", verifyUser, async(req, res) => {
@@ -85,6 +86,38 @@ router.delete("/:id", verifyUser, async(req, res) => {
         res.status(403).json({msg: "Authorization error."})
     }
 })
+
+router.post("/like/:id", verifyUser, async(req, res) => {
+    try {
+    const { id } = req.params;
+    const user_id = req.id;
+
+    const post = await Post.findById(id);
+    
+    if(!post) {
+        throw new Error("Post does not exist.")
+    }
+
+    const existingPostLike = await PostLike.findOne({ postId: id, userId: user_id });
+
+    if(existingPostLike) {
+        throw new Error("Post already liked.");
+    }
+
+    await PostLike.create({
+        postId: id,
+        userId: user_id,
+    });
+
+    post.likeCount = (await PostLike.find({ postId: id })).length;
+    
+    await post.save();
+
+    return res.json({ sucess: true })
+} catch (error) {
+    return res.status(400).json({ err: error.message })
+}
+});
 
 
 router.post("/createComment", verifyUser, async(req, res) => {

@@ -42,9 +42,12 @@ function Home() {
     {isError &&
     <p className="text-center mt-2 text-red-600 text-xl">Something went wrong.</p>
      }
-    <div className="h-auto w-full bg-[#303030] flex gap-6">
-      <div className="hidden w-[400px] h-[200px] mt-[73px] ml-16 xl:flex flex-col px-3 py-3 border-[2px] border-[#404040] rounded overflow-y-auto">
-        <header className="mb-2 text-white font-bold">Podcasts:</header>
+     <div className="h-full w-full flex justify-center">
+    <div className="h-full w-[1380px] bg-[#303030] flex gap-6">
+      <div className="hidden w-[400px] h-[260px] mt-[73px] ml-16 xl:flex flex-col px-3 py-3 border-[2px] border-[#404040] rounded-xl overflow-y-auto">
+        <header className="mb-2 text-white font-bold text-center">
+          <h1 className="text-white">Podcasts:</h1>
+        </header>
         <div className="flex flex-col gap-2">
           <a className="flex flex-col hover:bg-[#505050]" href="https://open.spotify.com/episode/1uFk7jzxb4vCsnjVXZm4v6">
            <div className="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
@@ -61,7 +64,7 @@ function Home() {
         </div>
       </div>
       <div className="h-screen w-full max-w-[1024px] mt-6">
-      <div className="border-[2px] border-[#404040] w-full h-auto mt-12 rounded ml-3 xl:ml-0">
+      <div className="border-[2px] border-[#404040] w-full h-auto mt-12 rounded-md ml-3 xl:ml-0">
           <div className="h-auto w-full py-[9px] pl-[35px] border-b-[2px] border-[#404040] flex items-center">
             <a href="/profile">
             <img src={Men2} className="h-[35px] w-[35px] rounded-full border-[2px] border-[#404040]" alt="" /></a>
@@ -121,6 +124,7 @@ function Home() {
         </div>
       </div>
       </div>
+    </div>
     </div>
 
     </>
