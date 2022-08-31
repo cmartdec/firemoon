@@ -96,7 +96,7 @@ function Home() {
                 <h1 className="text-gray-200 text-center">Loading...</h1>
                 :
                  Object.keys(data).map((index) => {
-                 return  <Posts key={index} title={data[index].title} data={data[index].data} id={data[index]._id} date={data[index].createdAt} author={data[index].author}></Posts>
+                 return  <Posts key={index} title={data[index].title} data={data[index].data} id={data[index]._id} date={data[index].createdAt} author={data[index].author} likeCount={data[index].likeCount}></Posts>
                 })
               }
             </div>

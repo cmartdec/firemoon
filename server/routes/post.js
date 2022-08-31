@@ -119,6 +119,31 @@ router.post("/like/:id", verifyUser, async(req, res) => {
 }
 });
 
+router.post("/unlike/:id", verifyUser, async(req, res) => {
+    try {
+        const { id } = req.params;
+        const user_id = req.id;
+
+        const post = await Post.findById(id);
+        if(!post) {
+            throw new Error("Post does not exist.")
+        }
+        const existingPostLike = await PostLike.findOne({ id, user_id })
+        
+        if(!existingPostLike) {
+            throw new Error("Post is already not liked.")
+        }
+
+        await existingPostLike.remove();
+        post.likeCount = (await PostLike.find({ postId: id })).length;
+
+        await post.save();
+        return res.json({ success: true });
+    }catch(error) {
+        return res.status(400).json({error: error.message});
+    }
+})
+
 
 router.post("/createComment", verifyUser, async(req, res) => {
     const user = User.findById(req.id);

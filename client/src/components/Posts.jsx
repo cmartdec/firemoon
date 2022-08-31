@@ -2,38 +2,44 @@ import React from 'react'
 import Men2 from '../assets/men2.jpg'
 import { useState } from 'react'
 import moment from 'moment'
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
-export default function Posts({title, data, id, date, author}) {
+export default function Posts({title, data, id, date, author, likeCount}) {
+    
+    const [likeCounter, setLikeCounter] = useState(likeCount);
+    const body_data = data.slice(0,400);
+    const date_created = moment.utc(date).local().startOf('seconds').fromNow()
 
-   const [Upvotes, setUpvotes] = useState(0);
+    const handleLikeButton = async() => {
+     const res = await axios.post(`http://localhost:5000/api/post/like/${id}`) 
+     setLikeCounter(likeCounter+1)
+    }
+    console.log(likeCounter);
 
-   function UpVote() {
-     setUpvotes(Upvotes+1);
-   }
-   function DownVote() {
-     setUpvotes(Upvotes-1);
-   }
-
-   const body_data = data.slice(0,400);
-   const date_created = moment.utc(date).local().startOf('seconds').fromNow()
+    const handleUnLikeButton = async() => {
+      const res = await axios.post(`http://localhost:5000/api/post/unlike/${id}`)
+      setLikeCounter(likeCounter-1)
+    }
 
   return (
       <>
        <div className="h-auto w-full bg-[#404040] rounded-md flex cursor-pointer overflow-auto hover:border border-[#212121]">
          <div className="bg-[#454545] h-auto w-[50px] flex flex-col justify-center">
            <div className="flex flex-col items-center gap-3">
-             <button onClick={UpVote}>
-         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
-         </svg>
+             <button onClick={handleLikeButton}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="text-white w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
              </button>
-         <p className="text-white font-semibold text-sm">{Upvotes}</p>
-         <button onClick={DownVote}>
-         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-         </svg>
-         </button>
-</div>
+             <h1 className="text-white font-semibold">{likeCounter}</h1>
+             <button onClick={handleUnLikeButton}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="text-white w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              </button>
+
+      </div>
          </div>
          <a className="w-full" href={"/post/" + id}>
          <div className="w-full h-full flex flex-col py-[5px] pl-3 px-3">
