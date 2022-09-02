@@ -1,29 +1,15 @@
 import React from 'react'
 import moment from 'moment'
 
-export default function UserProfilePosts({ title, data, author, date }) {
+export default function UserProfilePosts({ title, data, author, date, likeCount, id }) {
   console.log(title, data)
 
 
   const date_created = moment.utc(date).local().startOf('seconds').fromNow()
   return (
       <>
-      <div className="h-auto w-[800px] bg-[#404040] rounded-md flex cursor-pointer overflow-auto">
-          <div className="h-auto w-[40px] flex flex-col justify-center">
-           <div className="flex flex-col items-center gap-3">
-             <button>
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
-             </svg>
-             </button>
-            <p className="text-white font-semibold text-sm"></p>
-            <button>
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-             </svg>
-            </button>
-           </div>
-         </div>
+      <a href={"/post/" + id}>
+      <div className="h-auto w-[800px] bg-[#404040] rounded-md flex cursor-pointer overflow-auto pl-3">
          <div className="w-full h-full flex flex-col mb-5 pl-3">
            <div className="flex gap-2 items-center"><p className="text-white text-xs mt-6">Posted by {author} {date_created}</p></div>
            <div className="py-2"><h3 className="text-white font-bold text-xl">{title}</h3></div>
@@ -35,6 +21,7 @@ export default function UserProfilePosts({ title, data, author, date }) {
            </div>
          </div>
        </div>
+       </a>
       </>
   )
 }

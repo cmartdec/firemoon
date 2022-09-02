@@ -103,7 +103,7 @@ function Home() {
     </div>
       </div>
       <div className="h-auto flex flex-col justify-end items-center mr-3">
-      <div className="h-[300px] w-[200px] border-[2px] border-[#404040] ml-8 sticky bottom-0 rounded">
+      <div className="h-[300px] w-[200px] border-[2px] border-[#404040] ml-8 sticky bottom-0 rounded-xl">
         <div className="flex px-2 pt-8">
           <div className="h-auto w-[50%] flex flex-col items-center gap-8">
             <a className="text-[#9C9C9C] hover:text-orange-500 text-xs" href="/interviews">Interviews</a>
