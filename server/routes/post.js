@@ -5,6 +5,7 @@ const Comment = require("../models/Comment");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyUser = require('../middlewares/verifyToken');
 const PostLike = require("../models/PostLike");
+const PostSaved = require("../models/PostSaved");
 
 
 router.post("/", verifyUser, async(req, res) => {
@@ -99,6 +100,7 @@ router.post("/like/:id", verifyUser, async(req, res) => {
     }
 
     const existingPostLike = await PostLike.findOne({ postId: id, userId: user_id });
+    console.log(existingPostLike);
 
     if(existingPostLike) {
         throw new Error("Post already liked.");
@@ -141,6 +143,47 @@ router.post("/unlike/:id", verifyUser, async(req, res) => {
         return res.json({ success: true });
     }catch(error) {
         return res.status(400).json({error: error.message});
+    }
+})
+
+router.post("/savePost/:id", verifyUser, async(req, res) => {
+    const { id } = req.params;
+    const user_id = req.id;
+
+    try {
+        const existingSavedPost = await PostSaved.findOne({ postId: id, userId: user_id });
+        console.log(existingSavedPost);
+
+    if(existingSavedPost) {
+        return res.status(403).json({msg: "Post already saved."})
+    }
+    const data_post = new PostSaved({
+        postId: id,
+        userId: user_id
+    });
+    
+    const savedPost = await data_post.save();
+    console.log(savedPost);
+    return res.status(200).json(savedPost);
+
+    }catch(error) {
+        return res.status(400).json({ error: error.message });
+    }
+ }
+);
+
+router.get("/savedPost/:id", verifyUser, async(req, res) => {
+    const { id } = req.params;
+    const user_id = req.id;
+
+    try {
+        const savedPost = await PostSaved.findOne({ postId: id, userId: user_id });
+        if(!savedPost) {
+            return res.status(401).json({msg: "No post saved."})
+        }
+        return res.status(200).json(savedPost);
+    } catch(error) {
+        return res.status(400).json({ error: error.message });
     }
 })
 

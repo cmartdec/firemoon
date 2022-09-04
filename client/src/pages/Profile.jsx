@@ -25,7 +25,6 @@ export default function Profile() {
     setShowMyPosts(false);
   }
 
-
   const fetchUserData = async() => {
     const { data } = await axios.get("http://localhost:5000/api/user/me", { withCredentials: true });
     if(data.bio === "") {
@@ -42,7 +41,8 @@ export default function Profile() {
   }
 
   const { data: data_posts, isLoading} = useQuery("user-posts", fetchUserPosts);
-  const { data: user_data, isLoading: isLoadingUserData} = useQuery("user-data", fetchUserData);
+  const { data: user_data, isLoading: isLoadingUserData, isError} = useQuery("user-data", fetchUserData);
+
 
   const MyPosts = () => {
     return(
