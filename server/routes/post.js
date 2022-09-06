@@ -171,8 +171,13 @@ router.get("/savedPost", verifyUser, async(req, res) => {
     const user_id = req.id;
 
     try {
-        const savedPosts = await PostSaved.find({ userId: user_id }).populate("data", "-user_id").select("-userId").lean();
-        return res.status(200).json(savedPosts);
+        const savedPosts = await PostSaved.find({ userId: user_id }).select("data -_id");
+        const postsIds = []
+        for(let i = 0; i<savedPosts.length; i++) {
+            postsIds.push(savedPosts[i].data)
+        }
+        const posts = await Post.find({_id: postsIds});
+        return res.status(200).json(posts);
 
         } catch(error) {
             return res.status(400).json({ error: error.message });
