@@ -60,6 +60,7 @@ export default function Profile() {
     )
   }
 
+
   if(isLoadingUserData) {
     console.log("loading...");
   }else {

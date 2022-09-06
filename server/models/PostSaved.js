@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const PostSaved= new mongoose.Schema(
     {
-        postId: {
+        data: {
             type: mongoose.Types.ObjectId,
-            ref: "post",
+            ref: "Post",
             required: true,
         },
         userId: {
-            type: mongoose.Types.ObjectId,
+            type: String,
             ref: "user",
             required: true,
         },

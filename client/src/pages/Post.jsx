@@ -9,6 +9,7 @@ import { useQuery } from 'react-query'
 import axios from 'axios'
 import { format } from 'date-fns'
 import moment from 'moment'
+axios.defaults.withCredentials = true;
 
 
 export default function Post(props) {
@@ -78,6 +79,15 @@ export default function Post(props) {
    }
  }
 
+ const handleSaveButton = async() => {
+   try {
+     const res = await axios.post(`http://localhost:5000/api/post/savePost/${id}`, { withCredentials: true })
+     console.log(res);
+   }catch(error) {
+      console.log(error);
+   }
+ }
+
 
   return (
     <>
@@ -118,7 +128,7 @@ export default function Post(props) {
                 <p>24 Comments</p>
               </div>
             </button>
-            <button className="m-2 mb-4 text-xs rounded-lg bg-[#303030] py-[4px] px-4 text-white mt-4">
+            <button onClick={handleSaveButton} className="m-2 mb-4 text-xs rounded-lg bg-[#303030] py-[4px] px-4 text-white mt-4">
               <div className="flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-[12px] w-[12px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />

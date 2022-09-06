@@ -67,12 +67,6 @@ router.get("/getUserPosts/:username", async(req, res) => {
 })
 
 
-router.get("/:id", async(req, res) => {
-    const { id } = req.params;
-    const post = await Post.findById(id);
-    res.status(200).json(post)
-})
-
 router.delete("/:id", verifyUser, async(req, res) => {
     const { id } = req.params;
     const post = await Post.findById(id);
@@ -151,14 +145,14 @@ router.post("/savePost/:id", verifyUser, async(req, res) => {
     const user_id = req.id;
 
     try {
-        const existingSavedPost = await PostSaved.findOne({ postId: id, userId: user_id });
+        const existingSavedPost = await PostSaved.findOne({ data: id, userId: user_id });
         console.log(existingSavedPost);
 
     if(existingSavedPost) {
         return res.status(403).json({msg: "Post already saved."})
     }
     const data_post = new PostSaved({
-        postId: id,
+        data: id,
         userId: user_id
     });
     
@@ -172,19 +166,17 @@ router.post("/savePost/:id", verifyUser, async(req, res) => {
  }
 );
 
-router.get("/savedPost/:id", verifyUser, async(req, res) => {
-    const { id } = req.params;
+
+router.get("/savedPost", verifyUser, async(req, res) => {
     const user_id = req.id;
 
     try {
-        const savedPost = await PostSaved.findOne({ postId: id, userId: user_id });
-        if(!savedPost) {
-            return res.status(401).json({msg: "No post saved."})
+        const savedPosts = await PostSaved.find({ userId: user_id }).populate("data", "-user_id").select("-userId").lean();
+        return res.status(200).json(savedPosts);
+
+        } catch(error) {
+            return res.status(400).json({ error: error.message });
         }
-        return res.status(200).json(savedPost);
-    } catch(error) {
-        return res.status(400).json({ error: error.message });
-    }
 })
 
 
@@ -203,6 +195,13 @@ router.post("/createComment", verifyUser, async(req, res) => {
         console.log(error.message);
     }
 })
+
+router.get("/:id", async(req, res) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    res.status(200).json(post)
+})
+
 
 
 
