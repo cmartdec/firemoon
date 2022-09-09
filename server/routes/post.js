@@ -184,6 +184,20 @@ router.get("/savedPost", verifyUser, async(req, res) => {
         }
 })
 
+router.delete("/deleteSavedPost/:id", verifyUser, async(req, res) => {
+    const { id } = req.params;
+    const user_id = req.id;
+
+    try {
+        const savedPosts = await PostSaved.deleteMany({ userId: user_id, data: id});
+        return res.status(200).json({sucess: true});
+    } catch(error) {
+        return res.status(400).json({ error: error.message });
+    }
+})
+
+
+
 
 router.post("/createComment", verifyUser, async(req, res) => {
     const user = User.findById(req.id);
