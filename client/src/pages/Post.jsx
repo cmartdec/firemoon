@@ -9,6 +9,8 @@ import { useQuery } from 'react-query'
 import axios from 'axios'
 import { format } from 'date-fns'
 import moment from 'moment'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 axios.defaults.withCredentials = true;
 
 
@@ -82,8 +84,20 @@ export default function Post(props) {
  const handleSaveButton = async() => {
    try {
      const res = await axios.post(`http://localhost:5000/api/post/savePost/${id}`, { withCredentials: true })
+     toast.success("Post saved succesfully!", {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      autoClose: 2000,
+      pauseOnHover: false
+    })
      console.log(res);
    }catch(error) {
+    toast.warning("You already saved this post!", {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      autoClose: 2000,
+      pauseOnHover: false
+    })
       console.log(error);
    }
  }
@@ -92,6 +106,7 @@ export default function Post(props) {
   return (
     <>
     <Topbar></Topbar>
+    <ToastContainer></ToastContainer>
     <div className="h-auto w-full flex justify-center">
       <div className="w-full max-w-[1024px] h-full flex flex-col items-center pt-12">
         <div className="h-auto w-full bg-[#404040] rounded mb-12 flex">

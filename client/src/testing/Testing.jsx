@@ -1,40 +1,29 @@
 import React from 'react'
-import { useState } from 'react'
-import Men from '../assets/men.jpg'
-
-const Posts = () => {
-
-    const [likeCount, setLikeCount] = useState(0);
-
-
-
-    function handleClick () {
-      console.log("hello")
-    }
-
-
-
-
-
-    return (
-        <>
-          <div>hola</div>
-          <h1 onClick={handleClick} className="text-red-500 hover:cursor-pointer bg-blue-500 rounded-xl pl-3">Hola daniel</h1>
-        </>
-    )
-}
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Testing() {
+
+  const handleClick = () => {
+    toast.success("Sucess notification.", {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      autoClose: 2000,
+      pauseOnHover: false
+    })
+  }
   return (
-      <>
-      <div className="mt-12 px-12">
-      <Posts></Posts>
-      </div>
-      </>
+    <>
+    <div>
+      <button onClick={handleClick} className="bg-blue-500 rounded">Notify</button>
+      <ToastContainer></ToastContainer>
+    </div>
+     
+    </>
   )
 }
+
 
 
 
