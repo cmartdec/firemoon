@@ -50,12 +50,9 @@ export default function Profile() {
   const { data: user_data, isLoading: isLoadingUserData, isError} = useQuery("user-data", fetchUserData);
   const { data: data_saved_posts, isLoading: isLoadingSavedPosts } = useQuery("user-saved-posts", fetchSavedPosts);
 
-  if(isLoadingSavedPosts) {
-    console.log("loading...");
-  } else {
-    console.log(data_saved_posts);
-  }
-  console.log(data_posts)
+ 
+
+
 
   const MyPosts = () => {
     return(
@@ -84,7 +81,7 @@ export default function Profile() {
       <span class="sr-only">Loading...</span>
       </div>) : 
       Object.keys(data_saved_posts).map((index) => {
-        return <SavedPosts key={index} title={data_saved_posts[index].title} data={data_saved_posts[index].data} author={data_saved_posts[index].author}></SavedPosts>
+        return <SavedPosts key={index} title={data_saved_posts[index].title} data={data_saved_posts[index].data} author={data_saved_posts[index].author} id={data_saved_posts[index]._id} date={data_saved_posts[index].createdAt}></SavedPosts>
       })
     )
   }

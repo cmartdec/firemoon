@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import Titlebar from '../components/Titlebar'
 import Men from '../assets/men.jpg'
@@ -13,6 +13,7 @@ import { useMutation } from 'react-query'
 
 export default function ChangePassword() {
 
+
   const current_password = useRef();
   const newPassword = useRef();
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function ChangePassword() {
   }
 
   const { isLoading, isError, error, mutate} = useMutation("update_password", updatePassword)
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,11 +41,11 @@ export default function ChangePassword() {
   return (
       <>
       <Titlebar></Titlebar>
-     
       <form onSubmit={handleSubmit}>
       <div className="w-full flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[4px] border-[#404040] mt-16 flex flex-col mb-24 shadow-sm"> 
-       <div className="h-[70px] mb-6 ml-[20px] mt-6 mr-[20px]">
+         {isError && <h1 className="text-red-500 text-center font-semibold mt-3">{error.response.data.msg}</h1>}
+       <div className="h-[70px] mb-6 ml-[20px] mt-4 mr-[20px]">
          <p className="text-white text-sm">Current password:</p>
          <input ref={current_password} className="w-[370px] rounded bg-[#262626] border-none text-white text-sm border-transparent focus:border-transparent focus:ring-0 focus:bg-[#212121]" type="password" />
        </div>
