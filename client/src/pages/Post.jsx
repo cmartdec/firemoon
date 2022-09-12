@@ -102,7 +102,7 @@ export default function Post(props) {
    }
  }
 
-
+ console.log(data);
   return (
     <>
     <Topbar></Topbar>
