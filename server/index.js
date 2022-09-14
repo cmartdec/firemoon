@@ -5,7 +5,6 @@ const port = 5000;
 const User = require("./models/User");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
-const commentRoute = require("./routes/comments")
 const contributeRoute = require("./routes/contribute");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -34,7 +33,6 @@ app.use(cors({
 app.use(express.json());
 app.use("/api/user", authRoute);
 app.use("/api/post", postRoute);
-app.use("/api/comment", commentRoute);
 app.use("/api/contribute", contributeRoute);
 app.use(cookieParser());
 
