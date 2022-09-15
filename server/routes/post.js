@@ -216,6 +216,9 @@ router.post("/createComment/:id", verifyUser, async(req, res) => {
             post: id
         });
 
+        post.comments += 1;
+        await post.save();
+
         await Comment.populate(comment, { path: "commenter", select: "-password" })
        
             // INTRODUCE MANUALLY USER INSIDE OF COMMENT COLLECTION        

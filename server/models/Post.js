@@ -24,12 +24,11 @@ const PostSchema = new mongoose.Schema(
         },
         comments: {
             type: Number,
+            default: 0
         },
         user_id: {
             type: String,
         }
-
-
     },
     { timestamps: true }
 );
