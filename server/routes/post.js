@@ -197,7 +197,9 @@ router.delete("/deleteSavedPost/:id", verifyUser, async(req, res) => {
 })
 
 router.post("/createComment/:id", verifyUser, async(req, res) => {
+
     try {
+
         const { id } = req.params;
         const user_id = req.id;
         const { content } = req.body;
@@ -207,17 +209,18 @@ router.post("/createComment/:id", verifyUser, async(req, res) => {
         if(!post) {
             return res.status(400).json({ msg: "Post was not found."})
         }
-
+        
         const comment = await Comment.create({
             commenter: user_id,
             content,
             post: id
         });
+
+        await Comment.populate(comment, { path: "commenter", select: "-password" })
        
             // INTRODUCE MANUALLY USER INSIDE OF COMMENT COLLECTION        
             // search user based on "user_id" in the database, take photo, id, and nickname and put it in
             // commenter field above.
-
 
         return res.status(200).json(comment);
 
