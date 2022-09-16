@@ -7,8 +7,8 @@ export default function CommentBox({ postId }) {
 
   const data = useRef();
 
-  const createCommentRequest = async({ data, postId }) => {
-    const res = await axios.post("http://localhost:5000/api/post/createComment", { postId, data})
+  const createCommentRequest = async({ data }) => {
+    const res = await axios.post(`http://localhost:5000/api/post/createComment/${postId}`, { content: data })
     return res;
   }
 
@@ -20,7 +20,6 @@ export default function CommentBox({ postId }) {
     console.log(data.current.value);
     mutate({
       data: data.current.value,
-      postId
     })
     data.current.value = "";
   }

@@ -5,7 +5,7 @@ import Comment from '../components/Comment'
 import CommentBoxDisallowed from '../components/CommentBoxDisallowed'
 import CommentBox from '../components/CommentBox'
 import { useParams } from 'react-router'
-import { useQuery } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 import axios from 'axios'
 import { format } from 'date-fns'
 import moment from 'moment'
@@ -42,11 +42,26 @@ export default function Post(props) {
     return data;
   }
 
+  const fetchCommentsData = async() => {
+    const { data } = await axios.get(`http://localhost:5000/api/post/getPostComments/${id}`)
+    return data;
+  }
+  
+
   const { data, isLoading } = useQuery("post_data", fetchPostData, {
     onSuccess: (data) => {
       setLikeCounter(data.likeCount);
     }
   });
+
+  const { data: dataComments, isLoading: isLoadingComments } = useQuery("comments_data", fetchCommentsData)
+
+
+  if(isLoadingComments) {
+    console.log("is loading...")
+  } else {
+    console.log(dataComments);
+  }
 
   if(isLoading) {
     return (
