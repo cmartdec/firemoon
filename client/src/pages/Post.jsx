@@ -177,7 +177,7 @@ export default function Post(props) {
             <h1>Loading...</h1>
             :
             Object.keys(dataComments).map((index) => {
-              return <Comment key={index} content={dataComments[index].content}></Comment>
+              return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username}></Comment>
             })
           }
         </div>
