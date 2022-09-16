@@ -24,6 +24,7 @@ export default function Post(props) {
 
 
   const [likeCounter, setLikeCounter] = useState();
+  const [commentCounter, setCommentCounter] = useState();
   const [isLogged, setIsLogged] = useState(true);
   const logged_in = localStorage.getItem('logged_in');
 
@@ -51,6 +52,7 @@ export default function Post(props) {
   const { data, isLoading } = useQuery("post_data", fetchPostData, {
     onSuccess: (data) => {
       setLikeCounter(data.likeCount);
+      setCommentCounter(data.comments);
     }
   });
 
@@ -155,7 +157,7 @@ export default function Post(props) {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-[12px] w-[12px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                 </svg>
-                <p>24 Comments</p>
+                <p>{commentCounter} Comments</p>
               </div>
             </button>
             <button onClick={handleSaveButton} className="m-2 mb-4 text-xs rounded-lg bg-[#303030] py-[4px] px-4 text-white mt-4 hover:opacity-75">
@@ -177,7 +179,7 @@ export default function Post(props) {
             <h1>Loading...</h1>
             :
             Object.keys(dataComments).map((index) => {
-              return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username}></Comment>
+              return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username} date={dataComments[index].createdAt}></Comment>
             })
           }
         </div>

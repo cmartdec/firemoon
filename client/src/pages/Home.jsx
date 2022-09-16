@@ -102,7 +102,7 @@ function Home() {
     </div>
                 :
                  Object.keys(data).map((index) => {
-                 return  <Posts key={index} title={data[index].title} data={data[index].data} id={data[index]._id} date={data[index].createdAt} author={data[index].author} likeCount={data[index].likeCount}></Posts>
+                 return  <Posts key={index} title={data[index].title} data={data[index].data} id={data[index]._id} date={data[index].createdAt} author={data[index].author} likeCount={data[index].likeCount} comments={data[index].comments}></Posts>
                 })
               }
             </div>
