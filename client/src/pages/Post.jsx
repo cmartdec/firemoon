@@ -170,11 +170,16 @@ export default function Post(props) {
          </div>
         </div>
         {isLogged ? <CommentBox postId={id}></CommentBox> : <CommentBoxDisallowed></CommentBoxDisallowed>}
-        <div className="flex flex-col gap-8">
-          <Comment></Comment>
-          <Comment></Comment>
-          <Comment></Comment>
-
+        <div className="w-full flex flex-col gap-8 mb-24">
+          { 
+           
+           isLoadingComments ? 
+            <h1>Loading...</h1>
+            :
+            Object.keys(dataComments).map((index) => {
+              return <Comment key={index} content={dataComments[index].content}></Comment>
+            })
+          }
         </div>
       </div>
     </div>
@@ -183,6 +188,14 @@ export default function Post(props) {
 
   )
 }
+
+
+/*
+            Object.keys(dataComments).map((index) => {
+              return <Comment key={index} content={dataComments[index].content}></Comment>
+            })
+
+*/
 
 
 

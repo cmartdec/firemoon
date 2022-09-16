@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Men2 from '../assets/men2.jpg'
 
-export default function Comment() {
+export default function Comment({ content }) {
 
     const [count, setCount] = useState(0);
 
@@ -33,19 +33,10 @@ export default function Comment() {
          </svg>
         </button>
        </div>
-       <div className="w-full h-full px-3">
+       <div className="w-auto h-full px-3">
        <a href="/profile" className="flex h-[40px] items-center gap-[4px]"><img className="h-6 w-6 rounded-full" src={Men2} alt="" /><span className="text-white font-bold text-xs">cmartdec</span><p className="ml-2 text-[#9C9C9C] text-xs">18 hours ago</p></a>
-       <div className="text-gray-300">
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
-           Great job dude!!, I'm super glad to see you here again
+       <div className="text-gray-300 w-full">
+         {content}
        </div>
        </div>
     </div>
