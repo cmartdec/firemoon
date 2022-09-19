@@ -272,6 +272,9 @@ router.delete("/deleteComment/:commentId", verifyUser, async(req, res) => {
         const comment = await Comment.findById(commentId);
         if(String(comment.commenter) === user_id) {
             await Comment.findByIdAndDelete(commentId);
+            const post = await Post.findById(comment.post);
+            post.comments -= 1;
+            post.save();
             return res.status(200).json({ success: true })
         } else {
             return res.status(403).json({msg: "You are not authorized."})
