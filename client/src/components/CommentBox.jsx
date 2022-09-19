@@ -22,6 +22,7 @@ export default function CommentBox({ postId }) {
       data: data.current.value,
     })
     data.current.value = "";
+    window.location.reload(true);
   }
 
   return (

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
 import moment from 'moment'
 import axios from 'axios'
@@ -15,6 +16,8 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const [isAuthor, setIsAuthor] = useState();
     const [isOpened, setIsOpened] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(async() => {
       const data = await axios.get("http://localhost:5000/api/user/me", { withCredentials: true });
       if(data.data._id === commenterId) {
@@ -24,6 +27,15 @@ export default function Comment({ content, commenter, date, commenterId, comment
       }
     }, [])
 
+    const handleDeleteRequest = async() => {
+      try {
+       await axios.delete(`http://localhost:5000/api/post/deleteComment/${commentId}`);
+       window.location.reload(true);
+      } catch(error) {
+        navigate("/")
+        console.log(error);
+      }
+    }
 
 /*
 isOpened ?
@@ -50,7 +62,7 @@ isOpened ?
             <div className="flex gap-3 h-auto items-center ml-8">
              <h1 className="text-white text-sm">Are you sure?</h1>
              <div className="flex gap-2">
-             <button className="text-white rounded bg-red-500 px-2 text-sm py-0 hover:bg-red-600">Yes</button>
+             <button onClick={handleDeleteRequest} className="text-white rounded bg-red-500 px-2 text-sm py-0 hover:bg-red-600">Yes</button>
              <button onClick={() => setIsOpened(false)} className="text-white rounded bg-[#353535] px-2 text-sm py-0 hover:bg-[#303030]">No</button>
              </div>
             </div>
@@ -75,8 +87,6 @@ isOpened ?
        {
          isAuthor && <DeleteSection></DeleteSection>
        }
-
-
        </div>
        <div className="text-gray-300 w-full">
          {content}
