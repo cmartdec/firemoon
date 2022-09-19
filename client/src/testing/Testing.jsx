@@ -1,48 +1,38 @@
 import React from 'react'
-import { Editor, EditorState } from "draft-js";
-import { convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import "draft-js/dist/Draft.css";
+import { useState, useEffect } from 'react'
 
 export default function Testing() {
 
-  const [editorState, setEditorState] = React.useState(() =>
-    EditorState.createEmpty()
-  );
+  const [counter, setCounter] = useState(0);
 
-  const editor = React.useRef(null);
-  function focusEditor() {
-    editor.current.focus();
+
+  useEffect(() => {
+    console.log("render")
+  }, [])
+
+
+  const handleClick = () => {
+    setCounter(counter+1);
   }
 
-  const rawContentState = convertToRaw(editorState.getCurrentContent());
-
-  const markup = draftToHtml(
-    rawContentState
-  );
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(markup);
+  const handleReset = () => {
+    setCounter(0);
   }
 
   return (
     <>
-    <div
-      style={{ border: "1px solid black", minHeight: "6em", cursor: "text" }}
-      onClick={focusEditor}
-    >
-      <Editor
-        ref={editor}
-        editorState={editorState}
-        onChange={setEditorState}
-        placeholder="Write something!"
-      />
+    <h1>{counter}</h1>
+    <div className="flex gap-2">
+    <button className="bg-blue-500 rounded px-2" onClick={handleClick}>Click me!</button>
+    <button className="bg-red-500 rounded px-2" onClick={handleReset}>Reset</button>
     </div>
-    <button onClick={handleClick} className="bg-blue-500 rounded mt-3 px-3 ml-3">Submit</button>
     </>
   )
 }
+
+
+
+
 
 
 
