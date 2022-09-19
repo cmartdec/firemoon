@@ -65,6 +65,7 @@ export default function Post(props) {
     console.log(dataComments);
   }
 
+
   if(isLoading) {
     return (
       <div className="w-full h-screen flex justify-center items-center">
@@ -174,11 +175,10 @@ export default function Post(props) {
         {isLogged ? <CommentBox postId={id}></CommentBox> : <CommentBoxDisallowed></CommentBoxDisallowed>}
         <div className="w-full flex flex-col gap-8 mb-24">
           { 
-           
            isLoadingComments ? 
             <h1>Loading...</h1>
             :
-            Object.keys(dataComments).map((index) => {
+            Object.keys(dataComments).reverse().map((index) => {
               return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username} date={dataComments[index].createdAt}></Comment>
             })
           }
