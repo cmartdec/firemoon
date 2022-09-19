@@ -256,12 +256,28 @@ router.get("/getPostComments/:id", async(req, res) => {
             }
           }
 
-
         return res.status(200).json(rootComments);
 
     } catch(error) {
         return res.status(400).json({ error: error.message });
 
+    }
+})
+
+router.delete("/deleteComment/:commentId", verifyUser, async(req, res) => {
+    const { commentId } = req.params;
+    const user_id = req.id;
+
+    try {
+        const comment = await Comment.findById(commentId);
+        if(String(comment.commenter) === user_id) {
+            await Comment.findByIdAndDelete(commentId);
+            return res.status(200).json({ success: true })
+        } else {
+            return res.status(403).json({msg: "You are not authorized."})
+        }
+    }catch(error) {
+        return res.status(400).json({ error: error.message });
     }
 })
 
