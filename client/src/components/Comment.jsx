@@ -15,6 +15,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
 
     const [isAuthor, setIsAuthor] = useState();
     const [isOpened, setIsOpened] = useState(false);
+    const [isReplyOpened, setIsReplyOpened] = useState(false);
 
     const navigate = useNavigate();
 
@@ -60,6 +61,8 @@ export default function Comment({ content, commenter, date, commenterId, comment
        )
     }
      
+    console.log(isReplyOpened)
+
 
   return (
       <>
@@ -74,12 +77,12 @@ export default function Comment({ content, commenter, date, commenterId, comment
        <div className="text-gray-300 w-full">
          {content}
        </div>
-      <div className="flex gap-2">
+      <div onClick={() => { setIsReplyOpened(!isReplyOpened) }} className="flex gap-2">
        <div className="flex gap-2 items-center mt-3 rounded justify-center w-[100px] hover:bg-[#303030] cursor-pointer">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="text-white w-4 h-4">
         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
        </svg>
-       <span><p className="text-white text-sm">Reply</p></span>
+       <span><p  className="text-white text-sm">Reply</p></span>
        </div>
        <div className="flex gap-1 mt-3 items-center hover:cursor-pointer hover:bg-[#353535] px-6 rounded">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white w-4 h-4">
@@ -92,6 +95,22 @@ export default function Comment({ content, commenter, date, commenterId, comment
     </div>
    </div>
   </div>
+  { isReplyOpened && 
+  (
+    <>
+  <textarea required placeholder="Say something!" className="text-sm h-[120px] w-full bg-[#242424] hover:bg-[#202020] focus:bg-[#202020] border-transparent focus:border-transparent focus:ring-0 rounded text-white">
+          </textarea>
+          <div className="flex gap-8">
+          <div onClick={ () => setIsReplyOpened(false) } className="h-[25px] w-[80px] border-[1px] border-orange-500 flex items-center justify-center cursor-pointer hover:bg-gradient-to-r from-red-600 to-red-700 hover:ring-0 hover:border-none">
+            <p className="text-xs text-gray-200 font-semibold text-center">Cancel</p>
+          </div>
+          <div className="h-[25px] w-[80px] bg-gradient-to-r from-amber-700 to-red-500  flex items-center justify-center cursor-pointer hover:opacity-75">
+            <p className="text-xs text-gray-200 font-semibold text-center">Submit</p>
+          </div>
+          </div>
+          </>
+  )
+  }
       </>
   )
 }
