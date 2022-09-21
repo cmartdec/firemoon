@@ -238,25 +238,7 @@ router.get("/getPostComments/:id", async(req, res) => {
 
         const comments = await Comment.find({ post: id }).populate("commenter", "-password");
 
-        let commentParents= {};
-        let rootComments = [];
-
-        for(let i = 0; i< comments.lenght; i++) {
-            let comment = comments[i];
-            commentParents[comment._id] = comment;
-        }
-
-        for (let i = 0; i < comments.length; i++) {
-            const comment = comments[i];
-            if (comment.parent) {
-              let commentParent = commentParents[comment.parent];
-              commentParent.children = [...commentParent.children, comment];
-            } else {
-              rootComments = [...rootComments, comment];
-            }
-          }
-
-        return res.status(200).json(rootComments);
+        return res.status(200).json(comments);
 
     } catch(error) {
         return res.status(400).json({ error: error.message });
