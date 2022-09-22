@@ -51,7 +51,7 @@ export default function Profile() {
   const { data: data_saved_posts, isLoading: isLoadingSavedPosts } = useQuery("user-saved-posts", fetchSavedPosts);
 
  
-
+  console.log(user_data);
 
 
   const MyPosts = () => {
@@ -109,7 +109,7 @@ export default function Profile() {
           </h1>
           {isLoadingUserData ?
           <p className="opacity-0">Loading</p> : 
-          <div className="text-gray-400 mt-6">{noDescription ? <h1>No description yet.</h1> : <h1>{user_data.bio}</h1>}</div>
+          <div className="text-gray-400 mt-6">{noDescription ? <h1>No description yet.</h1> : <h1>{user_data.desc}</h1>}</div>
            }
         </div>
       </div>
