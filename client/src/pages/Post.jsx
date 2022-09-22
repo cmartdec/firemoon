@@ -11,6 +11,7 @@ import { format } from 'date-fns'
 import moment from 'moment'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import parse from 'html-react-parser'
 axios.defaults.withCredentials = true;
 
 
@@ -149,7 +150,7 @@ export default function Post(props) {
           <h1 className="text-white font-bold text-2xl mt-1 ml-2">{data.title}</h1>
           <div className="flex flex-col ml-2">
             <p className="text-gray-300">
-              {isLoading ? <h1>Loading...</h1> : data.data}
+              {isLoading ? <h1>Loading...</h1> : parse(data.data)}
             </p>
           </div>
           <div className="container mx-auto flex gap-[2px]">

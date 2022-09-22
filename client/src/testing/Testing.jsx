@@ -1,36 +1,24 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { DefaultEditor } from 'react-simple-wysiwyg';
+import parse from 'html-react-parser'
 
 export default function Testing() {
 
-  const [counter, setCounter] = useState(0);
+  const [html, setHtml] = useState();
 
-
-  useEffect(() => {
-    console.log("render")
-  }, [])
-
-
-  const handleClick = () => {
-    setCounter(counter+1);
+  function onChange(e) {
+    setHtml(e.target.value);
   }
 
-  const handleReset = () => {
-    setCounter(0);
-  }
 
   return (
     <>
-    <h1>{counter}</h1>
-    <div className="flex gap-2">
-    <button className="bg-blue-500 rounded px-2" onClick={handleClick}>Click me!</button>
-    <button className="bg-red-500 rounded px-2" onClick={handleReset}>Reset</button>
-    </div>
+      <DefaultEditor value={html} onChange={onChange}></DefaultEditor>
+      <h1>{parse(html)}</h1>
     </>
   )
 }
-
-
 
 
 
