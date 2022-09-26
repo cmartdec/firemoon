@@ -11,7 +11,7 @@ export default function FAQ() {
        <Topbar></Topbar>
        <div className="h-screen w-screen flex justify-center">
         <div className="h-screen w-[900px] pt-32">
-         <Question></Question>
+         <Question text={"What is Firemoon?"}></Question>
          <Question></Question>
          <Question></Question>
          <Question></Question>
