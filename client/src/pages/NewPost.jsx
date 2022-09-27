@@ -64,7 +64,6 @@ export default function NewPost() {
         className="text-red-500"
         apiKey='7cvt5t1jh8r9nbnwxkupmkbkb155157rsyrknie4tio8qvdu'
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
         init={{
           height: 500,
           menubar: false,

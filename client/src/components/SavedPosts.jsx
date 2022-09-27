@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import moment from 'moment'
+import parse from 'html-react-parser'
 axios.defaults.withCredentials = true;
 
 
@@ -15,6 +16,7 @@ export default function SavedPosts({ title, data, author, id, date }) {
   const navigate = useNavigate();
 
   const date_created = moment.utc(date).local().startOf('seconds').fromNow()
+  const body_data = data.slice(0,400);
 
 
 
@@ -62,7 +64,7 @@ export default function SavedPosts({ title, data, author, id, date }) {
          <a href={`/post/${id}`}>
            <div className="flex gap-2 items-center"><p className="text-white text-xs mt-6">Posted by {author} {date_created}</p></div>
            <div className="py-2"><h3 className="text-white font-bold text-xl">{title}</h3></div>
-           <div><p className="text-white text-xs mb-3">{data}</p></div>
+           <div><p className="text-white text-sm mb-3">{parse(body_data)}...</p></div>
            </a>
            <div className="flex gap-1 items-center mt-[6px]">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

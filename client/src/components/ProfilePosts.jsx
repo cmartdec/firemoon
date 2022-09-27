@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import moment from 'moment'
 import { useNavigate } from 'react-router'
+import parse from 'html-react-parser'
 
 export default function ProfilePosts({title, data, date, id}) {
 
@@ -13,6 +14,7 @@ export default function ProfilePosts({title, data, date, id}) {
   const navigate = useNavigate();
 
   const date_created = moment.utc(date).local().startOf('seconds').fromNow()
+  const body_data = data.slice(0,400);
 
   const handleClick = () => {
     setIsOpened(true);
@@ -52,7 +54,7 @@ export default function ProfilePosts({title, data, date, id}) {
            <a href={`/post/${id}`}>
            <div className="flex gap-2 items-center"><p className="text-white text-xs mt-6">Posted by me {date_created}</p></div>
            <div className="py-2"><h3 className="text-white font-bold text-xl">{title}</h3></div>
-           <div><p className="text-white text-xs mb-3">{data}</p></div>
+           <div><p className="text-white text-sm mb-3">{parse(body_data)} ...</p></div>
            </a>
            <div className="flex gap-1 items-center mt-[6px]">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

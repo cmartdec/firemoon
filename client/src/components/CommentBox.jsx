@@ -12,7 +12,11 @@ export default function CommentBox({ postId }) {
     return res;
   }
 
-  const { data: data_comment, isLoading, mutate } = useMutation("createComment", createCommentRequest)
+  const { data: data_comment, isLoading, mutate } = useMutation("createComment", createCommentRequest, {
+    onSuccess: () => {
+      window.location.reload(true);
+    }
+  })
 
 
   const handleSubmit = (e) => {
@@ -22,7 +26,6 @@ export default function CommentBox({ postId }) {
       data: data.current.value,
     })
     data.current.value = "";
-    window.location.reload(true);
   }
 
   return (
