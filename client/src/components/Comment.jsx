@@ -16,6 +16,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const [isAuthor, setIsAuthor] = useState();
     const [isOpened, setIsOpened] = useState(false);
     const [isReplyOpened, setIsReplyOpened] = useState(false);
+    const [showReplies, setShowReplies] = useState(true);
 
     const navigate = useNavigate();
 
@@ -63,10 +64,18 @@ export default function Comment({ content, commenter, date, commenterId, comment
      
     console.log(isReplyOpened)
 
+    const Reply = () => {
+      return (
+        <>
+            <div className="w-full h-[100px] bg-[#404040] rounded-md"></div>
+        </>
+      )
+    }
+
 
   return (
       <>
-      <div className="h-auto w-full bg-[#404040] rounded mt-6 flex pt-1 pb-2 pl-2">
+      <div className="h-auto w-full bg-[#404040] rounded-md mt-6 flex pt-1 pb-2 pl-2">
        <div className="w-auto h-full px-3">
          <div className="flex gap-3 items-center">
        <a href={`/users/${commenter}`} className="flex h-[40px] items-center gap-[4px]"><img className="h-6 w-6 rounded-full" src={Men2} alt="" /><span className="text-white font-bold text-xs">{commenter}</span><p className="ml-2 text-[#9C9C9C] text-xs">{date_created}</p></a>
@@ -95,6 +104,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
     </div>
    </div>
   </div>
+ 
   { isReplyOpened && 
   (
     <>
@@ -110,6 +120,16 @@ export default function Comment({ content, commenter, date, commenterId, comment
           </div>
           </>
   )
+  }
+  {showReplies ? <h1 className="text-gray-400 font-bold text-sm ml-3 cursor-pointer" onClick={() => setShowReplies(false)}>Hide replies</h1> : <h1 className="text-gray-400 font-bold text-sm ml-3 cursor-pointer" onClick={() => setShowReplies(true)}>Show replies</h1>}
+  {
+    showReplies && 
+   <div className="ml-8 flex flex-col gap-5">
+    <Reply></Reply>
+    <Reply></Reply>
+    <Reply></Reply>
+   </div>
+
   }
       </>
   )
