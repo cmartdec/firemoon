@@ -65,7 +65,7 @@ export default function Profile() {
     <span class="sr-only">Loading...</span>
     </div>) : 
     Object.keys(data_posts).map((index) => {
-      return <ProfilePosts key={index} title={data_posts[index].title} data={data_posts[index].data} date={data_posts[index].createdAt} id={data_posts[index]._id}></ProfilePosts>
+      return <ProfilePosts key={index} title={data_posts[index].title} data={data_posts[index].data} date={data_posts[index].createdAt} id={data_posts[index]._id} comments={data_posts[index].comments}></ProfilePosts>
      })
     )
   }
@@ -81,7 +81,7 @@ export default function Profile() {
       <span class="sr-only">Loading...</span>
       </div>) : 
       Object.keys(data_saved_posts).map((index) => {
-        return <SavedPosts key={index} title={data_saved_posts[index].title} data={data_saved_posts[index].data} author={data_saved_posts[index].author} id={data_saved_posts[index]._id} date={data_saved_posts[index].createdAt}></SavedPosts>
+        return <SavedPosts key={index} title={data_saved_posts[index].title} data={data_saved_posts[index].data} author={data_saved_posts[index].author} id={data_saved_posts[index]._id} date={data_saved_posts[index].createdAt} comments={data_saved_posts[index].comments}></SavedPosts>
       })
     )
   }

@@ -266,6 +266,31 @@ router.delete("/deleteComment/:commentId", verifyUser, async(req, res) => {
     }
 })
 
+router.post("/createReply/:parentId", verifyUser, async(req, res) => {
+    const { parentId } = req.params;
+    const user_id = req.id;
+
+    try {
+        const comment = await Comment.findById(parentId);
+        const user = await User.findById(user_id);
+        // populate user
+        const reply = {
+            commenter: {
+                _id: user_id,
+            },
+            content: "hello"
+        }
+        const commentReplied = await Comment.updateOne(
+            { _id: parentId },
+            { $push: { children: reply }}
+        )
+        
+        return res.status(200).json(commentReplied);
+    }catch(error) {
+        return res.status(400).json({ error: error.message });
+    }
+})
+
 
 
 
