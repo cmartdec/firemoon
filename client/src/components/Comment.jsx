@@ -16,7 +16,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const [isAuthor, setIsAuthor] = useState();
     const [isOpened, setIsOpened] = useState(false);
     const [isReplyOpened, setIsReplyOpened] = useState(false);
-    const [showReplies, setShowReplies] = useState(true);
+    const [showReplies, setShowReplies] = useState(false);
 
     const navigate = useNavigate();
 
