@@ -286,15 +286,13 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
             { $push: { children: reply }}
         )
         
+        
         return res.status(200).json(comment);
     }catch(error) {
         console.log(content)
         return res.status(400).json({ error: error.message });
     }
 })
-
-
-
 
 
 router.get("/:id", async(req, res) => {

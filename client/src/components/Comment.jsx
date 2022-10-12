@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true;
 
 
 
-export default function Comment({ content, commenter, date, commenterId, commentId }) {
+export default function Comment({ content, commenter, date, commenterId, commentId, children }) {
 
     const date_created = moment.utc(date).local().startOf('seconds').fromNow()
 
@@ -17,6 +17,8 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const [isOpened, setIsOpened] = useState(false);
     const [isReplyOpened, setIsReplyOpened] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
+
+    console.log(children);
 
     const navigate = useNavigate();
 
@@ -64,10 +66,12 @@ export default function Comment({ content, commenter, date, commenterId, comment
      
     console.log(isReplyOpened)
 
-    const Reply = () => {
+    const Reply = ({ content }) => {
       return (
         <>
-            <div className="w-full h-[100px] bg-[#404040] rounded-md"></div>
+            <div className="w-full h-[100px] bg-[#404040] rounded-md px-5 flex-col justify-center">
+              <p className="text-white">{content}</p>
+            </div>
         </>
       )
     }
@@ -125,9 +129,11 @@ export default function Comment({ content, commenter, date, commenterId, comment
   {
     showReplies && 
    <div className="ml-8 flex flex-col gap-5">
-    <Reply></Reply>
-    <Reply></Reply>
-    <Reply></Reply>
+     {
+     Object.keys(children).map((index) => {
+       return <Reply index={index} content={children[index].content}></Reply>
+     })
+     }
    </div>
 
   }

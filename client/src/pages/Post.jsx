@@ -187,7 +187,7 @@ export default function Post(props) {
 
             :
             Object.keys(dataComments).reverse().map((index) => {
-              return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username} date={dataComments[index].createdAt} commenterId={dataComments[index].commenter._id} commentId={dataComments[index]._id}></Comment>
+              return <Comment key={index} content={dataComments[index].content} commenter={dataComments[index].commenter.username} date={dataComments[index].createdAt} commenterId={dataComments[index].commenter._id} commentId={dataComments[index]._id} children={dataComments[index].children}></Comment>
             })
           }
         </div>
