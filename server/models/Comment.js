@@ -22,11 +22,12 @@ const CommentSchema = new mongoose.Schema({
     },
     children: [
         {
-            commenter: {
-                type: mongoose.Types.ObjectId,
-                ref: "User",
-                required: true
-            },
+                username: {
+                    type: String
+                },
+                photoPic: {
+                    type: String
+                },
             content: {
                 type: String,
                 required: true

@@ -274,11 +274,11 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
     try {
         const comment = await Comment.findById(parentId);
         const user = await User.findById(user_id);
+        const { username, profilePic } = user;
         // populate user
         const reply = {
-            commenter: {
-                _id: user_id,
-            },
+            username: username,
+            photoPic: profilePic,
             content: content
         }
         const commentReplied = await Comment.updateOne(
@@ -287,7 +287,7 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
         )
         
         
-        return res.status(200).json(comment);
+        return res.status(200).json(user);
     }catch(error) {
         console.log(content)
         return res.status(400).json({ error: error.message });

@@ -66,10 +66,14 @@ export default function Comment({ content, commenter, date, commenterId, comment
      
     console.log(isReplyOpened)
 
-    const Reply = ({ content }) => {
+    const Reply = ({ content, username, photoPic }) => {
       return (
         <>
             <div className="w-full h-[100px] bg-[#404040] rounded-md px-5 flex-col justify-center">
+              <div className="flex items-center gap-2 mt-2 mb-3">
+              <img className="h-5 w-5 rounded-full border-3 border-[#212121]" src={photoPic} alt="" />
+              <a href={`/users/${username}`} className="text-white font-bold text-xs hover:underline">{username}</a>
+              </div>
               <p className="text-white">{content}</p>
             </div>
         </>
@@ -131,7 +135,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
    <div className="ml-8 flex flex-col gap-5">
      {
      Object.keys(children).map((index) => {
-       return <Reply index={index} content={children[index].content}></Reply>
+       return <Reply key={index} content={children[index].content} username={children[index].username} photoPic={children[index].photoPic}></Reply>
      })
      }
    </div>
