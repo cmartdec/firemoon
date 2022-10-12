@@ -269,6 +269,7 @@ router.delete("/deleteComment/:commentId", verifyUser, async(req, res) => {
 router.post("/createReply/:parentId", verifyUser, async(req, res) => {
     const { parentId } = req.params;
     const user_id = req.id;
+    const { content } = req.body;
 
     try {
         const comment = await Comment.findById(parentId);
@@ -278,15 +279,16 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
             commenter: {
                 _id: user_id,
             },
-            content: "hello"
+            content: content
         }
         const commentReplied = await Comment.updateOne(
             { _id: parentId },
             { $push: { children: reply }}
         )
         
-        return res.status(200).json(commentReplied);
+        return res.status(200).json(comment);
     }catch(error) {
+        console.log(content)
         return res.status(400).json({ error: error.message });
     }
 })
