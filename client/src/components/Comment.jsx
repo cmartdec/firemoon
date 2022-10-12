@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
 import moment from 'moment'
@@ -17,6 +17,8 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const [isOpened, setIsOpened] = useState(false);
     const [isReplyOpened, setIsReplyOpened] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
+
+    const replyContent = useRef();
 
     console.log(children);
 
@@ -38,6 +40,14 @@ export default function Comment({ content, commenter, date, commenterId, comment
       } catch(error) {
         navigate("/")
         console.log(error);
+      }
+    }
+
+    const handleReplyRequest = async() => {
+      try {
+        const res = await axios.post(`http://localhost:5000/api/post/createReply/${commentId}`,  { content: replyContent.current.value }, { withCredentials: true })
+      }catch(error) {
+          console.log(error);
       }
     }
 
@@ -116,16 +126,18 @@ export default function Comment({ content, commenter, date, commenterId, comment
   { isReplyOpened && 
   (
     <>
-  <textarea required placeholder="Say something!" className="text-sm h-[120px] w-full bg-[#242424] hover:bg-[#202020] focus:bg-[#202020] border-transparent focus:border-transparent focus:ring-0 rounded text-white">
+    <form onSubmit={handleReplyRequest}>
+  <textarea ref={replyContent} required placeholder="Say something!" className="text-sm h-[120px] w-full bg-[#242424] hover:bg-[#202020] focus:bg-[#202020] border-transparent focus:border-transparent focus:ring-0 rounded text-white">
           </textarea>
           <div className="flex gap-8">
           <div onClick={ () => setIsReplyOpened(false) } className="h-[25px] w-[80px] border-[1px] border-orange-500 flex items-center justify-center cursor-pointer hover:bg-gradient-to-r from-red-600 to-red-700 hover:ring-0 hover:border-none">
             <p className="text-xs text-gray-200 font-semibold text-center">Cancel</p>
           </div>
           <div className="h-[25px] w-[80px] bg-gradient-to-r from-amber-700 to-red-500  flex items-center justify-center cursor-pointer hover:opacity-75">
-            <p className="text-xs text-gray-200 font-semibold text-center">Submit</p>
+            <button type="submit" className="text-xs text-gray-200 font-semibold text-center">Submit</button>
           </div>
           </div>
+          </form>
           </>
   )
   }
