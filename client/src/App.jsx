@@ -21,6 +21,7 @@ import Reset from './pages/Reset'
 import DeleteAccount from './pages/DeleteAccount'
 import About from './pages/About'
 import FAQ from './pages/FAQ'
+import LandingPage from './pages/LandingPage'
 import UserProfile from './pages/UserProfile'
 import {
   useQuery,
@@ -67,6 +68,7 @@ function App() {
      <Route path="delete_account" element={<DeleteAccount></DeleteAccount>} />
      <Route path="about" element={<About></About>} />
      <Route path="faq" element={<FAQ></FAQ>} />
+     <Route path="landing-page" element={<LandingPage></LandingPage>} />
    </Routes>
   </BrowserRouter>
      </QueryClientProvider>
