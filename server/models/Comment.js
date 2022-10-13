@@ -28,11 +28,15 @@ const CommentSchema = new mongoose.Schema({
                 photoPic: {
                     type: String
                 },
-            content: {
-                type: String,
-                required: true
-            }
-        }
+                content: {
+                    type: String,
+                    required: true
+                },
+                createdAt: {
+                    type: String,
+                    required: true
+                }
+        },
     ],
 },
  { timestamps: true }

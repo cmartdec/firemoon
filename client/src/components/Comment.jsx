@@ -43,9 +43,11 @@ export default function Comment({ content, commenter, date, commenterId, comment
       }
     }
 
-    const handleReplyRequest = async() => {
+    const handleReplyRequest = async(e) => {
+      e.preventDefault();
       try {
         const res = await axios.post(`http://localhost:5000/api/post/createReply/${commentId}`,  { content: replyContent.current.value }, { withCredentials: true })
+        window.location.reload(true);
       }catch(error) {
           console.log(error);
       }
@@ -76,13 +78,17 @@ export default function Comment({ content, commenter, date, commenterId, comment
      
     console.log(isReplyOpened)
 
-    const Reply = ({ content, username, photoPic }) => {
+    const Reply = ({ content, username, photoPic, createdAt }) => {
+
+      const date_created = moment.utc(createdAt).local().startOf('seconds').fromNow()
+
       return (
         <>
-            <div className="w-full h-[100px] bg-[#404040] rounded-md px-5 flex-col justify-center">
+            <div className="w-full h-[80px] bg-[#404040] rounded-md px-5 flex-col justify-center">
               <div className="flex items-center gap-2 mt-2 mb-3">
-              <img className="h-5 w-5 rounded-full border-3 border-[#212121]" src={photoPic} alt="" />
+              <img className="h-6 w-6 rounded-full border-3 border-[#212121]" src={photoPic} alt="" />
               <a href={`/users/${username}`} className="text-white font-bold text-xs hover:underline">{username}</a>
+              <p className="text-[#9C9C9C] text-xs">{date_created}</p>
               </div>
               <p className="text-white">{content}</p>
             </div>
@@ -147,7 +153,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
    <div className="ml-8 flex flex-col gap-5">
      {
      Object.keys(children).map((index) => {
-       return <Reply key={index} content={children[index].content} username={children[index].username} photoPic={children[index].photoPic}></Reply>
+       return <Reply key={index} content={children[index].content} username={children[index].username} photoPic={children[index].photoPic} createdAt={children[index].createdAt}></Reply>
      })
      }
    </div>

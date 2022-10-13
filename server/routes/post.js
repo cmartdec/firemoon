@@ -6,6 +6,7 @@ const verifyUser = require('../middlewares/verifyToken');
 const PostLike = require("../models/PostLike");
 const PostSaved = require("../models/PostSaved");
 const Comment = require("../models/Comment");
+const moment = require("moment");
 
 
 router.post("/", verifyUser, async(req, res) => {
@@ -271,6 +272,11 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
     const user_id = req.id;
     const { content } = req.body;
 
+    const date = new Date();
+
+    const isoStr = date.toISOString();
+    // const date_created_moment = moment.utc(date_created).local().startOf('seconds').fromNow()
+
     try {
         const comment = await Comment.findById(parentId);
         const user = await User.findById(user_id);
@@ -279,7 +285,8 @@ router.post("/createReply/:parentId", verifyUser, async(req, res) => {
         const reply = {
             username: username,
             photoPic: profilePic,
-            content: content
+            content: content,
+            createdAt: isoStr
         }
         const commentReplied = await Comment.updateOne(
             { _id: parentId },
