@@ -70,26 +70,6 @@ function Home() {
             <img src={Men2} className="h-[35px] w-[35px] rounded-full border-[2px] border-[#404040]" alt="" /></a>
             <a className="ml-4 rounded bg-[#212121] h-[30px] w-full border-none mr-3 flex items-center pl-3 cursor-text" href="/new-post"><p className="text-gray-600 text-sm">New Post</p></a>
           </div>
-          <div className="h-auto w-full py-[9px] pl-[35px] border-b-[2px] border-[#404040] flex md:flex-row flex-col items-start md:items-center gap-[15px]">
-            <button className="bg-[#333232] hover:bg-[#404040] rounded py-[5px] px-2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white mr-[4px]" viewBox="0 0 20 20" fill="currentColor">
-             <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-            </svg>
-              <p className="text-white font-semibold text-xs">POPULAR</p>
-            </button>
-            <button className="bg-[#333232] hover:bg-[#404040] rounded py-[5px] px-2 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white mr-[4px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-               <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-              </svg>
-              <p className="text-white font-semibold text-xs">NEW</p>
-            </button>
-            <button className="bg-[#333232] hover:bg-[#404040] rounded py-[5px] px-2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white mr-[4px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
- .           <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-              <p className="text-white font-semibold text-xs">TOP</p>
-            </button>
-            </div>
             <div className="container w-full h-auto flex flex-col px-8 py-8 gap-8">
               {
                 isLoading ? 
