@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Group1 from '../assets/Group1.svg'
 
 export default function Testing() {
@@ -7,6 +7,16 @@ export default function Testing() {
 
 
   const [counter, setCounter] = useState();
+
+  const sumar = () => {
+
+    setCounter(counter+1)
+  }
+  
+  useEffect(() => {
+    sumar();
+  }, [])
+
 
   return (
     <>

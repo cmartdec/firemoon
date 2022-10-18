@@ -58,7 +58,7 @@ export default function Register() {
         <div className="h-[404px] w-[450px] bg-[#353535] hidden sm:flex flex-col justify-center items-center rounded">
           <img src={Icon} alt="icon_bounce" width="150" className="animate-bounce"/>
           <div className="h-[120px] w-[360px] bg-[#2E4250] border border-white mt-[65px] rounded py-3">
-            <p className="text-white font-bold text-sm mr-3 ml-3 mt-[2px]">Welcome to Firemoon 👋, a platform for people whose aim is achieving Financial Independence and Early Retirement. Feel free to create an account and start your Fire journey with us</p>
+            <p className="text-white font-bold text-sm mr-3 ml-3 mt-[2px]">Welcome to Firemoon 👋, a platform for people whose aim is achieving Financial Independence and Early Retirement. Feel free to create an account and start your FIRE journey with us</p>
           </div>
         </div>
         <div className="h-full w-[250px] bg-[#404040] rounded">

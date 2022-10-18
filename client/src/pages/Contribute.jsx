@@ -32,7 +32,7 @@ export default function Contribute() {
   return (
     <>
     <Topbar></Topbar>
-    <div className="h-auto w-screen flex justify-center pt-12 mb-24">
+    <div className="h-auto w-auto flex justify-center pt-12 mb-24">
     <form onSubmit={handleSubmit}>
      <div className="h-[700px] w-[1000px] border-[2px] border-[#404040] px-12 pt-8 flex flex-col rounded">
       <header className="h-auto w-full">
