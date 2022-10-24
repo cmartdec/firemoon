@@ -16,7 +16,7 @@ export default function Question({text}) {
           <p className="text-white font-bold text-xl">{text}</p>
          </div>
          {isOpened &&  <div className="bg-[#404040] h-auto pb-6 w-full rounded-md px-6 py-3 mb-6">
-          <p className="text-gray-200 text-lg">Firemoon is a platform for people whose aim is achieving Financial Independence and Early Retirement. Feel free to create an account and start your Fire journey with us</p>
+          <p className="text-gray-200 text-lg">Firemoon is a platform for people who want to get Financial Independence and Early Retirement. Feel free to create an account and start your FIRE journey with us</p>
          </div>}
       </>
   )

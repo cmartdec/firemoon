@@ -85,7 +85,7 @@ export default function UserProfile() {
 
           :
           Object.keys(data_posts).map((index) => {
-            return <Posts key={index} title={data_posts[index].title} data={data_posts[index].data} author={data_posts[index].author} date={data_posts[index].createdAt} likeCount={data_posts[index].likeCount} id={data_posts[index]._id}></Posts>
+            return <Posts key={index} title={data_posts[index].title} data={data_posts[index].data} author={data_posts[index].author} date={data_posts[index].createdAt} likeCount={data_posts[index].likeCount} id={data_posts[index]._id} comments={data_posts[index].comments}></Posts>
           })
        }
       </header>

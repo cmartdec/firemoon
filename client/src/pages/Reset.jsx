@@ -4,7 +4,7 @@ import Topbar from '../components/Topbar'
 import Footer from '../components/Footer'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 export default function Reset() {

@@ -13,7 +13,7 @@ export default function Help() {
 
 
   var message = "CLICK TO SHOW THE SUPPORT EMAIL ADDRESS"
-  var email_address = "support@firemoon.to"
+  var email_address = "support@firemoon.app"
 
 
   function handleClick() {
@@ -23,7 +23,7 @@ export default function Help() {
   return (
     <>
     <Topbar></Topbar>
-    <div className="h-screen w-screen flex justify-center pt-12">
+    <div className="h-screen w-auto flex justify-center pt-12">
      <div className="h-[200px] w-[1000px] border-[4px] border-[#404040] flex flex-col items-center pt-8 rounded">
        <header className="text-white font-bold text-2xl">
          Are you having problems?

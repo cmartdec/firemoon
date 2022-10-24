@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import Titlebar from '../components/Titlebar'
+import Topbar from '../components/Topbar'
 import Men from '../assets/men.jpg'
 import Logo from '../assets/hahaha.svg'
 import { ToastContainer, toast } from 'react-toastify'
@@ -40,7 +40,7 @@ export default function ChangePassword() {
   
   return (
       <>
-      <Titlebar></Titlebar>
+      <Topbar></Topbar>
       <form onSubmit={handleSubmit}>
       <div className="w-full flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[4px] border-[#404040] mt-16 flex flex-col mb-24 shadow-sm"> 
