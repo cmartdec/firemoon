@@ -37,7 +37,8 @@ router.post("/upload", [middleware.auth, middleware.uploader], async(req, res) =
     const file = req.file;
     const fileBuffer = await sharp(file.buffer).resize({ height: 1920, width: 1080, fit: "contain" }).toBuffer() 
 
-
+    const user_id = req.id
+    const user = await User.findById(user_id)
     const params = {
         Bucket: BUCKET_NAME,
         Key: randomImageName(),
@@ -48,9 +49,8 @@ router.post("/upload", [middleware.auth, middleware.uploader], async(req, res) =
     const command = new PutObjectCommand(params)
     await s3.send(command);
 
-    res.send({});
+    res.send(user);
 
-    //const fileBuffer = await sharp(file.buffer).resize({ height: 1920, width: 1080, fit: "contain" }).toBuffer() 
 })
 
 router.get("/hello", (req, res) => {
