@@ -1,9 +1,11 @@
 const router = require("express").Router();
+const User = require("../models/User");
 const multer = require("multer");
 const sharp = require("sharp");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const dotenv = require("dotenv");
 const crypto = require("crypto");
+const verifyUser = require('../middlewares/verifyToken');
 
 
 dotenv.config();
@@ -26,8 +28,12 @@ const s3 = new S3Client({
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+const middleware = {
+    auth: verifyUser,
+    uploader: upload.single('image')
+}
 
-router.post("/upload", upload.single('image'), async(req, res) => {
+router.post("/upload", [middleware.auth, middleware.uploader], async(req, res) => {
     const file = req.file;
     const fileBuffer = await sharp(file.buffer).resize({ height: 1920, width: 1080, fit: "contain" }).toBuffer() 
 
