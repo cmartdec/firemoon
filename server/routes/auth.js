@@ -190,7 +190,7 @@ router.post("/forgot", async(req, res) => {
             return res.status(401).json({msg: "User not found."})
         }
         res.status(200).json({msg: "Please check your inbox, We've sent you an email"})
-        const reset_token = jwt.sign({id: user._id}, process.env.JWT, {expiresIn: "15m"});
+        const reset_token = jwt.sign({id: user._id}, process.env.JWT, { expiresIn: "15m" });
         client.sendEmailWithTemplate({
             "From": "support@firemoon.app",
             "To": `${email}`,
