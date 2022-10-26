@@ -6,7 +6,14 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyUser = require('../middlewares/verifyToken');
 const emailValidator = require("email-validator");
+const postmark = require("postmark");
+const dotenv = require("dotenv");
 
+
+dotenv.config();
+const POSTMARK_API = "7217aca2-2097-4895-ab7e-8be5b2fc5891"
+
+const client = new postmark.ServerClient(POSTMARK_API);
 
 router.post("/signup", async(req, res) => {
    const { username, email, password } = req.body;
@@ -184,6 +191,20 @@ router.post("/forgot", async(req, res) => {
         }
         res.status(200).json({msg: "Please check your inbox, We've sent you an email"})
         const reset_token = jwt.sign({id: user._id}, process.env.JWT, {expiresIn: "15m"});
+        client.sendEmailWithTemplate({
+            "From": "support@firemoon.app",
+            "To": `${email}`,
+            "TemplateAlias": "password-reset",
+            "TemplateModel": {
+              "product_url": "firemoon.app",
+              "product_name": "Firemoon",
+              "name": `${user.username}`,
+              "action_url": `http://localhost:3000/reset/${reset_token}`,
+              "support_url": "http://localhost:3000/help",
+              "company_name": "Firemoon Inc.",
+              "company_address": "Remote"
+            }
+          });
         console.log(`Please enter the link and follow the instructions. http://localhost:3000/reset/${reset_token}`)
     }else {
         res.status(401).json({msg: "Email is not valid"})
