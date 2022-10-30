@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
 import axios from 'axios'
 import Topbar from './Topbar'
+import { useQuery } from 'react-query'
 
 
 export default function UserInfo() {
@@ -46,9 +47,8 @@ export default function UserInfo() {
   return (
       <>
       <div className="flex items-center gap-3 mr-8" ref={ref}>
-      <span ref={ref} className="text-gray-300 font-semibold text-xs">My account</span>
        <button onClick={handleMenu}>
-          <img className="w-[32px] h-[32px] rounded-full border-2 border-[#404040]" src={Men2} alt="user_photo" />
+      <h1 className="text-gray-300 font-semibold text-xs">My account</h1>
         </button>
         {menuOpened && (
          <div class="absolute mt-[170px] ml-[20px] text-base list-none bg-[#404040] rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">

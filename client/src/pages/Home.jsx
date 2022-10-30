@@ -35,7 +35,10 @@ function Home() {
    console.log(data);
 
    // https://codesandbox.io/s/funny-solomon-secnh0?file=/src/index.js
-   
+
+
+
+
   return (
     <>
     <Topbar></Topbar>
@@ -66,8 +69,9 @@ function Home() {
       <div className="h-screen w-full max-w-[1024px] mt-6">
       <div className="border-[2px] border-[#404040] w-full h-auto mt-12 rounded-md ml-3 xl:ml-0">
           <div className="h-auto w-full py-[9px] pl-[35px] border-b-[2px] border-[#404040] flex items-center">
-            <a href="/profile">
-            <img src={Men2} className="h-[35px] w-[35px] rounded-full border-[2px] border-[#404040]" alt="" /></a>
+            <a className="rounded-full text-gray-300 px-2 py-2 bg-[#454545] text-sm font-semibold" href="/profile">
+              Me
+            </a>
             <a className="ml-4 rounded bg-[#212121] h-[30px] w-full border-none mr-3 flex items-center pl-3 cursor-text" href="/new-post"><p className="text-gray-600 text-sm">New Post</p></a>
           </div>
             <div className="container w-full h-auto flex flex-col px-8 py-8 gap-8">
