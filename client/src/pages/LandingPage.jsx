@@ -15,7 +15,7 @@ export default function LandingPage() {
         </div>
         <h3 className="text-center mt-8 ml-8">
           <p className="text-white text-xl font-semibold">The new way to connect with the Fire community</p>
-          <p className="text-white text-xl font-semibold">Can't wait? Introduce your email to get access to the private beta</p>
+          <p className="text-white text-xl font-semibold">Can't wait? Introduce your email to get exclusive access to the private beta</p>
         </h3>
         <div className="w-auto flex justify-center mt-8 gap-2">
         <input className="w-[350px] bg-[#252525] border-none hover:bg-[#212121] text-white rounded-md focus:ring-0 focus:border-transparent ml-8" type="email" placeholder="Enter email address" required />

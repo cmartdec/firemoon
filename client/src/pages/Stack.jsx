@@ -1,7 +1,10 @@
 import React from 'react'
 import Topbar from '../components/Topbar'
+import Box from '../components/Box'
 
 export default function Stack() {
+
+
   return (
       <>
       <Topbar></Topbar>
@@ -14,24 +17,34 @@ export default function Stack() {
              </div>
            </div>
            <div className="h-full w-auto px-[150px] flex flex-col items-center gap-20">
-             <div className="flex gap-12">
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545] text-white font-bold text-3xl flex justify-center items-center cursor-pointer hover:bg-[#404040] shadow-xl">Node.js</div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545] text-white font-bold text-xl flex justify-center items-center cursor-pointer hover:bg-[#404040]">Node.js</div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+           <div className="flex gap-12">
+             <Box href={"https://nodejs.org"} text={"Node.js"}></Box>
+             <Box href={"https://reactjs.org"} text={"React"}></Box>
+             <Box href={"https://mongodb.com"} text={"MongoDB"}></Box>
              </div>
-             <div className="flex gap-12">
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+           <div className="flex gap-12">
+             <Box href={"https://tailwindcss.com"} text={"TailwindCSS"}></Box>
+             <Box href={"https://postmarkapp.com"} text={"Postmark"}></Box>
+             <Box href={"https://postman.com"} text={"Postman"}></Box>
              </div>
-             <div className="flex gap-12">
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
-             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+           <div className="flex gap-12">
+             <Box href={"https://namecheap.com"} text={"Namecheap"}></Box>
+             <Box href={"https://code.visualstudio.com"} text={"VS Code"}></Box>
+             <Box href={"https://github.com"} text={"Github"}></Box>
+             </div>
+           <div className="flex gap-12">
+             <Box href={"https://aws.amazon.com/"} text={"AWS"}></Box>
+             <Box href={"https://railway.app/"} text={"Railway"}></Box>
+             <Box href={"https://www.docker.com/"} text={"Docker"}></Box>
+             </div>
+           <div className="flex gap-12">
+             <Box href={"https://www.notion.so/"} text={"Notion"}></Box>
+             <Box href={"https://colorslurp.com/"} text={"ColorSlurp"}></Box>
+             <Box href={"https://slack.com/"} text={"Slack"}></Box>
+             </div>
              </div>
            </div>
          </div>
-       </div>
       </>
   )
 }

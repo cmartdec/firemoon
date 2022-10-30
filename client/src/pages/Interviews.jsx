@@ -1,6 +1,8 @@
 import React from 'react'
 import Topbar from '../components/Topbar'
 import InterviewPosts from '../components/InterviewPosts';
+import Broker from '../assets/broker.jpg'
+import Recession from '../assets/recession.jpg'
 
 export default function Interviews() {
   const color = "#303030"
@@ -50,8 +52,8 @@ export default function Interviews() {
 
     <div className="flex flex-col container mx-auto">
     <div className="flex flex-wrap justify-center gap-[150px] w-full mt-12">
-      <InterviewPosts></InterviewPosts>
-      <InterviewPosts></InterviewPosts>
+      <InterviewPosts img={Broker} title={"Best brokerages to invest with"} text={"If you have decided that it's time to invest, take a look at these brokerages"} href={"https://www.mybanktracker.com/blog/investing/best-brokerages-295729"}></InterviewPosts>
+      <InterviewPosts img={Recession} title={"How to prepare for a recession"} text={"Some tips to prepare for a possible recession"} href={"https://www.washingtonpost.com/business/2022/06/15/7-tips-on-how-to-survive-a-recession/"}></InterviewPosts>
       <div className="lg:block hidden h-auto w-[250px]">
         <div className="bg-gradient-to-r from-amber-700 to-red-500 py-[3px] px-[3px] rounded"><p className="text-white font-semibold text-sm text-center">Latest discussions</p></div>
         <div className="h-full w-full flex flex-col mt-4 px-3">

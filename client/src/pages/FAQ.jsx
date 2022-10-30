@@ -18,7 +18,6 @@ export default function FAQ() {
          <Question title={"I need help, How i contact with the Support Team?"} text={"If you are having problems, we’re so glad to be able to help you, so in order to get help, you can go https://firemoon.app/help"}></Question>
          <Question title={"What about the newsletter"} text={"We recommend you to subscribe to the newsletter, so you will have news, and interesting stuff from the community without being spammed. We respect our community"}></Question>
          <Question title={"Is firemoon free"} text={"Yes!. Firemoon is totally free. We’re aiming to build a big community without charging our users."}></Question>
-         <Footer></Footer>
         </div>
        </div>
       </>
