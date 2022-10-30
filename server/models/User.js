@@ -7,7 +7,6 @@ const UserSchema = new mongoose.Schema(
             required: true,
             unique: true,
             lowercase: true,
-            minlength: 5,
             maxlength: 30
         },
         email: {
@@ -19,6 +18,9 @@ const UserSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
+        },
+        imageName: {
+            type:String
         },
         profilePic: {
             type: String,

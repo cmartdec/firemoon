@@ -2,10 +2,11 @@ const router = require("express").Router();
 const User = require("../models/User");
 const multer = require("multer");
 const sharp = require("sharp");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const dotenv = require("dotenv");
 const crypto = require("crypto");
-const verifyUser = require('../middlewares/verifyToken');
+const verifyUser  = require('../middlewares/verifyToken');
 
 
 dotenv.config();
@@ -35,27 +36,47 @@ const middleware = {
 
 router.post("/upload", [middleware.auth, middleware.uploader], async(req, res) => {
     const file = req.file;
-    const fileBuffer = await sharp(file.buffer).resize({ height: 1920, width: 1080, fit: "contain" }).toBuffer() 
+    const realBuffer = file.buffer;
+
+    const imageName = randomImageName();
 
     const user_id = req.id
-    const user = await User.findById(user_id)
     const params = {
         Bucket: BUCKET_NAME,
-        Key: randomImageName(),
-        Body: fileBuffer,
+        Key: imageName,
+        Body: realBuffer,
         ContentType: req.file.mimetype,
     }
 
     const command = new PutObjectCommand(params);
     await s3.send(command);
+    const user = await User.findByIdAndUpdate(user_id, { imageName: imageName });
 
     res.send(user);
 
 })
 
-router.get("/hello", (req, res) => {
+router.get("/mydata", verifyUser, async(req, res) => {
+     const user = await User.findById(req.id).select("-password");
+    try {
+        if(user.imageName){
+     const getObjectParams = {
+         Bucket: BUCKET_NAME,
+         Key: user.imageName
+     }
+     const command = new GetObjectCommand(getObjectParams);
+     const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+     user.profilePic = url;
+     await user.save();
+     return res.status(200).json(user)
 
-    console.log(process.env.BUCKET_REGION);
+        } else {
+
+     res.status(200).json(user);
+        }
+    }catch(error){
+        return res.status(403).json(error)
+    }
 })
 
 module.exports = router;

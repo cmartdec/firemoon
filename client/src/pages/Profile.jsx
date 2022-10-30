@@ -8,6 +8,7 @@ import ProfilePosts from '../components/ProfilePosts'
 import Footer from '../components/Footer'
 import { useQuery } from 'react-query'
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 export default function Profile() {
 
@@ -27,7 +28,7 @@ export default function Profile() {
   }
 
   const fetchUserData = async() => {
-    const { data } = await axios.get("http://localhost:5000/api/user/me", { withCredentials: true });
+    const { data } = await axios.get("http://localhost:5000/api/profile/mydata", { withCredentials: true });
     if(data.bio === "") {
       setNoDescription(true)
     }else{
@@ -93,7 +94,10 @@ export default function Profile() {
     <div className="w-full h-auto  lg:bg-[#353535] flex px-[50px] lg:px-[300px] py-[70px]">
       <div className="lg:flex flex flex-col pl-[150px]">
         <div>
-          <img className="lg:absolute w-[150px] h-[150px] rounded-full object-cover border-[6px] border-[#404040] left-[250px] top-[100px]" src={Men} alt="logo" />
+          {isLoadingUserData ? <h1>Loading...</h1> : 
+            <img className="lg:absolute w-[150px] h-[150px] rounded-full object-cover border-[6px] border-[#404040] left-[250px] top-[100px]" src={user_data.profilePic} alt="logo" />
+          }
+
         </div>
         <div className="flex flex-col mr-3">
           <h1>
