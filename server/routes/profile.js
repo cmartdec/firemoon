@@ -46,7 +46,7 @@ router.post("/upload", [middleware.auth, middleware.uploader], async(req, res) =
         ContentType: req.file.mimetype,
     }
 
-    const command = new PutObjectCommand(params)
+    const command = new PutObjectCommand(params);
     await s3.send(command);
 
     res.send(user);
