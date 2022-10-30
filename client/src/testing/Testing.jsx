@@ -1,38 +1,28 @@
 import React from 'react'
-import { useState } from 'react'
-import axios from 'axios'
 
 export default function Testing() {
 
-  const [file, setFile] = useState();
-
-  const [data, setData] = useState();
-
-  const submit = async(e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append("image", file);
-    await axios.post("http://localhost:5000/api/profile/upload", formData, { headers: {'Content-Type': 'multipart/form-data'} });
-  }
-
-  const handleClick = async() => {
-    const res = await axios.get("http://localhost:5000/api/profile/mydata", { withCredentials: true });
-    setData(res);
-  }
-
   return (
     <>
-     <form onSubmit={submit}>
-       <input onChange={e => setFile(e.target.files[0])} type="file" accept="image/*" name="image" />
-       <button className="bg-blue-500 ml-3" type='submit'>Submit</button>
-     </form>
-       <button onClick={handleClick} className="bg-orange-500 ml-3">Me</button>
-       <div>
-         {data}
-       </div>
-      
+     <main class="h-screen w-full flex flex-col justify-center items-center bg-[#303030]">
+	<h1 class="text-9xl font-extrabold text-white tracking-widest">404</h1>
+	<div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
+		Page Not Found
+	</div>
+	<button class="mt-5">
+      <a
+        class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
+      >
+        <span
+          class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"
+        ></span>
+
+        <span class="relative block px-8 py-3 bg-[#303030] border border-current">
+          <router-link to="/">Go Home</router-link>
+        </span>
+      </a>
+    </button>
+</main> 
     </>
   )
 }

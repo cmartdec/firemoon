@@ -24,6 +24,7 @@ import FAQ from './pages/FAQ'
 import LandingPage from './pages/LandingPage'
 import UserProfile from './pages/UserProfile'
 import Stack from './pages/Stack'
+import NotFound from './pages/NotFound'
 import {
   useQuery,
   useQueryClient,
@@ -71,6 +72,7 @@ function App() {
      <Route path="faq" element={<FAQ></FAQ>} />
      <Route path="landing-page" element={<LandingPage></LandingPage>} />
      <Route path="stack" element={<Stack></Stack>} />
+     <Route path="*" element={<NotFound></NotFound>}/>
    </Routes>
   </BrowserRouter>
      </QueryClientProvider>

@@ -15,11 +15,11 @@ export default function LandingPage() {
         </div>
         <h3 className="text-center mt-8 ml-8">
           <p className="text-white text-xl font-semibold">The new way to connect with the Fire community</p>
-          <p className="text-white text-xl font-semibold">Can't wait? Introduce your email to stay tuned</p>
+          <p className="text-white text-xl font-semibold">Can't wait? Introduce your email to get access to the private beta</p>
         </h3>
         <div className="w-auto flex justify-center mt-8 gap-2">
         <input className="w-[350px] bg-[#252525] border-none hover:bg-[#212121] text-white rounded-md focus:ring-0 focus:border-transparent ml-8" type="email" placeholder="Enter email address" required />
-        <button className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:opacity-75">Stay tuned</button>
+        <button className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[9px] px-3 rounded text-xs hover:opacity-75">Stay tuned.</button>
         </div>
         <div className="w-full flex justify-end mr-[120px]">
           <div className="flex gap-1 items-center mt-3">
