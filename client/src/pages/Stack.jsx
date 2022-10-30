@@ -13,7 +13,23 @@ export default function Stack() {
              <h3 className="text-gray-300 text-xl font-semibold">Look at what technologies I used to build Firemoon</h3>
              </div>
            </div>
-           <div className="h-full w-auto bg-red-500"></div>
+           <div className="h-full w-auto px-[150px] flex flex-col items-center gap-20">
+             <div className="flex gap-12">
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545] text-white font-bold text-3xl flex justify-center items-center cursor-pointer hover:bg-[#404040] shadow-xl">Node.js</div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545] text-white font-bold text-xl flex justify-center items-center cursor-pointer hover:bg-[#404040]">Node.js</div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             </div>
+             <div className="flex gap-12">
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             </div>
+             <div className="flex gap-12">
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             <div className="h-[250px] w-[300px] rounded-md bg-[#454545]"></div>
+             </div>
+           </div>
          </div>
        </div>
       </>
