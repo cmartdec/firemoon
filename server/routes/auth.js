@@ -244,7 +244,7 @@ router.get("/me", verifyUser, async(req, res) => {
      const user = await User.findById(req.id).select("-password");
      res.status(200).json(user);
     }catch(error){
-        res.status(403).json({msg: "Login required."})
+        return res.status(403).json({msg: "Login required."})
     }
 })
 
