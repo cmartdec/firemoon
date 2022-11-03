@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router'
 import Men2 from '../assets/men2.jpg'
 import moment from 'moment'
 import axios from 'axios'
-import { useQuery } from 'react-query'
 axios.defaults.withCredentials = true;
 
 

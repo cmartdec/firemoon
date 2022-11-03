@@ -3,20 +3,32 @@ import Topbar from '../components/Topbar'
 import InterviewPosts from '../components/InterviewPosts';
 import Broker from '../assets/broker.jpg'
 import Recession from '../assets/recession.jpg'
+import axios from 'axios'
+import { useQuery } from 'react-query'
 
 export default function Interviews() {
   const color = "#303030"
   document.body.style.backgroundColor = color;
 
- /*
-        <div className="flex flex-col items-center">
-          <h1 className="text-white font-bold text-4xl">Interviews</h1>
-          <p className="text-[#B7B7B7]">Learn from people who achieved Financial Independence and Retire Early, here, you can find </p>
-          <p className="text-[#B7B7B7]">new stories, news, new places, and much more!</p>
-      </div>
-  
-*/ 
+  const fetchPostDiscussions = async() => {
+    const { data } = await axios.get("http://localhost:5000/api/post/getAllPosts");
+    return data;
+  }
 
+  const { data, isLoading, isError, error } = useQuery("posts-data", fetchPostDiscussions);
+  
+  if(isLoading) {
+    console.log("loading..");
+  }
+  console.log(data);
+
+  /*
+    GET ONLY FIRST 6 POST DISCUSSIONS 
+    const post_data = []
+  for(int i=0; i <= 6, i++) {
+    post_data.push(data[i]);
+  }
+ */
 
   return (
     <>
@@ -30,7 +42,7 @@ export default function Interviews() {
       </div>
       </div>
       <div className="h-full w-full lg:flex items-center hidden">
-        <div className="h-[220px] w-[500px] bg-[#353535] rounded-2xl">
+        <div className="h-[220px] w-[500px] bg-[#353535] rounded-2xl shadow-lg">
           <div className="h-[60px]"><p className="text-white font-medium text-2xl text-center mt-4">Stay informed with the latest</p>
           <p className="text-white font-medium text-2xl text-center">Interviews</p>
           </div>
@@ -46,10 +58,6 @@ export default function Interviews() {
       </div>
     </div>
 
-
-
-
-
     <div className="flex flex-col container mx-auto">
     <div className="flex flex-wrap justify-center gap-[150px] w-full mt-12">
       <InterviewPosts img={Broker} title={"Best brokerages to invest with"} text={"If you have decided that it's time to invest, take a look at these brokerages"} href={"https://www.mybanktracker.com/blog/investing/best-brokerages-295729"}></InterviewPosts>
@@ -57,11 +65,14 @@ export default function Interviews() {
       <div className="lg:block hidden h-auto w-[250px]">
         <div className="bg-gradient-to-r from-amber-700 to-red-500 py-[3px] px-[3px] rounded"><p className="text-white font-semibold text-sm text-center">Latest discussions</p></div>
         <div className="h-full w-full flex flex-col mt-4 px-3">
-        <p className="text-white text-xs font-semibold mb-3">Options in company likely to IPO and fairly clueless</p>
-        <p className="text-white text-xs font-semibold mb-3">Options in company likely to IPO and fairly clueless</p>
-        <p className="text-white text-xs font-semibold mb-3">Options in company likely to IPO and fairly clueless</p>
-        <p className="text-white text-xs font-semibold mb-3">Options in company likely to IPO and fairly clueless</p>
-        <p className="text-white text-xs font-semibold mb-3">Options in company likely to IPO and fairly clueless</p>
+          {
+            isLoading ? 
+            <h1>Loading...</h1>
+            :
+            Object.keys(data).map((index) => {
+              return <a key={index} href={`/post/${data[index]._id}`} className="text-white text-xs font-semibold mb-3">{data[index].title}</a>
+            })
+          }
         <div className="flex">
         <a href="/" className="text-white text-xs font-semibold mb-3 underline">Go to all discussions</a>
         <a href="/">

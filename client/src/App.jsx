@@ -4,11 +4,9 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Testing from './testing/Testing'
-import Titlebar from './components/Titlebar'
 import NewPost from './pages/NewPost'
 import Profile from './pages/Profile'
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import SelfProfile from './pages/SelfProfile';
 import ProfileSettings from './pages/ProfileSettings'
 import ChangePassword from './pages/ChangePassword'
 import ForgotPassword from './pages/ForgotPassword'

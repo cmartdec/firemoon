@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import Logo from '../assets/logo.svg'
 import RightSide from './RightSide'
 import UserInfo from './UserInfo'
-import { useQuery } from 'react-query'
-import axios from 'axios'
 
 
 

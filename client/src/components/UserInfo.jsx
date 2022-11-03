@@ -1,10 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import Men2 from '../assets/men2.jpg'
 import axios from 'axios'
-import Topbar from './Topbar'
-import { useQuery } from 'react-query'
 
 
 export default function UserInfo() {

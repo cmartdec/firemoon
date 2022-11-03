@@ -1,13 +1,11 @@
 import React from 'react'
-import Men from '../assets/men2.jpg'
-import Bank from '../assets/bank.jpg'
 
 
 export default function InterviewPosts({title, text, href, img }) {
   return (
       <>
       <a href={href}>
-            <div className="rounded cursor-pointer h-[250px] w-[250px] lg:w-[250px] bg-[#404040] flex flex-col">
+            <div className="shadow-lg rounded cursor-pointer h-[250px] w-[250px] lg:w-[250px] bg-[#404040] flex flex-col">
                 <div className="w-full flex justify-center mt-3 mb-4">
                     <img className="h-[70px] w-[70px] rounded-full object-cover border-[4px] border-[#505050]" src={img} alt="" />
                 </div>

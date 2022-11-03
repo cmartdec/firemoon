@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Topbar from '../components/Topbar'
 import Men from '../assets/men.jpg'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ProfilePosts from '../components/ProfilePosts'
@@ -17,6 +17,9 @@ export default function UserProfile() {
     const [profilePic, setProfilePic] = useState();
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState();
+
+    const navigate = useNavigate();
 
     const fetchUserData = async() => {
       const { data } = await axios.get(`http://localhost:5000/api/user/${username}`);
@@ -33,7 +36,7 @@ export default function UserProfile() {
       return data;
     }
 
-    const { data, isLoading: isLoadingUserData } = useQuery("user-data", fetchUserData, {
+    const { data, isLoading: isLoadingUserData, isError} = useQuery("user-data", fetchUserData, {
       onSuccess: (data) => {
         setProfileUsername(data.username)
         setProfileBio(data.desc)
@@ -51,7 +54,10 @@ export default function UserProfile() {
     } else {
       console.log(posts);
     }
-
+    
+    useEffect(() => {
+      navigate("/")
+    }, [isError])
   return (
       <>
     <Topbar></Topbar>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
 import SavedPosts from '../components/SavedPosts'
@@ -50,9 +50,6 @@ export default function Profile() {
   const { data: data_posts, isLoading} = useQuery("user-posts", fetchUserPosts);
   const { data: user_data, isLoading: isLoadingUserData, isError} = useQuery("user-data", fetchUserData);
   const { data: data_saved_posts, isLoading: isLoadingSavedPosts } = useQuery("user-saved-posts", fetchSavedPosts);
-
- 
-  console.log(user_data);
 
 
   const MyPosts = () => {

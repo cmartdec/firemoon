@@ -1,15 +1,11 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import Topbar from '../components/Topbar'
-import Men from '../assets/men.jpg'
-import Logo from '../assets/hahaha.svg'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import TwitterIcon from '@material-ui/icons/Twitter'
-import FacebookIcon from '@material-ui/icons/Facebook'
+import Footer from '../components/Footer'
 import axios from 'axios'
-import { useMutation } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 
 export default function ChangePassword() {
 
@@ -19,12 +15,18 @@ export default function ChangePassword() {
   const navigate = useNavigate();
 
 
+  const fetchData = async() => {
+    const { data } = await axios.get("http://localhost:5000/api/profile/mydata");
+    return data;
+  }
   const updatePassword = async({old_password, new_password}) => {
     await axios.put("http://localhost:5000/api/user/update_password", {oldPassword: old_password, newPassword: new_password})
     navigate("/");
   }
 
+
   const { isLoading, isError, error, mutate} = useMutation("update_password", updatePassword)
+  const { data, isError: isError_user_data } = useQuery("user-data", fetchData);
 
 
   const handleSubmit = (e) => {
@@ -37,7 +39,11 @@ export default function ChangePassword() {
     mutate({old_password: credentials.current_password, new_password: credentials.new_password});
   }
 
+  useEffect(() => {
+      navigate("/login");
+  }, [isError]) 
   
+
   return (
       <>
       <Topbar></Topbar>
@@ -58,36 +64,8 @@ export default function ChangePassword() {
        </div>
        </form>
 
-       <footer className="bg-[#303030] border-t-4 border-[#353535] h-[350px] w-full flex flex-col items-center">
-      <div className="h-[110px] w-[700px] bg-[#303030] mt-[30px]">
-        <p className="text-white font-bold text-2xl text-center">Keep in touch with the community</p>
-        <p className="text-[#AEAEAE] text-center text-sm font-bold ">Recieve last updates and discussions that help you in your Fire journey</p>
-        <div className="flex justify-center">
-         <input type="text" className="appearance-none border rounded w-[500px] py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#202020] border-[#404040] mt-3" placeholder="Email address"/>
-         <span>
-          <button className="bg-gradient-to-r from-amber-700 to-red-500 text-white font-bold py-[10px] px-3 rounded text-xs mt-[13px] ml-[8px]"href="#">SUBMIT</button>
-         </span>
-        </div>
-      </div>
-      <div className="h-[200px] w-[600px] bg-[#303030] py-3">
-      <a className="flex justify-center">
-        <img src={Logo} alt="logo4" width="100" />
-        <span className="mt-[4px] ml-[3px] text-sm text-white">by</span>
-        <a className="text-white font-bold bg-blue-500  rounded text-xs ml-[12px] mt-[6px]" href="https://twitter.com/cmartdec">
-          @cmartdec
-        </a>
-        </a>
-        <div className="flex justify-center">
-        <div className="w-[300px]">
-          <p className="text-[#AEAEAE] text-sm text-center mt-2">Connect with the Firemoon community. Learn from others, achieve Financial Independence and Retire Early</p>
-        </div>
-        </div>
-        <div className="flex justify-center w-full bg-[#303030] mt-3  gap-3">
-          <div><TwitterIcon color="action"></TwitterIcon></div>
-          <div><FacebookIcon color="action"></FacebookIcon></div>
-        </div>
-      </div>
-    </footer>
+      <Footer></Footer>
+      
       </>
   )
 }

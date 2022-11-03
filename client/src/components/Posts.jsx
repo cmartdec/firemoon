@@ -1,5 +1,4 @@
 import React from 'react'
-import Men2 from '../assets/men2.jpg'
 import { useState } from 'react'
 import moment from 'moment'
 import axios from 'axios'

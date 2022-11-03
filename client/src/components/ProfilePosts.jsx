@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-import { useQuery } from 'react-query'
 import moment from 'moment'
 import { useNavigate } from 'react-router'
 import parse from 'html-react-parser'

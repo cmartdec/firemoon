@@ -1,9 +1,6 @@
 import React from 'react'
 import { useState, useRef } from 'react'
-import Logo from '../assets/hahaha.svg'
-import TwitterIcon from '@material-ui/icons/Twitter'
-import Titlebar from '../components/Titlebar'
-import FacebookIcon from '@material-ui/icons/Facebook'
+import Topbar from '../components/Topbar'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../components/Footer'
@@ -36,7 +33,7 @@ export default function ForgotPassword() {
 
   return (
       <>
-      <Titlebar></Titlebar>
+      <Topbar></Topbar>
       <ToastContainer></ToastContainer>
       <div className="w-[100vw] flex justify-center">
       <div className="w-auto h-auto bg-[#353535] border-[2px] border-[#404040] mt-24 flex flex-col mb-[200px] shadow-sm rounded"> 
