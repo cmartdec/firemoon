@@ -1,14 +1,13 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import Men2 from '../assets/men2.jpg'
 import moment from 'moment'
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
 
 
-export default function Comment({ content, commenter, date, commenterId, commentId, children }) {
+export default function Comment({ content, commenter, date, commenterId, commentId, children, profilePic }) {
 
     const date_created = moment.utc(date).local().startOf('seconds').fromNow()
 
@@ -24,7 +23,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
     const navigate = useNavigate();
 
     useEffect(async() => {
-      const data = await axios.get("http://localhost:5000/api/user/me", { withCredentials: true });
+      const data = await axios.get("http://localhost:5000/api/profile/mydata", { withCredentials: true });
       if(data.data._id === commenterId) {
         setIsAuthor(true);
       } else {
@@ -85,11 +84,10 @@ export default function Comment({ content, commenter, date, commenterId, comment
         <>
             <div className="w-full h-[80px] bg-[#404040] rounded-md px-5 flex-col justify-center">
               <div className="flex items-center gap-2 mt-2 mb-3">
-              <img className="h-6 w-6 rounded-full border-3 border-[#212121]" src={photoPic} alt="" />
-              <a href={`/users/${username}`} className="text-white font-bold text-xs hover:underline">{username}</a>
+              <a href={`/users/${username}`} className="text-white font-bold text-xs hover:underline">@{username}</a>
               <p className="text-[#9C9C9C] text-xs">{date_created}</p>
               </div>
-              <p className="text-white">{content}</p>
+              <p className="text-gray-300">{content}</p>
             </div>
         </>
       )
@@ -101,7 +99,7 @@ export default function Comment({ content, commenter, date, commenterId, comment
       <div className="h-auto w-full bg-[#404040] rounded-md mt-6 flex pt-1 pb-2 pl-2">
        <div className="w-auto h-full px-3">
          <div className="flex gap-3 items-center">
-       <a href={`/users/${commenter}`} className="flex h-[40px] items-center gap-[4px]"><img className="h-6 w-6 rounded-full" src={Men2} alt="" /><span className="text-white font-bold text-xs">{commenter}</span><p className="ml-2 text-[#9C9C9C] text-xs">{date_created}</p></a>
+       <a href={`/users/${commenter}`} className="flex h-[40px] items-center gap-[4px]"><span className="text-white font-bold text-xs">@{commenter}</span><p className="ml-2 text-[#9C9C9C] text-xs">{date_created}</p></a>
        {
          isAuthor && <DeleteSection></DeleteSection>
        }

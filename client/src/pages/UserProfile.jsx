@@ -49,15 +49,7 @@ export default function UserProfile() {
         setPosts(data_posts);
       }
     });
-    if(isLoadingPosts) {
-      console.log("Loading...")
-    } else {
-      console.log(posts);
-    }
     
-    useEffect(() => {
-      navigate("/")
-    }, [isError])
   return (
       <>
     <Topbar></Topbar>

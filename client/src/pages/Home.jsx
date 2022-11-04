@@ -104,7 +104,7 @@ function Home() {
                 <span class="sr-only">Loading...</span>
             </div>
                 :
-                 Object.keys(data).map((index) => {
+                 Object.keys(data).reverse().map((index) => {
                  return  <Posts key={index} title={data[index].title} data={data[index].data} id={data[index]._id} date={data[index].createdAt} author={data[index].author} likeCount={data[index].likeCount} comments={data[index].comments}></Posts>
                 })
               }

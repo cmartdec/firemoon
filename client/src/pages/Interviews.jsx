@@ -20,15 +20,7 @@ export default function Interviews() {
   if(isLoading) {
     console.log("loading..");
   }
-  console.log(data);
-
-  /*
-    GET ONLY FIRST 6 POST DISCUSSIONS 
-    const post_data = []
-  for(int i=0; i <= 6, i++) {
-    post_data.push(data[i]);
-  }
- */
+  console.log(typeof(data));
 
   return (
     <>
@@ -69,7 +61,7 @@ export default function Interviews() {
             isLoading ? 
             <h1>Loading...</h1>
             :
-            Object.keys(data).map((index) => {
+            Object.keys(data).slice(0,5).map((index) => {
               return <a key={index} href={`/post/${data[index]._id}`} className="text-white text-xs font-semibold mb-3">{data[index].title}</a>
             })
           }
