@@ -13,8 +13,8 @@ Auth system is an in house system, authorization is based on cookie send. The ba
 Users are be able to change their profile picture, in order to implement this feature, I used s3 bucket from AWS services.
 The site is live on > https://firemoon.app
 The backend is deployed on railway.app, with CI/CD managed with github controllers
-Also the client side is deployed on netlify
-Domain is registered on namecheap.com and SSL is covered by Netlify and Railway by themselves
+Also the client side is deployed on Netlify,
+the domain (firemoon.app) is registered on namecheap.com and SSL is covered by Netlify and Railway by themselves
 TailwindCSS is used to create all the style of Firemoon, I chose this library because it is the best way to iterate on design as fast as possible.
 I used React Query library to fetch data from the client-side. It works perfectly fine to manage state (loading state, or error state).
 
