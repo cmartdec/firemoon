@@ -19,4 +19,4 @@ TailwindCSS is used to create all the style of Firemoon, I chose this library be
 I used React Query library to fetch data from the client-side. It works perfectly fine to manage state (loading state, or error state).
 
 At the beginning, I used Redux async thunk, but thinking about the project's scope at the time, Redux was delete from the project to reduce boilerplate. Also was considering to use zustand or any state management, but none of these was required at the time. React Query was the perfect fit to stay tuned with
-server state
+the server state
