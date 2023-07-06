@@ -1,5 +1,5 @@
 # Firemoon
-Firemoon is a social media platform that connect the Financial Independence/Retire Early community. Firemoon is inspired by indiehackers.com, firemoon project
+Firemoon is a social media platform that connects the Financial Independence/Retire Early community. Firemoon is inspired by indiehackers.com, firemoon project
 could be used as a template.
 
 Tech stack:
